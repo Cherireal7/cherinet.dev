@@ -1,0 +1,66 @@
+---
+import { getCollection, render } from "astro:content";
+import readingTime from "reading-time";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("posts", ({ data }) => !data.draft);
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { data } = entry;
+const readStats = readingTime(entry.body ?? "");
+const readLabel = `${Math.max(1, Math.round(readStats.minutes))} min read`;
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+---
+
+<BaseLayout title={data.title} description={data.description} current="Writing">
+  <article class="px-6 pb-24 pt-36 md:px-10 md:pb-32 md:pt-44">
+    <div class="mx-auto max-w-3xl">
+      <a
+        href="/writing"
+        class="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.18em] text-ink-subtle transition-colors hover:text-ink"
+      >
+        ← All writing
+      </a>
+
+      <div class="mt-10 flex items-center gap-3 text-xs uppercase tracking-widest text-ink-subtle">
+        <time datetime={data.date.toISOString()}>{fmt(data.date)}</time>
+        <span>·</span>
+        <span>{readLabel}</span>
+        {
+          data.tags.length > 0 && (
+            <>
+              <span>·</span>
+              <span>{data.tags.join(" · ")}</span>
+            </>
+          )
+        }
+      </div>
+
+      <h1
+        class="mt-6 font-display font-medium leading-[1.05] tracking-[-0.025em] text-ink"
+        style="font-size: var(--text-display-lg);"
+      >
+        {data.title}
+      </h1>
+
+      <p class="mt-6 text-lg leading-relaxed text-ink-muted md:text-xl">
+        {data.description}
+      </p>
+
+      <hr class="my-12 border-t border-line" />
+
+      <div class="prose-case">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>

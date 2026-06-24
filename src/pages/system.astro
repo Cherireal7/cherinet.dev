@@ -1,0 +1,445 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const colorTokens = [
+  { name: "--color-bg", light: "#FAFAFA", dark: "#09090B", role: "Page background" },
+  { name: "--color-bg-elevated", light: "#FFFFFF", dark: "#18181B", role: "Cards, surfaces" },
+  { name: "--color-ink", light: "#18181B", dark: "#FAFAFA", role: "Primary text" },
+  { name: "--color-ink-muted", light: "#3F3F46", dark: "#A1A1AA", role: "Body copy" },
+  { name: "--color-ink-subtle", light: "#71717A", dark: "#71717A", role: "Eyebrows, hints" },
+  { name: "--color-line", light: "#E4E4E7", dark: "#27272A", role: "Default borders" },
+  { name: "--color-line-strong", light: "#D4D4D8", dark: "#3F3F46", role: "Hover borders, grids" },
+  { name: "--color-accent", light: "#2563EB", dark: "#60A5FA", role: "The one accent" },
+  { name: "--color-accent-ink", light: "#1D4ED8", dark: "#93C5FD", role: "Accent on accent" },
+  { name: "--color-accent-soft", light: "#DBEAFE", dark: "#1E3A8A", role: "Accent backgrounds" },
+];
+
+const typeScale = [
+  { name: "Display 2XL", role: "Home H1", cls: "font-display font-medium tracking-[-0.035em]", style: "font-size: var(--text-display-2xl);" },
+  { name: "Display XL", role: "Page H1", cls: "font-display font-medium tracking-[-0.03em]", style: "font-size: var(--text-display-xl);" },
+  { name: "Display LG", role: "Section H2", cls: "font-display font-medium tracking-tight", style: "font-size: var(--text-display-lg);" },
+  { name: "Body LG", role: "Lead paragraphs", cls: "text-lg leading-relaxed text-ink-muted", style: "" },
+  { name: "Body MD", role: "Default body", cls: "text-base leading-relaxed text-ink-muted", style: "" },
+  { name: "Body SM", role: "Captions, meta", cls: "text-sm leading-relaxed text-ink-muted", style: "" },
+  { name: "Eyebrow", role: "Section labels", cls: "text-xs uppercase tracking-[0.18em] text-ink-subtle", style: "" },
+];
+
+const spacingScale = [
+  { name: "1", px: 4 },
+  { name: "2", px: 8 },
+  { name: "3", px: 12 },
+  { name: "4", px: 16 },
+  { name: "5", px: 20 },
+  { name: "6", px: 24 },
+  { name: "8", px: 32 },
+  { name: "10", px: 40 },
+  { name: "12", px: 48 },
+  { name: "16", px: 64 },
+  { name: "20", px: 80 },
+  { name: "24", px: 96 },
+];
+
+const radii = [
+  { name: "xs", px: 4 },
+  { name: "sm", px: 8 },
+  { name: "md", px: 12 },
+  { name: "lg", px: 20 },
+  { name: "xl", px: 28 },
+  { name: "full", px: 999 },
+];
+---
+
+<BaseLayout
+  title="Design system"
+  description="The tokens, type, spacing, and components that build this site. A working design system, not a mood board."
+  current="System"
+>
+  <!-- Hero -->
+  <section class="px-6 pb-16 pt-36 md:px-10 md:pb-24 md:pt-44">
+    <div class="mx-auto max-w-6xl">
+      <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">/system</p>
+      <h1
+        class="mt-6 max-w-4xl font-display font-medium leading-[1.02] tracking-[-0.03em] text-ink"
+        style="font-size: var(--text-display-xl);"
+      >
+        Design system —
+        <span class="italic text-ink-muted">how this site composes.</span>
+      </h1>
+      <p class="mt-8 max-w-2xl text-lg leading-relaxed text-ink-muted">
+        Every page you've seen here is built from this small set of tokens and primitives. Not a mood board — the actual variables in <code class="font-mono text-[13px] text-ink">src/styles/global.css</code> rendered back as documentation. If a token is in here, it's used. If it isn't, it's deleted.
+      </p>
+
+      <!-- Section TOC -->
+      <nav class="mt-10 flex flex-wrap items-center gap-2 text-sm">
+        {[
+          { l: "Foundations", h: "#foundations" },
+          { l: "Color", h: "#color" },
+          { l: "Type", h: "#type" },
+          { l: "Spacing", h: "#spacing" },
+          { l: "Radii", h: "#radii" },
+          { l: "Components", h: "#components" },
+          { l: "Motion", h: "#motion" },
+        ].map((s) => (
+          <a href={s.h} class="rounded-full border border-line bg-bg-elevated px-3.5 py-1.5 text-ink-muted transition-colors hover:border-line-strong hover:text-ink">
+            {s.l}
+          </a>
+        ))}
+      </nav>
+    </div>
+  </section>
+
+  <!-- Foundations -->
+  <section id="foundations" class="scroll-mt-28 border-y border-line bg-bg-elevated px-6 py-20 md:px-10 md:py-28">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-12 grid gap-2 md:grid-cols-12">
+        <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle md:col-span-3">01 — Foundations</p>
+        <h2 class="font-display font-medium tracking-tight text-ink md:col-span-9" style="font-size: var(--text-display-lg);">
+          Three rules. Everything else follows.
+        </h2>
+      </div>
+      <div class="grid gap-6 md:grid-cols-3">
+        {[
+          { n: "01", h: "Monochrome + one accent.", p: "Nine grayscale steps. One blue. That's it. No status amber, no warning red. Severity is signaled by typography and position, not by an additional hue." },
+          { n: "02", h: "Tokens, never hex.", p: "Every color, spacing, and radius is a named variable. Dark mode swaps the variable values — the markup never touches a hex code. Brand evolution is one file change away." },
+          { n: "03", h: "Type carries the design.", p: "Fraunces (display) + DM Sans (body) do most of the work. Restrained color means the typographic system has to be sharp." },
+        ].map((rule) => (
+          <article class="reveal flex flex-col rounded-xl border border-line bg-bg p-6 md:p-7">
+            <span class="font-display text-3xl italic text-accent">{rule.n}</span>
+            <h3 class="mt-5 font-display text-xl tracking-tight text-ink md:text-2xl">{rule.h}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-ink-muted md:text-[15px]">{rule.p}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Color tokens -->
+  <section id="color" class="scroll-mt-28 px-6 py-20 md:px-10 md:py-28">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-12 grid gap-2 md:grid-cols-12">
+        <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle md:col-span-3">02 — Color</p>
+        <h2 class="font-display font-medium tracking-tight text-ink md:col-span-9" style="font-size: var(--text-display-lg);">
+          Ten tokens. Light + dark.
+        </h2>
+      </div>
+
+      <div class="overflow-hidden rounded-xl border border-line">
+        <div class="hidden border-b border-line bg-bg-elevated px-5 py-3 text-xs uppercase tracking-widest text-ink-subtle md:grid md:grid-cols-12 md:gap-6">
+          <span class="md:col-span-4">Token</span>
+          <span class="md:col-span-2">Light</span>
+          <span class="md:col-span-2">Dark</span>
+          <span class="md:col-span-4">Role</span>
+        </div>
+        <ul class="divide-y divide-line">
+          {colorTokens.map((tk) => (
+            <li class="grid gap-3 px-5 py-4 md:grid-cols-12 md:items-center md:gap-6">
+              <code class="font-mono text-[13px] text-ink md:col-span-4">{tk.name}</code>
+              <div class="flex items-center gap-3 md:col-span-2">
+                <span class="inline-block size-7 rounded-md border border-line" style={`background: ${tk.light};`}></span>
+                <span class="font-mono text-[12px] text-ink-muted">{tk.light}</span>
+              </div>
+              <div class="flex items-center gap-3 md:col-span-2">
+                <span class="inline-block size-7 rounded-md border border-line-strong" style={`background: ${tk.dark};`}></span>
+                <span class="font-mono text-[12px] text-ink-muted">{tk.dark}</span>
+              </div>
+              <span class="text-sm text-ink-muted md:col-span-4">{tk.role}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Type scale -->
+  <section id="type" class="scroll-mt-28 border-y border-line bg-bg-elevated px-6 py-20 md:px-10 md:py-28">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-12 grid gap-2 md:grid-cols-12">
+        <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle md:col-span-3">03 — Type</p>
+        <h2 class="font-display font-medium tracking-tight text-ink md:col-span-9" style="font-size: var(--text-display-lg);">
+          Two families. A fluid scale.
+        </h2>
+      </div>
+
+      <div class="grid gap-12 md:grid-cols-12">
+        <div class="md:col-span-4">
+          <div class="rounded-xl border border-line bg-bg p-6">
+            <p class="text-xs uppercase tracking-widest text-ink-subtle">Display</p>
+            <p class="mt-3 font-display text-5xl tracking-tight text-ink">Aa</p>
+            <p class="mt-3 text-sm text-ink-muted">Fraunces · variable optical sizing</p>
+            <p class="mt-1 font-mono text-[12px] text-ink-subtle">9..144</p>
+          </div>
+          <div class="mt-5 rounded-xl border border-line bg-bg p-6">
+            <p class="text-xs uppercase tracking-widest text-ink-subtle">Sans</p>
+            <p class="mt-3 text-5xl tracking-tight text-ink">Aa</p>
+            <p class="mt-3 text-sm text-ink-muted">DM Sans · variable optical sizing</p>
+            <p class="mt-1 font-mono text-[12px] text-ink-subtle">9..40</p>
+          </div>
+        </div>
+
+        <div class="md:col-span-8">
+          <ul class="divide-y divide-line border-y border-line">
+            {typeScale.map((t) => (
+              <li class="grid gap-3 py-6 md:grid-cols-12 md:items-baseline md:gap-6">
+                <div class="md:col-span-3">
+                  <p class="text-xs uppercase tracking-widest text-ink-subtle">{t.name}</p>
+                  <p class="mt-1 text-xs text-ink-muted">{t.role}</p>
+                </div>
+                <div class="md:col-span-9">
+                  <p class:list={[t.cls, "text-ink"]} style={t.style}>
+                    The quick brown fox.
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Spacing -->
+  <section id="spacing" class="scroll-mt-28 px-6 py-20 md:px-10 md:py-28">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-12 grid gap-2 md:grid-cols-12">
+        <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle md:col-span-3">04 — Spacing</p>
+        <h2 class="font-display font-medium tracking-tight text-ink md:col-span-9" style="font-size: var(--text-display-lg);">
+          4px base, geometric ramp.
+        </h2>
+      </div>
+
+      <ul class="space-y-3">
+        {spacingScale.map((sp) => (
+          <li class="grid grid-cols-12 items-center gap-4">
+            <span class="col-span-2 font-mono text-[13px] text-ink-muted">space-{sp.name}</span>
+            <span class="col-span-2 font-mono text-[12px] text-ink-subtle">{sp.px}px</span>
+            <div class="col-span-8 h-4 rounded-sm bg-accent/15">
+              <div class="h-full rounded-sm bg-accent" style={`width: ${sp.px}px;`}></div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Radii -->
+  <section id="radii" class="scroll-mt-28 border-y border-line bg-bg-elevated px-6 py-20 md:px-10 md:py-28">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-12 grid gap-2 md:grid-cols-12">
+        <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle md:col-span-3">05 — Radii</p>
+        <h2 class="font-display font-medium tracking-tight text-ink md:col-span-9" style="font-size: var(--text-display-lg);">
+          Six steps, calm corners.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-2 gap-5 md:grid-cols-6">
+        {radii.map((r) => (
+          <div class="flex flex-col items-center gap-3 rounded-lg border border-line bg-bg p-5">
+            <div
+              class="size-16 border border-line-strong bg-accent/10"
+              style={`border-radius: ${r.px}px;`}
+            ></div>
+            <p class="font-mono text-[12px] text-ink">--radius-{r.name}</p>
+            <p class="font-mono text-[11px] text-ink-subtle">{r.px === 999 ? "999px" : `${r.px}px`}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Components -->
+  <section id="components" class="scroll-mt-28 px-6 py-20 md:px-10 md:py-28">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-12 grid gap-2 md:grid-cols-12">
+        <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle md:col-span-3">06 — Components</p>
+        <h2 class="font-display font-medium tracking-tight text-ink md:col-span-9" style="font-size: var(--text-display-lg);">
+          The pieces that build every page.
+        </h2>
+      </div>
+
+      <!-- Buttons -->
+      <div class="grid gap-10 md:grid-cols-12">
+        <div class="md:col-span-3">
+          <p class="text-xs uppercase tracking-widest text-ink-subtle">Buttons</p>
+          <p class="mt-3 text-sm leading-relaxed text-ink-muted">Three weights. Primary fills, secondary outlines, ghost stays text. Hover always pivots toward the accent.</p>
+        </div>
+        <div class="md:col-span-9">
+          <div class="rounded-xl border border-line bg-bg-elevated p-6 md:p-8">
+            <div class="flex flex-wrap items-center gap-3">
+              <button class="inline-flex cursor-pointer items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-bg transition-colors hover:bg-accent">
+                Primary
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </button>
+              <button class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line bg-bg px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-line-strong">
+                Secondary
+              </button>
+              <button class="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:text-ink">
+                Ghost →
+              </button>
+              <button disabled class="inline-flex cursor-not-allowed items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-bg opacity-50">
+                Disabled
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inputs -->
+      <div class="mt-16 grid gap-10 md:grid-cols-12">
+        <div class="md:col-span-3">
+          <p class="text-xs uppercase tracking-widest text-ink-subtle">Inputs</p>
+          <p class="mt-3 text-sm leading-relaxed text-ink-muted">Subtle borders, real focus ring in the accent. Errors use ink, not red — the message carries the severity.</p>
+        </div>
+        <div class="md:col-span-9">
+          <div class="grid gap-5 rounded-xl border border-line bg-bg-elevated p-6 md:grid-cols-2 md:p-8">
+            <label class="block">
+              <span class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Default</span>
+              <input
+                type="text"
+                placeholder="hello@example.com"
+                class="mt-2 block w-full rounded-lg border border-line bg-bg px-4 py-3 text-base text-ink outline-none transition-colors placeholder:text-ink-subtle focus:border-line-strong focus:ring-2 focus:ring-accent/30"
+              />
+            </label>
+            <label class="block">
+              <span class="text-xs uppercase tracking-[0.18em] text-ink-subtle">With error</span>
+              <input
+                type="text"
+                value="hello"
+                aria-invalid="true"
+                class="mt-2 block w-full rounded-lg border border-ink bg-bg px-4 py-3 text-base text-ink outline-none focus:ring-2 focus:ring-accent/30"
+              />
+              <span class="mt-1.5 block text-xs text-ink">Needs an "@" — try again.</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Badges -->
+      <div class="mt-16 grid gap-10 md:grid-cols-12">
+        <div class="md:col-span-3">
+          <p class="text-xs uppercase tracking-widest text-ink-subtle">Badges</p>
+          <p class="mt-3 text-sm leading-relaxed text-ink-muted">Used sparingly. The accent variant is the "live / now" signal; the neutral variant is the "wip / archive" signal.</p>
+        </div>
+        <div class="md:col-span-9">
+          <div class="flex flex-wrap items-center gap-3 rounded-xl border border-line bg-bg-elevated p-6 md:p-8">
+            <span class="inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/5 px-2 py-0.5 text-[10px] font-medium uppercase tracking-widest text-accent">
+              <span class="size-1.5 rounded-full bg-current"></span>
+              Live
+            </span>
+            <span class="inline-flex items-center gap-1.5 rounded-full border border-line-strong bg-bg px-2 py-0.5 text-[10px] font-medium uppercase tracking-widest text-ink">
+              <span class="size-1.5 rounded-full bg-current"></span>
+              Work in progress
+            </span>
+            <span class="inline-flex items-center gap-1.5 rounded-full border border-line bg-bg-elevated px-2 py-0.5 text-[10px] font-medium uppercase tracking-widest text-ink-subtle">
+              <span class="size-1.5 rounded-full bg-current"></span>
+              Archive
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card -->
+      <div class="mt-16 grid gap-10 md:grid-cols-12">
+        <div class="md:col-span-3">
+          <p class="text-xs uppercase tracking-widest text-ink-subtle">Card</p>
+          <p class="mt-3 text-sm leading-relaxed text-ink-muted">The primary container. Slight lift on hover, accent rail across the top, never more than one accent at a time.</p>
+        </div>
+        <div class="md:col-span-9">
+          <article class="reveal relative flex flex-col rounded-xl border border-line bg-bg-elevated p-7 transition-all hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_20px_40px_-20px_rgb(24,24,27,0.18)]">
+            <span class="absolute left-0 top-0 h-1 w-12 rounded-r-full bg-accent transition-all duration-500 group-hover:w-32"></span>
+            <p class="text-[10px] uppercase tracking-widest text-ink-subtle">Example</p>
+            <h3 class="mt-3 font-display text-2xl tracking-tight text-ink md:text-3xl">A card composed from the system.</h3>
+            <p class="mt-3 max-w-prose text-sm leading-relaxed text-ink-muted md:text-[15px]">Body, eyebrow, accent rail, hover shadow, border-line color, radius-md, padding-7. Everything you see here is a token.</p>
+            <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-ink-muted transition-colors hover:text-accent">
+              Read more
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </span>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Motion -->
+  <section id="motion" class="scroll-mt-28 border-t border-line bg-bg-elevated px-6 py-20 md:px-10 md:py-28">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-12 grid gap-2 md:grid-cols-12">
+        <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle md:col-span-3">07 — Motion</p>
+        <h2 class="font-display font-medium tracking-tight text-ink md:col-span-9" style="font-size: var(--text-display-lg);">
+          Quiet, intentional, opt-out.
+        </h2>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-3">
+        <article class="reveal rounded-xl border border-line bg-bg p-6">
+          <p class="text-[10px] uppercase tracking-widest text-ink-subtle">Reveal on scroll</p>
+          <p class="mt-4 font-display text-2xl tracking-tight text-ink">geo-fade</p>
+          <p class="mt-3 text-sm leading-relaxed text-ink-muted">Content fades + lifts 16px when it enters the viewport. 600ms ease-out-quint. Skipped under prefers-reduced-motion.</p>
+          <div class="mt-5 grid h-20 place-items-center rounded-lg border border-dashed border-line">
+            <div class="reveal text-sm text-ink-muted">↑ scrolled into view</div>
+          </div>
+        </article>
+
+        <article class="reveal rounded-xl border border-line bg-bg p-6">
+          <p class="text-[10px] uppercase tracking-widest text-ink-subtle">Draw-in</p>
+          <p class="mt-4 font-display text-2xl tracking-tight text-ink">geo-draw</p>
+          <p class="mt-3 text-sm leading-relaxed text-ink-muted">Used on case-study key art. Paths reveal via stroke-dashoffset over 1400ms. The "stitched" feel of the geometric system.</p>
+          <svg viewBox="0 0 200 80" class="mt-5 h-20 w-full">
+            <path
+              d="M 10 60 Q 50 10 100 40 T 190 20"
+              stroke="var(--color-accent)"
+              stroke-width="2"
+              fill="none"
+              stroke-dasharray="4 4"
+              class="geo-draw"
+              style="--geo-len: 240;"
+            />
+          </svg>
+        </article>
+
+        <article class="reveal rounded-xl border border-line bg-bg p-6">
+          <p class="text-[10px] uppercase tracking-widest text-ink-subtle">Pulse</p>
+          <p class="mt-4 font-display text-2xl tracking-tight text-ink">geo-pulse</p>
+          <p class="mt-3 text-sm leading-relaxed text-ink-muted">Used on the "live" indicator and on accent dots in the hero. 2.4s ease-in-out, opacity + scale.</p>
+          <div class="mt-5 grid h-20 place-items-center">
+            <span class="geo-pulse inline-block size-5 rounded-full bg-accent"></span>
+          </div>
+        </article>
+      </div>
+
+      <p class="mt-12 max-w-3xl text-base leading-relaxed text-ink-muted">
+        Every animation respects <code class="font-mono text-[13px] text-ink">prefers-reduced-motion</code>. There are no autoplay videos, no parallax, no entrance animations longer than 1.5 seconds. Motion is a hint, not a feature.
+      </p>
+    </div>
+  </section>
+
+  <!-- Stack / origin -->
+  <section class="px-6 py-20 md:px-10 md:py-28">
+    <div class="mx-auto max-w-6xl">
+      <div class="grid gap-10 md:grid-cols-12 md:items-end">
+        <div class="md:col-span-7">
+          <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Built with</p>
+          <h2 class="mt-4 font-display font-medium tracking-tight text-ink" style="font-size: var(--text-display-lg);">
+            Astro 5, Tailwind v4, MDX.
+          </h2>
+          <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-muted">
+            Tokens live in <code class="font-mono text-[14px] text-ink">@theme</code> directly in <code class="font-mono text-[14px] text-ink">global.css</code> — no JS config layer. Dark mode swaps the variables under a single <code class="font-mono text-[14px] text-ink">html.dark</code> selector. The whole system is ~120 lines.
+          </p>
+        </div>
+        <div class="flex flex-col gap-3 md:col-span-5 md:items-end">
+          <a
+            href="https://github.com/Cherireal7"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex cursor-pointer items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-bg transition-colors hover:bg-accent"
+          >
+            Source on GitHub
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+          <a href="/stack" class="text-sm text-ink-muted accent-underline hover:text-ink">
+            See the full /uses page →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

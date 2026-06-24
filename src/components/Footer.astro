@@ -1,0 +1,56 @@
+---
+import { site, footerNav } from "../lib/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line bg-bg-elevated">
+  <div class="mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-12 md:gap-10">
+    <div class="md:col-span-4">
+      <p class="font-display text-2xl tracking-tight text-ink">{site.shortName}.</p>
+      <p class="mt-3 max-w-xs text-sm leading-relaxed text-ink-muted">
+        {site.role} based in {site.location}. Available for senior frontend / product engineering roles, remote.
+      </p>
+      <div class="mt-6 inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-ink-subtle">
+        <span class="size-1.5 rounded-full bg-accent"></span>
+        Open to roles
+      </div>
+    </div>
+
+    {
+      Object.entries(footerNav).map(([heading, items]) => (
+        <div class="md:col-span-3">
+          <p class="text-xs uppercase tracking-widest text-ink-subtle">{heading}</p>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            {items.map((it) => {
+              const external = it.href.startsWith("http") || it.href.startsWith("mailto:");
+              return (
+                <li>
+                  <a
+                    href={it.href}
+                    target={external ? "_blank" : undefined}
+                    rel={external ? "noopener noreferrer" : undefined}
+                    class="text-ink-muted transition-colors hover:text-ink"
+                  >
+                    {it.label}
+                    {external && it.href.startsWith("http") ? " ↗" : ""}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+
+  <div
+    class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 border-t border-line px-6 py-6 text-xs text-ink-subtle"
+  >
+    <span>© {year} {site.name}</span>
+    <span class="font-display italic">
+      Soli Deo gloria.
+    </span>
+    <span>Built with Astro · Tailwind · Fraunces</span>
+  </div>
+</footer>

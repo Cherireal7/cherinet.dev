@@ -1,0 +1,192 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { img, imgCredit } from "../lib/images";
+
+const updated = "June 24, 2026";
+
+const building = [
+  {
+    title: "FIDA Delivery v1",
+    body: "Wiring the customer + rider apps to the live `/orders` and `/dispatch` endpoints. Mock-data layer still default-on until each route lands in prod.",
+    tag: "Product",
+  },
+  {
+    title: "Dr. Brug Archive",
+    body: "Finishing the search index over Dr. John F. Brug's writings — typed exegetical references, MDX, on-page concordance.",
+    tag: "Faith / scholarship",
+  },
+  {
+    title: "Liturgical Data Engine",
+    body: "Adding the Ethiopian (Ge'ez) calendar layer on top of the Western feast cycle. Tricky reconciliation work.",
+    tag: "Open source",
+  },
+];
+
+const reading = [
+  {
+    title: "After Virtue",
+    by: "Alasdair MacIntyre",
+    note: "On why moral language is a wreck and what tradition has to do with it.",
+  },
+  {
+    title: "The Genesis of Science",
+    by: "James Hannam",
+    note: "Counter-narrative on the medieval roots of scientific inquiry.",
+  },
+  {
+    title: "Confessions",
+    by: "Augustine",
+    note: "Re-read. The most personal philosophy ever written.",
+  },
+];
+
+const listening = [
+  { title: "Mockingbird Podcast", by: "Various", note: "Grace, ordinary life." },
+  { title: "BBC In Our Time", by: "Melvyn Bragg", note: "History + ideas." },
+  { title: "Arvo Pärt — Tabula Rasa", by: "ECM", note: "Coding music." },
+];
+
+const learning = [
+  "React Server Components patterns past the basics",
+  "Type-safe i18n for Ge'ez script rendering",
+  "Better Astro content collections for archive sites",
+];
+
+const heroCredit = imgCredit("workspace");
+---
+
+<BaseLayout
+  title="Now"
+  description="What Cherinet Demeke is working on, reading, and learning — updated monthly."
+  current="Now"
+>
+  <!-- Hero -->
+  <section class="relative px-6 pb-12 pt-36 md:px-10 md:pb-20 md:pt-44">
+    <div class="mx-auto max-w-6xl">
+      <div class="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-ink-subtle">
+        <span class="size-1.5 rounded-full bg-accent"></span>
+        <span>Updated {updated}</span>
+      </div>
+      <h1
+        class="mt-6 max-w-4xl font-display font-medium leading-[1.02] tracking-[-0.03em] text-ink"
+        style="font-size: var(--text-display-xl);"
+      >
+        What I&rsquo;m doing
+        <span class="italic text-ink-muted">right now.</span>
+      </h1>
+      <p class="mt-8 max-w-2xl text-lg leading-relaxed text-ink-muted">
+        A monthly snapshot — what I&rsquo;m building, reading, and learning. Inspired by Derek Sivers&rsquo; <a href="https://nownownow.com" class="accent-underline text-ink" target="_blank" rel="noopener">/now movement</a>. If you&rsquo;re reading this more than a month after the date above, ping me — I probably forgot to update it.
+      </p>
+    </div>
+  </section>
+
+  <!-- Hero image strip -->
+  <section class="px-6 pb-20 md:px-10 md:pb-28">
+    <div class="mx-auto max-w-6xl">
+      <div class="relative overflow-hidden rounded-xl border border-line">
+        <img
+          src={img("workspace", { w: 2400 })}
+          alt="Workspace with screens"
+          class="aspect-[16/7] w-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="absolute bottom-3 right-3 rounded-full bg-white/80 px-2.5 py-1 text-[10px] uppercase tracking-widest text-ink backdrop-blur">
+          <a href={heroCredit.href} target="_blank" rel="noopener" class="hover:text-accent">{heroCredit.credit} ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Building -->
+  <section class="px-6 pb-20 md:px-10 md:pb-28">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-10 grid gap-2 md:grid-cols-12">
+        <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle md:col-span-3">01 — Building</p>
+        <h2
+          class="font-display font-medium tracking-tight text-ink md:col-span-9"
+          style="font-size: var(--text-display-lg);"
+        >
+          Three things on the bench.
+        </h2>
+      </div>
+      <div class="grid gap-5 md:grid-cols-3 md:gap-6">
+        {building.map((b) => (
+          <article class="reveal flex flex-col rounded-xl border border-line bg-bg-elevated p-6">
+            <p class="text-[10px] uppercase tracking-widest text-ink-subtle">{b.tag}</p>
+            <h3 class="mt-4 font-display text-2xl tracking-tight text-ink">{b.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-ink-muted">{b.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Reading + Listening -->
+  <section class="border-t border-line bg-bg-elevated px-6 py-20 md:px-10 md:py-28">
+    <div class="mx-auto grid max-w-6xl gap-12 md:grid-cols-12">
+      <div class="md:col-span-6">
+        <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">02 — Reading</p>
+        <h2
+          class="mt-4 font-display font-medium tracking-tight text-ink"
+          style="font-size: var(--text-display-lg);"
+        >
+          On the desk.
+        </h2>
+        <ul class="mt-8 space-y-6">
+          {reading.map((r) => (
+            <li class="reveal border-t border-line pt-6">
+              <p class="font-display text-xl tracking-tight text-ink">{r.title}</p>
+              <p class="mt-1 text-sm text-ink-muted">by {r.by}</p>
+              <p class="mt-3 text-sm leading-relaxed text-ink-muted">{r.note}</p>
+            </li>
+          ))}
+        </ul>
+        <a href="/reading" class="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-ink accent-underline">
+          Full reading list →
+        </a>
+      </div>
+      <div class="md:col-span-6">
+        <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">03 — Listening</p>
+        <h2
+          class="mt-4 font-display font-medium tracking-tight text-ink"
+          style="font-size: var(--text-display-lg);"
+        >
+          In the ears.
+        </h2>
+        <ul class="mt-8 space-y-6">
+          {listening.map((r) => (
+            <li class="reveal border-t border-line pt-6">
+              <p class="font-display text-xl tracking-tight text-ink">{r.title}</p>
+              <p class="mt-1 text-sm text-ink-muted">by {r.by}</p>
+              <p class="mt-3 text-sm leading-relaxed text-ink-muted">{r.note}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Learning -->
+  <section class="px-6 py-20 md:px-10 md:py-28">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-10 grid gap-2 md:grid-cols-12">
+        <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle md:col-span-3">04 — Learning</p>
+        <h2
+          class="font-display font-medium tracking-tight text-ink md:col-span-9"
+          style="font-size: var(--text-display-lg);"
+        >
+          Sharpening up on.
+        </h2>
+      </div>
+      <ol class="grid gap-5 md:grid-cols-3 md:gap-6">
+        {learning.map((l, i) => (
+          <li class="reveal flex flex-col rounded-xl border border-line bg-bg-elevated p-6">
+            <span class="font-display text-3xl italic text-accent">{String(i + 1).padStart(2, "0")}</span>
+            <p class="mt-4 text-base leading-relaxed text-ink">{l}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+</BaseLayout>

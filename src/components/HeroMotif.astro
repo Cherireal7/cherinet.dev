@@ -1,0 +1,79 @@
+---
+// Geometric motif for the home hero. Subtle, monochrome + one accent.
+// Sits absolutely positioned behind the H1, only on md+ screens.
+
+const cols = 14;
+const rows = 8;
+const stepX = 36;
+const stepY = 36;
+const width = cols * stepX;
+const height = rows * stepY;
+
+// Accent-dot positions (col, row)
+const accentDots = [
+  { c: 2, r: 1 },
+  { c: 9, r: 4 },
+  { c: 12, r: 6 },
+];
+---
+
+<div
+  class="pointer-events-none absolute right-0 top-32 hidden opacity-90 md:block md:right-6 lg:right-12 xl:right-20"
+  aria-hidden="true"
+>
+  <svg
+    width={width}
+    height={height}
+    viewBox={`0 0 ${width} ${height}`}
+    fill="none"
+    class="overflow-visible"
+  >
+    <!-- Dot grid -->
+    {Array.from({ length: cols }).flatMap((_, c) =>
+      Array.from({ length: rows }).map((_, r) => (
+        <circle
+          cx={c * stepX + stepX / 2}
+          cy={r * stepY + stepY / 2}
+          r="1.4"
+          fill="var(--color-line-strong)"
+        />
+      )),
+    )}
+
+    <!-- Single quiet path through the grid -->
+    <path
+      d={`M ${stepX / 2} ${stepY * (rows - 1) + stepY / 2} Q ${stepX * cols * 0.35} ${stepY * 2} ${stepX * cols * 0.7} ${stepY * 4} T ${stepX * cols - stepX / 2} ${stepY * 2}`}
+      stroke="var(--color-line-strong)"
+      stroke-width="1"
+      stroke-dasharray="3 6"
+      class="geo-draw"
+      style={`--geo-len: ${width * 1.8};`}
+    />
+
+    <!-- Accent dots (drift slightly, pulse) -->
+    {accentDots.map((dot, i) => (
+      <g class="geo-drift" style={`animation-delay: ${i * 1100}ms; transform-origin: ${dot.c * stepX + stepX / 2}px ${dot.r * stepY + stepY / 2}px;`}>
+        <circle
+          cx={dot.c * stepX + stepX / 2}
+          cy={dot.r * stepY + stepY / 2}
+          r="4"
+          fill="var(--color-accent)"
+          class="geo-pulse"
+          style={`animation-delay: ${i * 800}ms;`}
+        />
+      </g>
+    ))}
+
+    <!-- Corner tick marks (the "stitched" feel) -->
+    <g stroke="var(--color-ink-subtle)" stroke-width="1">
+      <line x1="0" y1="0" x2="10" y2="0" />
+      <line x1="0" y1="0" x2="0" y2="10" />
+      <line x1={width} y1="0" x2={width - 10} y2="0" />
+      <line x1={width} y1="0" x2={width} y2="10" />
+      <line x1="0" y1={height} x2="10" y2={height} />
+      <line x1="0" y1={height} x2="0" y2={height - 10} />
+      <line x1={width} y1={height} x2={width - 10} y2={height} />
+      <line x1={width} y1={height} x2={width} y2={height - 10} />
+    </g>
+  </svg>
+</div>

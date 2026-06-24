@@ -1,0 +1,30 @@
+---
+title: "Yeneta Master Rollout"
+subtitle: "Implementing a school management platform across two campuses serving 1,000+ students — and learning what 'production' really means."
+year: "2021 — 2024"
+role: "Systems & operations lead"
+stack: ["Implementation", "Training", "Records", "Operations"]
+metric: "1,000+ students"
+summary: "Before I wrote frontend professionally, I shipped software the operational way — rolling out a school management platform across two campuses, training staff who had never used a digital system, and earning the trust of administrators who still kept paper backups for a year."
+accent: "ink"
+order: 6
+---
+
+## What I actually did
+
+Yeneta Master is a school management system used by Ethiopian institutions for student records, attendance, grades, fees, and communication. My job was not to build it — it was to **make it real** for two campuses that had been running on paper and Excel for fifteen years.
+
+That meant: data migration from handwritten records, role-by-role training, payroll and fee module configuration, troubleshooting at six in the morning when a kindergarten teacher could not mark attendance, and weekly conversations with administrators who, reasonably, did not trust a screen.
+
+## The operational lessons
+
+The lessons I took into engineering:
+
+- **Production is not deployment.** A feature is in production when the person who needs it can use it without help. Most software is not in production. Most of it is just deployed.
+- **Empathy beats elegance.** The cleanest UI in the world fails if it does not match the mental model of the user. A "Mark Absent" button needs to be the size of a thumb on a phone held vertically in a classroom.
+- **Edge cases are the product.** The default flow is what the demo shows. The hundred branches off that flow are what the user actually experiences over a school year — make-up exams, sibling discounts, scholarship overrides, mid-term transfers. If you do not design for those, you do not have a product, you have a slide.
+- **Trust is earned weekly.** It took twelve months for administrators to retire the paper ledger. That is fine. They were right to be cautious.
+
+## How this shows up in my code today
+
+When I lead a UX decision on FIDA or BizBridge, I am not arguing from a Dribbble shot. I am arguing from a thousand small moments of watching real users hit the wrong button. That instinct came from this work.

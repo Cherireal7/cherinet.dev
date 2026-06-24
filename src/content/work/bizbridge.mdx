@@ -1,0 +1,38 @@
+---
+title: "BizBridge Ethiopia"
+subtitle: "A freemium platform that walks Ethiopian entrepreneurs through 519 business sectors — from idea to license to launch."
+year: "2025 — present"
+role: "Frontend lead"
+stack: ["Next.js 15", "Payload v3", "Fastify", "Drizzle", "Better Auth", "Neon"]
+metric: "519 sectors · bilingual"
+summary: "BizBridge is the only place an Ethiopian entrepreneur can search across all 519 licensed business sectors, get the specific document checklist, book an expert, and pay — without leaving the page."
+accent: "ink"
+order: 2
+---
+
+## The problem
+
+Starting a registered business in Ethiopia means navigating a fractured paper trail: the Ministry of Trade, the city revenue office, the Ethiopian Investment Commission, sector-specific regulators. The information exists. It is just scattered across thirteen government PDFs, two Telegram groups, and the memory of one accountant who knows three of you.
+
+BizBridge collapses that into a single product surface. Type your sector. Get the checklist. Book the expert. Pay. Track status.
+
+## What I work on
+
+I lead the frontend across a **Turborepo monorepo**: a Next.js 15 marketing + app surface, a Payload v3 CMS for the sector content model, and a Fastify service for transactional flows. The frontend ties them together — search, sector pages, expert booking, payments, and the dashboard customers use after they pay.
+
+The hardest part is not the framework choice. It is the **bilingual content model**. A sector's requirements need to render in Amharic or English without translation drift, and the checklist for a downtown Addis salon is genuinely different from one in Bishoftu — so the data model has to carry location-specific overrides without forcing editors to author the same content twice.
+
+## Decisions worth naming
+
+- **Payload v3 over headless WordPress.** Type-safe content, native Postgres via Drizzle, and a UI editors actually use without training.
+- **Better Auth over Clerk/Auth.js.** Self-hosted, free, no per-MAU pricing in a market where unit economics matter early.
+- **Neon serverless Postgres.** Scale-to-zero pricing for a product still finding its base load.
+- **Server-rendered sector pages.** SEO is the channel; pre-rendering 519 sector pages with localized metadata is non-negotiable.
+
+## What's live
+
+Sector search, sector landing pages with cost ranges and checklist, expert directory, and the booking flow are wired through to payment. The post-purchase dashboard is the next milestone — tracking license status without forcing customers to log back into government portals.
+
+## Why this work matters
+
+A platform like this does not need to be flashy. It needs to be **right** — to load on a four-year-old Android in a coffee shop with 3G, to be readable in Amharic by someone who left school at fifteen, and to never lose a paid booking. Designing for that constraint set sharpens every choice you make on a typical SaaS product.

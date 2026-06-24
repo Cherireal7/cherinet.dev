@@ -1,0 +1,223 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import StepGlyph from "../components/StepGlyph.astro";
+import { img, imgCredit } from "../lib/images";
+
+const steps = [
+  {
+    n: "01",
+    phase: "Discover",
+    title: "Listen first.",
+    body: "Before I open Figma I want to hear the actual problem from whoever&rsquo;s closest to it — the founder, the dispatcher, the parish secretary, the rider. I take messy notes, not requirements. The shape of the problem usually shows up in the asides.",
+    aside: "Half of the projects I&rsquo;ve shipped started as something the client described differently than what they actually needed.",
+  },
+  {
+    n: "02",
+    phase: "Discover",
+    title: "Research the field.",
+    body: "Surveys, competitor maps, heatmaps on whatever surface already exists. For FIDA we ran a community survey in Bishoftu before a screen was drawn. For Classic Noodle I watched the analytics on the old site for a month. Without this step the design is just taste.",
+    aside: "Doxa ran a 2026 community survey across Bishoftu — population data, willingness-to-pay, channel preferences — and it set the price point for two of our products.",
+  },
+  {
+    n: "03",
+    phase: "Strategy",
+    title: "Position.",
+    body: "Where does this fit in the market — blue ocean (a category no one occupies) or red ocean (a knife fight against incumbents)? The answer changes everything: the onboarding, the pricing, the channel mix, even the typography. Most teams skip this and then wonder why growth is hard.",
+  },
+  {
+    n: "04",
+    phase: "Strategy",
+    title: "Frame the real constraint.",
+    body: "Most briefs collapse to one or two true constraints. Bandwidth in Bishoftu. Telegram-first audience. NDA on the design language. Compliance window. I write the constraint down in plain language and pin it above the work for the rest of the project.",
+  },
+  {
+    n: "05",
+    phase: "Craft",
+    title: "Sketch, don&rsquo;t spec.",
+    body: "I sketch on paper or Excalidraw before I touch Figma. Whole flows, not screens. If a flow has more than five rectangles, it&rsquo;s probably two flows. Figma starts only after the flow holds up to a paper test with a real user.",
+  },
+  {
+    n: "06",
+    phase: "Craft",
+    title: "Build the thinnest end-to-end thing.",
+    body: "A real route, real data shape, real deploy. Ugly is fine. The whole point is to find out what breaks when the design meets the network and the database, not to ship a pretty empty state.",
+    aside: "The first version of FIDA Delivery&rsquo;s rider app was deployable on day three. It looked terrible. It worked.",
+  },
+  {
+    n: "07",
+    phase: "Craft",
+    title: "Design in the build.",
+    body: "I stop switching back to Figma early. Once the system is real, motion, copy, and density get refined in the code where they actually have to live. Figma stays as a token source and a place for variants. UX psychology — loss aversion, defaults, friction in the right places — gets applied here, against real flows.",
+  },
+  {
+    n: "08",
+    phase: "Ship",
+    title: "Ship, measure, reduce.",
+    body: "First release usually has a few extra moving parts. Then: analytics, heatmaps, SEO checks, funnel review. After a week of real use I take things out — most product feels better with one fewer feature, one fewer state, one fewer color. Growth comes from removing friction, not adding capabilities.",
+  },
+];
+
+const principles = [
+  {
+    title: "Code is design.",
+    body: "Design choices that survive production were the real design choices. Everything else is a sketch.",
+  },
+  {
+    title: "Boring tech, sharp taste.",
+    body: "Use the most predictable stack you can get away with. Spend the design budget on what users actually touch.",
+  },
+  {
+    title: "One owner per surface.",
+    body: "If two people own the home page, no one owns the home page. Same with components, same with copy.",
+  },
+  {
+    title: "Trust comes from shipped weeks, not pitched months.",
+    body: "Recruiters and clients evaluate momentum. So do I.",
+  },
+];
+
+const credit = imgCredit("process-notes");
+---
+
+<BaseLayout
+  title="How I work"
+  description="Eight steps across discovery, strategy, craft, and ship — and four principles behind them."
+  current="About"
+>
+  <!-- Hero -->
+  <section class="px-6 pb-12 pt-36 md:px-10 md:pb-20 md:pt-44">
+    <div class="mx-auto max-w-6xl">
+      <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Process</p>
+      <h1
+        class="mt-6 max-w-4xl font-display font-medium leading-[1.02] tracking-[-0.03em] text-ink"
+        style="font-size: var(--text-display-xl);"
+      >
+        From vague problem
+        <span class="italic text-ink-muted">to shipped product.</span>
+      </h1>
+      <p class="mt-8 max-w-2xl text-lg leading-relaxed text-ink-muted">
+        Eight steps across four phases — <span class="text-ink">Discover · Strategy · Craft · Ship</span>. This is how I actually work, not how I&rsquo;d describe it in a deck. UX for me means the full loop, not just the artifact.
+      </p>
+
+      <!-- Phase markers -->
+      <ol class="mt-12 grid gap-3 md:grid-cols-4">
+        {[
+          { l: "Discover", n: "01—02", note: "Listen + research" },
+          { l: "Strategy", n: "03—04", note: "Position + frame" },
+          { l: "Craft", n: "05—07", note: "Sketch + build + refine" },
+          { l: "Ship", n: "08", note: "Measure + reduce" },
+        ].map((p) => (
+          <li class="reveal rounded-xl border border-line bg-bg-elevated p-5">
+            <p class="text-[10px] uppercase tracking-widest text-ink-subtle">{p.n}</p>
+            <p class="mt-2 font-display text-xl tracking-tight text-ink">{p.l}</p>
+            <p class="mt-1 text-xs text-ink-muted">{p.note}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Process image -->
+  <section class="px-6 pb-20 md:px-10 md:pb-28">
+    <div class="mx-auto max-w-6xl">
+      <div class="relative overflow-hidden rounded-xl border border-line">
+        <img
+          src={img("process-notes", { w: 2400 })}
+          alt="Notebook with sketches"
+          class="aspect-[16/7] w-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="absolute bottom-3 right-3 rounded-full bg-white/80 px-2.5 py-1 text-[10px] uppercase tracking-widest text-ink backdrop-blur">
+          <a href={credit.href} target="_blank" rel="noopener" class="hover:text-accent">{credit.credit} ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Steps -->
+  <section class="px-6 pb-20 md:px-10 md:pb-28">
+    <div class="mx-auto max-w-6xl">
+      <ol class="space-y-16 md:space-y-24">
+        {steps.map((step, i) => (
+          <li class="reveal grid gap-6 md:grid-cols-12 md:gap-12">
+            <div class="md:col-span-3">
+              <div class="flex h-14 w-14 items-center justify-center rounded-xl border border-line bg-bg-elevated">
+                <StepGlyph step={i + 1} size={36} />
+              </div>
+              <p class="mt-6 text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
+                {step.phase}
+              </p>
+              <p class="mt-1 font-display text-6xl font-medium tracking-tight text-ink md:text-7xl">
+                {step.n}
+              </p>
+              <p class="mt-2 text-xs uppercase tracking-widest text-ink-subtle">
+                Step {i + 1} of {steps.length}
+              </p>
+            </div>
+            <div class="md:col-span-9">
+              <h2
+                class="font-display font-medium tracking-tight text-ink"
+                style="font-size: var(--text-display-lg);"
+              >
+                {step.title}
+              </h2>
+              <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-muted" set:html={step.body} />
+              {step.aside && (
+                <aside class="mt-6 max-w-2xl rounded-lg border-l-2 border-accent bg-bg-elevated p-5 text-sm leading-relaxed text-ink-muted">
+                  {step.aside}
+                </aside>
+              )}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Principles -->
+  <section class="border-t border-line bg-bg-elevated px-6 py-20 md:px-10 md:py-28">
+    <div class="mx-auto max-w-6xl">
+      <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Behind the steps</p>
+      <h2
+        class="mt-4 max-w-3xl font-display font-medium tracking-tight text-ink"
+        style="font-size: var(--text-display-xl);"
+      >
+        Four principles.
+      </h2>
+      <div class="mt-14 grid gap-6 md:grid-cols-2 md:gap-8">
+        {principles.map((p, i) => (
+          <article class="reveal flex gap-5 rounded-xl border border-line bg-bg p-6 md:p-7">
+            <span class="font-display text-2xl italic text-accent">{`P${i + 1}`}</span>
+            <div>
+              <h3 class="font-display text-xl tracking-tight text-ink">{p.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-ink-muted">{p.body}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="px-6 py-20 md:px-10 md:py-28">
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Curious how this plays out in a real project?</p>
+      <h2
+        class="mt-4 font-display font-medium tracking-tight text-ink"
+        style="font-size: var(--text-display-lg);"
+      >
+        Read a case study.
+      </h2>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <a href="/work/fida-delivery" class="inline-flex cursor-pointer items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-bg transition-colors hover:bg-accent">
+          FIDA Delivery
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"></path></svg>
+        </a>
+        <a href="/work/drbrug" class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line bg-bg-elevated px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-line-strong">
+          Dr. Brug Archive
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

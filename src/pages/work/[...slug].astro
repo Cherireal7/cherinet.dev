@@ -1,0 +1,147 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CaseStudyKeyArt from "../../components/CaseStudyKeyArt.astro";
+import { projects } from "../../lib/projects";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("work", ({ data }) => !data.draft);
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { data } = entry;
+
+// Prev / next from projects.ts to keep parity with the home grid order
+const caseSlugs = projects.filter((p) => p.status === "case-study").map((p) => p.slug);
+const idx = caseSlugs.indexOf(entry.id);
+const prev = idx > 0 ? projects.find((p) => p.slug === caseSlugs[idx - 1]) : null;
+const next = idx >= 0 && idx < caseSlugs.length - 1 ? projects.find((p) => p.slug === caseSlugs[idx + 1]) : null;
+---
+
+<BaseLayout title={data.title} description={data.summary} current="Work">
+  <!-- Hero -->
+  <section class="relative px-6 pb-12 pt-36 md:px-10 md:pb-20 md:pt-44">
+    <div class="mx-auto max-w-6xl">
+      <a
+        href="/work"
+        class="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.18em] text-ink-subtle transition-colors hover:text-ink"
+      >
+        ← All work
+      </a>
+
+      <h1
+        class="mt-8 max-w-4xl font-display font-medium leading-[1.02] tracking-[-0.03em] text-ink"
+        style="font-size: var(--text-display-xl);"
+      >
+        {data.title}
+      </h1>
+
+      <p class="mt-6 max-w-3xl text-lg leading-relaxed text-ink-muted md:text-xl">
+        {data.subtitle}
+      </p>
+
+      <dl class="mt-14 grid max-w-4xl grid-cols-2 gap-x-8 gap-y-6 border-t border-line pt-8 md:grid-cols-4">
+        <div>
+          <dt class="text-xs uppercase tracking-widest text-ink-subtle">Year</dt>
+          <dd class="mt-1.5 text-sm text-ink">{data.year}</dd>
+        </div>
+        <div>
+          <dt class="text-xs uppercase tracking-widest text-ink-subtle">Role</dt>
+          <dd class="mt-1.5 text-sm text-ink">{data.role}</dd>
+        </div>
+        <div class="md:col-span-2">
+          <dt class="text-xs uppercase tracking-widest text-ink-subtle">Stack</dt>
+          <dd class="mt-1.5 text-sm text-ink">{data.stack.join(" · ")}</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Visual key plate -->
+  <section class="px-6 md:px-10">
+    <div class="mx-auto max-w-6xl">
+      <CaseStudyKeyArt
+        slug={entry.id}
+        title={data.title}
+        accent={data.accent}
+        metric={data.metric}
+      />
+    </div>
+  </section>
+
+  <!-- Summary / hook -->
+  <section class="px-6 pt-16 md:px-10 md:pt-24">
+    <div class="mx-auto grid max-w-6xl gap-10 md:grid-cols-12">
+      <div class="md:col-span-4">
+        <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Overview</p>
+      </div>
+      <div class="reveal md:col-span-8">
+        <p
+          class="font-display font-medium leading-tight tracking-tight text-ink"
+          style="font-size: var(--text-display-lg);"
+        >
+          {data.summary}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MDX body -->
+  <article class="px-6 pb-20 pt-12 md:px-10 md:pb-32 md:pt-20">
+    <div class="prose-case mx-auto max-w-3xl">
+      <Content />
+    </div>
+  </article>
+
+  <!-- Prev / next -->
+  <section class="border-t border-line bg-bg-elevated px-6 py-16 md:px-10 md:py-24">
+    <div class="mx-auto grid max-w-6xl gap-6 md:grid-cols-2">
+      {
+        prev ? (
+          <a
+            href={`/work/${prev.slug}`}
+            class="group flex flex-col gap-2 rounded-xl border border-line bg-bg p-6 transition-colors hover:border-line-strong md:p-8"
+          >
+            <span class="text-xs uppercase tracking-widest text-ink-subtle">← Previous</span>
+            <span class="font-display text-2xl tracking-tight text-ink md:text-3xl">
+              {prev.title}
+            </span>
+            <span class="text-sm text-ink-muted">{prev.subtitle}</span>
+          </a>
+        ) : (
+          <div class="hidden md:block" />
+        )
+      }
+      {
+        next ? (
+          <a
+            href={`/work/${next.slug}`}
+            class="group flex flex-col gap-2 rounded-xl border border-line bg-bg p-6 text-right transition-colors hover:border-line-strong md:p-8"
+          >
+            <span class="text-xs uppercase tracking-widest text-ink-subtle">Next →</span>
+            <span class="font-display text-2xl tracking-tight text-ink md:text-3xl">
+              {next.title}
+            </span>
+            <span class="text-sm text-ink-muted">{next.subtitle}</span>
+          </a>
+        ) : (
+          <a
+            href="/work"
+            class="group flex flex-col gap-2 rounded-xl border border-line bg-bg p-6 text-right transition-colors hover:border-line-strong md:p-8"
+          >
+            <span class="text-xs uppercase tracking-widest text-ink-subtle">→</span>
+            <span class="font-display text-2xl tracking-tight text-ink md:text-3xl">
+              All work
+            </span>
+            <span class="text-sm text-ink-muted">Browse the rest of the case studies.</span>
+          </a>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

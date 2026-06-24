@@ -1,0 +1,114 @@
+---
+// Small geometric glyph per process step on /how-i-work.
+// 8 cases — discovery + strategy + craft + ship.
+// Pure SVG primitives, monochrome + accent.
+
+interface Props {
+  step: number; // 1..8
+  size?: number;
+}
+
+const { step, size = 56 } = Astro.props;
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 56 56"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.6"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  class="text-ink"
+>
+  {/* 01 — Listen: concentric circles (sonar) */}
+  {step === 1 && (
+    <>
+      <circle cx="28" cy="28" r="4" fill="currentColor" stroke="none" />
+      <circle cx="28" cy="28" r="10" />
+      <circle cx="28" cy="28" r="17" opacity="0.5" />
+      <circle cx="28" cy="28" r="24" opacity="0.25" />
+    </>
+  )}
+
+  {/* 02 — Research: magnifier over a small data grid */}
+  {step === 2 && (
+    <>
+      {/* grid */}
+      <g opacity="0.6">
+        {Array.from({ length: 4 }).flatMap((_, x) =>
+          Array.from({ length: 4 }).map((_, y) => (
+            <rect x={8 + x * 8} y={8 + y * 8} width="6" height="6" rx="1" />
+          )),
+        )}
+      </g>
+      {/* magnifier */}
+      <circle cx="36" cy="36" r="9" stroke="currentColor" fill="var(--color-bg)" />
+      <line x1="43" y1="43" x2="50" y2="50" stroke="currentColor" stroke-width="2.2" />
+    </>
+  )}
+
+  {/* 03 — Position: 2x2 matrix with an accent dot in one quadrant (blue/red ocean) */}
+  {step === 3 && (
+    <>
+      <rect x="8" y="8" width="40" height="40" rx="2" />
+      <line x1="8" y1="28" x2="48" y2="28" />
+      <line x1="28" y1="8" x2="28" y2="48" />
+      <circle cx="38" cy="18" r="4.5" fill="currentColor" class="text-accent" stroke="none" />
+    </>
+  )}
+
+  {/* 04 — Frame: rectangle with corner brackets */}
+  {step === 4 && (
+    <>
+      <rect x="14" y="14" width="28" height="28" rx="2" />
+      <line x1="6" y1="6" x2="14" y2="6" />
+      <line x1="6" y1="6" x2="6" y2="14" />
+      <line x1="50" y1="6" x2="42" y2="6" />
+      <line x1="50" y1="6" x2="50" y2="14" />
+      <line x1="6" y1="50" x2="14" y2="50" />
+      <line x1="6" y1="50" x2="6" y2="42" />
+      <line x1="50" y1="50" x2="42" y2="50" />
+      <line x1="50" y1="50" x2="50" y2="42" />
+    </>
+  )}
+
+  {/* 05 — Sketch: three loose shapes loosely overlapping */}
+  {step === 5 && (
+    <>
+      <rect x="8" y="14" width="22" height="18" rx="2" />
+      <circle cx="36" cy="32" r="10" />
+      <line x1="6" y1="46" x2="50" y2="46" stroke-dasharray="3 3" />
+    </>
+  )}
+
+  {/* 06 — Build: stacked rectangles, accent on the shipped one */}
+  {step === 6 && (
+    <>
+      <rect x="10" y="12" width="36" height="8" rx="1.5" />
+      <rect x="10" y="24" width="36" height="8" rx="1.5" />
+      <rect x="10" y="36" width="36" height="8" rx="1.5" fill="currentColor" class="text-accent" stroke="none" />
+    </>
+  )}
+
+  {/* 07 — Design in build: Venn diagram (design ∩ code) */}
+  {step === 7 && (
+    <>
+      <circle cx="22" cy="28" r="14" />
+      <circle cx="34" cy="28" r="14" />
+    </>
+  )}
+
+  {/* 08 — Ship, measure, reduce: arrow + rising chart line */}
+  {step === 8 && (
+    <>
+      <line x1="8" y1="36" x2="42" y2="36" />
+      <polyline points="34,28 42,36 34,44" />
+      {/* chart spike */}
+      <polyline points="10,22 18,18 26,12 34,8" stroke="currentColor" class="text-accent" stroke-width="2" />
+      <circle cx="34" cy="8" r="2.5" fill="currentColor" class="text-accent" stroke="none" />
+    </>
+  )}
+</svg>

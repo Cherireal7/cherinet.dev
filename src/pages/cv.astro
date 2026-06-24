@@ -1,0 +1,286 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../lib/site";
+
+const experience = [
+  {
+    year: "2024 — present",
+    title: "Co-founder & Senior Frontend Engineer",
+    org: "Doxa Innovations · Bishoftu, Ethiopia",
+    bullets: [
+      "Co-founded Doxa; lead frontend architecture across React (Next.js) and React Native (Expo) engagements.",
+      "Own design tokens, component libraries, and release engineering on client and internal work.",
+      "Most engagements under NDA — details available on request.",
+    ],
+  },
+  {
+    year: "2025 — present",
+    title: "Co-founder · design + engineering",
+    org: "FIDA Delivery",
+    bullets: [
+      "Co-founded FIDA; designed and shipped two production React Native apps (customer + rider) on Expo SDK 56 / New Architecture.",
+      "Built shared `@fida/ui` package — tokens, primitives, and screens — consumed by both apps and the marketing site.",
+      "Set up EAS Build + Updates pipeline; wired OTA channels for staged rollout.",
+      "Built the marketing site and Telegram Mini App in Next.js 16 + Tailwind v4, with a Leaflet coverage view.",
+    ],
+  },
+  {
+    year: "2025 — present",
+    title: "Frontend lead",
+    org: "BizBridge Ethiopia",
+    bullets: [
+      "Frontend lead in a Turborepo with Next.js 15, Payload v3 CMS, Fastify, Drizzle, Better Auth, and Neon Postgres.",
+      "Built sector search, expert booking, and payment flows across 519 sectors, bilingual (Amharic/English).",
+    ],
+  },
+  {
+    year: "2024 — present",
+    title: "Digital product & content",
+    org: "Classic Noodle & Burger · Bishoftu",
+    bullets: [
+      "Rebuilt the digital surface end-to-end — menu, ordering channel, content rhythm, analytics.",
+      "Online-channel orders grew approximately 40% off a small base in the first quarter.",
+    ],
+  },
+  {
+    year: "2023 — 2024",
+    title: "UI/UX Designer",
+    org: "Internship → contract roles",
+    bullets: [
+      "Transitioned from operations into design. Shipped product surfaces in Figma and component libraries.",
+      "Started writing frontend code in earnest — React, Tailwind, motion.",
+    ],
+  },
+  {
+    year: "2021 — 2024",
+    title: "Systems & Operations Lead",
+    org: "Yeneta Master Rollout",
+    bullets: [
+      "Implemented a school management platform across two campuses serving 1,000+ students.",
+      "Owned data migration, training, daily support, and stakeholder trust-building over three years.",
+    ],
+  },
+];
+
+const skills = {
+  "Research & discovery": [
+    "User interviews & ethnography",
+    "Surveys (paper + digital)",
+    "Heatmaps & session replay",
+    "Competitor & market analysis",
+    "Population & demographic study",
+    "UX psychology (defaults, loss aversion, friction design)",
+  ],
+  "Strategy & business": [
+    "Blue / red ocean positioning",
+    "Pricing & willingness-to-pay",
+    "Go-to-market scoping",
+    "Partner & vendor onboarding",
+    "Business development (NGO + private)",
+    "Product roadmap framing",
+  ],
+  "Design & systems": [
+    "Figma (variables-first, tokens, variants)",
+    "Spline (3D / hero moments)",
+    "Design systems & tokens",
+    "Motion (Framer Motion / Reanimated)",
+    "Accessibility (WCAG)",
+    "Bilingual product (Amharic / English)",
+  ],
+  "Languages & frameworks": [
+    "TypeScript",
+    "React",
+    "React Native",
+    "Next.js (15/16)",
+    "Astro",
+    "Node.js",
+  ],
+  "Mobile & release": [
+    "Expo SDK 56",
+    "React Native New Arch",
+    "EAS Build & Updates",
+    "Continuous native generation",
+    "OTA channels",
+  ],
+  "Backend & data": [
+    "Payload v3",
+    "Drizzle ORM",
+    "Postgres / Neon",
+    "Fastify",
+    "Better Auth",
+    "REST API design",
+  ],
+  "Growth & measurement": [
+    "Technical SEO (schema, sitemaps, Core Web Vitals)",
+    "Content SEO & site architecture",
+    "Analytics (GA4, Plausible)",
+    "Funnel & cohort analysis",
+    "CRO & A/B testing",
+    "Heatmap-driven iteration",
+  ],
+};
+---
+
+<BaseLayout
+  title="CV"
+  description={`CV of ${site.name} — ${site.role}, ${site.location}.`}
+  current="CV"
+>
+  <section class="cv-root px-6 pb-24 pt-36 md:px-10 md:pb-32 md:pt-44">
+    <div class="mx-auto max-w-4xl">
+      <!-- Header -->
+      <header class="flex flex-col gap-6 border-b border-line pb-10 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Curriculum vitae</p>
+          <h1
+            class="mt-3 font-display font-medium leading-[1.02] tracking-[-0.025em] text-ink"
+            style="font-size: var(--text-display-xl);"
+          >
+            {site.name}
+          </h1>
+          <p class="mt-3 text-lg text-ink-muted">{site.role} · {site.location}</p>
+        </div>
+
+        <div class="no-print flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            data-print
+            class="inline-flex cursor-pointer items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-bg transition-colors hover:bg-accent"
+          >
+            Save as PDF
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"></path>
+            </svg>
+          </button>
+          <a
+            href={`mailto:${site.email}`}
+            class="inline-flex items-center gap-2 rounded-full border border-line bg-bg-elevated px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-line-strong"
+          >
+            Email
+          </a>
+        </div>
+      </header>
+
+      <!-- Contact strip -->
+      <div class="cv-contact mt-8 grid grid-cols-2 gap-x-6 gap-y-4 md:grid-cols-4">
+        <div>
+          <p class="text-xs uppercase tracking-widest text-ink-subtle">Email</p>
+          <a href={`mailto:${site.email}`} class="mt-1 block text-sm text-ink">{site.email}</a>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-widest text-ink-subtle">Phone</p>
+          <p class="mt-1 text-sm text-ink">{site.phone}</p>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-widest text-ink-subtle">GitHub</p>
+          <a href={site.social.github.href} target="_blank" rel="noopener noreferrer" class="mt-1 block text-sm text-ink">
+            Cherireal7
+          </a>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-widest text-ink-subtle">LinkedIn</p>
+          <a href={site.social.linkedin.href} target="_blank" rel="noopener noreferrer" class="mt-1 block text-sm text-ink">
+            cherinet-Demeke
+          </a>
+        </div>
+      </div>
+
+      <!-- Profile -->
+      <section class="mt-12">
+        <h2 class="cv-h2 text-xs uppercase tracking-[0.18em] text-ink-subtle">Profile</h2>
+        <p class="mt-4 max-w-3xl text-base leading-relaxed text-ink-muted">
+          Senior frontend engineer and designer based in Bishoftu, Ethiopia. Co-founder of Doxa Innovations (frontend lead) and FIDA Delivery (design + engineering across two production apps). Ships product end-to-end — Figma to React, React to React Native — with a particular bias for design systems, bilingual product, and release engineering. Open to senior frontend / staff roles, remote — with full bandwidth.
+        </p>
+      </section>
+
+      <!-- Experience -->
+      <section class="mt-12">
+        <h2 class="cv-h2 text-xs uppercase tracking-[0.18em] text-ink-subtle">Experience</h2>
+        <ol class="mt-4 space-y-8">
+          {
+            experience.map((role) => (
+              <li class="grid gap-3 md:grid-cols-12 md:gap-6">
+                <div class="md:col-span-3">
+                  <p class="text-xs uppercase tracking-widest text-ink-subtle">{role.year}</p>
+                </div>
+                <div class="md:col-span-9">
+                  <h3 class="font-display text-lg font-medium leading-tight tracking-tight text-ink md:text-xl">
+                    {role.title}
+                  </h3>
+                  <p class="mt-1 text-sm text-ink-muted">{role.org}</p>
+                  <ul class="mt-3 list-disc space-y-1.5 pl-5 text-[15px] leading-relaxed text-ink-muted marker:text-ink-subtle">
+                    {role.bullets.map((b) => (
+                      <li>{b}</li>
+                    ))}
+                  </ul>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+
+      <!-- Skills -->
+      <section class="mt-12">
+        <h2 class="cv-h2 text-xs uppercase tracking-[0.18em] text-ink-subtle">Skills</h2>
+        <dl class="mt-4 grid gap-6 md:grid-cols-2">
+          {
+            Object.entries(skills).map(([group, items]) => (
+              <div>
+                <dt class="font-display text-base font-medium tracking-tight text-ink">{group}</dt>
+                <dd class="mt-1.5 text-[15px] leading-relaxed text-ink-muted">
+                  {items.join(" · ")}
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </section>
+
+      <!-- Languages -->
+      <section class="mt-12">
+        <h2 class="cv-h2 text-xs uppercase tracking-[0.18em] text-ink-subtle">Languages</h2>
+        <p class="mt-4 text-[15px] text-ink-muted">
+          <span class="text-ink">English</span> — full professional · <span class="text-ink">Amharic</span> — native
+        </p>
+      </section>
+
+      <!-- References -->
+      <section class="mt-12 border-t border-line pt-8">
+        <p class="text-sm text-ink-muted">
+          References and detailed project case studies available on request — email
+          <a href={`mailto:${site.email}`} class="text-ink accent-underline">{site.email}</a>.
+        </p>
+      </section>
+    </div>
+  </section>
+
+  <script is:inline>
+    document.querySelector("[data-print]")?.addEventListener("click", () => window.print());
+  </script>
+
+  <style is:global>
+    @media print {
+      header[data-nav],
+      footer,
+      .no-print {
+        display: none !important;
+      }
+      .cv-root {
+        padding: 0 !important;
+      }
+      body {
+        background: #fff !important;
+      }
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      a {
+        color: inherit !important;
+        text-decoration: none !important;
+      }
+      .cv-contact { font-size: 11px; }
+    }
+  </style>
+</BaseLayout>

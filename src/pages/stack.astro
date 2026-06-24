@@ -1,0 +1,168 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { img, imgCredit } from "../lib/images";
+
+const groups = [
+  {
+    title: "Editor & terminal",
+    items: [
+      { name: "VS Code", note: "Daily driver. Vim mode, GitLens, Error Lens." },
+      { name: "Zed", note: "When I want speed and silence." },
+      { name: "Windows Terminal + PowerShell", note: "Work machine." },
+      { name: "ohmyzsh + iTerm2", note: "Personal machine." },
+      { name: "JetBrains Mono", note: "Editor font. Ligatures off." },
+    ],
+  },
+  {
+    title: "Design",
+    items: [
+      { name: "Figma", note: "Tokens-first. Variables for theming. Auto-layout everywhere." },
+      { name: "Spline", note: "3D scenes for hero moments." },
+      { name: "Linear", note: "Triage + sprint planning." },
+      { name: "Excalidraw", note: "Whiteboarding flows with clients." },
+      { name: "Notion", note: "Docs, content drafts, weekly review." },
+    ],
+  },
+  {
+    title: "Frontend / web",
+    items: [
+      { name: "TypeScript", note: "Default. Strict mode on." },
+      { name: "Next.js (App Router)", note: "Most marketing + product work." },
+      { name: "Astro", note: "Content-led sites (like this one)." },
+      { name: "Tailwind v4", note: "Variables-first design system in CSS." },
+      { name: "Framer Motion", note: "Reach for `motion` not Lottie when I can." },
+      { name: "MDX", note: "Long-form content + components together." },
+    ],
+  },
+  {
+    title: "Mobile",
+    items: [
+      { name: "Expo SDK 56", note: "New Architecture, CNG, EAS Updates." },
+      { name: "React Native Reanimated", note: "Worklets for any non-trivial gesture." },
+      { name: "Zustand", note: "Lightweight global state in RN." },
+      { name: "MMKV", note: "Sync storage instead of AsyncStorage." },
+    ],
+  },
+  {
+    title: "Backend / data",
+    items: [
+      { name: "Payload v3", note: "When the CMS needs to be the source of truth." },
+      { name: "Fastify", note: "Tiny services. Type-safe end to end." },
+      { name: "Drizzle + Neon", note: "Postgres without the operations." },
+      { name: "Better Auth", note: "Pluggable, type-safe auth." },
+      { name: "Resend", note: "Transactional email." },
+    ],
+  },
+  {
+    title: "Hosting & ops",
+    items: [
+      { name: "Vercel", note: "Most Next + Astro deploys." },
+      { name: "Cloudflare", note: "DNS, R2 for media, Workers when needed." },
+      { name: "EAS", note: "OTA + native builds for the FIDA apps." },
+      { name: "GitHub Actions", note: "CI for tests, type-check, deploy." },
+      { name: "Sentry", note: "Errors + traces. Required for any product." },
+    ],
+  },
+  {
+    title: "Hardware",
+    items: [
+      { name: "HP laptop, 14\"", note: "Main work machine." },
+      { name: "Logitech MX Master 3S", note: "Mouse." },
+      { name: "Yamaha pads + Sennheiser HD 280", note: "Music while coding." },
+    ],
+  },
+];
+
+const credit = imgCredit("design-tools");
+---
+
+<BaseLayout
+  title="Stack & uses"
+  description="The actual tools Cherinet Demeke uses to design, code, and ship."
+  current="Stack"
+>
+  <!-- Hero -->
+  <section class="px-6 pb-12 pt-36 md:px-10 md:pb-20 md:pt-44">
+    <div class="mx-auto max-w-6xl">
+      <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">/uses</p>
+      <h1
+        class="mt-6 max-w-4xl font-display font-medium leading-[1.02] tracking-[-0.03em] text-ink"
+        style="font-size: var(--text-display-xl);"
+      >
+        The stack
+        <span class="italic text-ink-muted">behind the work.</span>
+      </h1>
+      <p class="mt-8 max-w-2xl text-lg leading-relaxed text-ink-muted">
+        Tools change. Principles don&rsquo;t. This is the actual kit I reach for in 2026 — not a list of things I&rsquo;ve heard of. Inspired by Wes Bos&rsquo; <a href="https://uses.tech" class="accent-underline text-ink" target="_blank" rel="noopener">uses.tech</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 pb-20 md:px-10 md:pb-28">
+    <div class="mx-auto max-w-6xl">
+      <div class="relative overflow-hidden rounded-xl border border-line">
+        <img
+          src={img("design-tools", { w: 2400 })}
+          alt="Design tools on desk"
+          class="aspect-[16/7] w-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="absolute bottom-3 right-3 rounded-full bg-white/80 px-2.5 py-1 text-[10px] uppercase tracking-widest text-ink backdrop-blur">
+          <a href={credit.href} target="_blank" rel="noopener" class="hover:text-accent">{credit.credit} ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {groups.map((group, gi) => (
+    <section class:list={["px-6 py-16 md:px-10 md:py-20", gi % 2 === 1 && "border-y border-line bg-bg-elevated"]}>
+      <div class="mx-auto grid max-w-6xl gap-10 md:grid-cols-12">
+        <div class="md:col-span-4">
+          <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">
+            {String(gi + 1).padStart(2, "0")} — {group.title}
+          </p>
+          <h2
+            class="mt-4 font-display font-medium tracking-tight text-ink"
+            style="font-size: var(--text-display-lg);"
+          >
+            {group.title}.
+          </h2>
+        </div>
+        <ul class="md:col-span-8 md:divide-y md:divide-line">
+          {group.items.map((it, i) => (
+            <li class:list={["reveal grid gap-2 py-5 md:grid-cols-12 md:gap-6", i === 0 && "md:pt-0"]}>
+              <p class="font-display text-xl text-ink md:col-span-4">{it.name}</p>
+              <p class="text-sm leading-relaxed text-ink-muted md:col-span-8">{it.note}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ))}
+
+  <!-- Closing -->
+  <section class="px-6 py-20 md:px-10 md:py-28">
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Missing something?</p>
+      <h2
+        class="mt-4 font-display font-medium tracking-tight text-ink"
+        style="font-size: var(--text-display-lg);"
+      >
+        Ask me.
+      </h2>
+      <p class="mt-6 text-lg leading-relaxed text-ink-muted">
+        Half of what I use isn&rsquo;t on this page yet. Send a note if you want my take on a tool — I&rsquo;ll tell you if I&rsquo;ve actually shipped with it.
+      </p>
+      <a
+        href="/contact"
+        class="mt-8 inline-flex cursor-pointer items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-bg transition-colors hover:bg-accent"
+      >
+        Send a note
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M13 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

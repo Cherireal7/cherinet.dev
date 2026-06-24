@@ -1,0 +1,328 @@
+---
+// Per-case-study geometric key art. Monochrome + one accent.
+// Pure SVG primitives — no images. Each composition is unique to the project
+// and uses the shared geo-draw / geo-fade / geo-pulse animation vocabulary
+// defined in src/styles/global.css.
+
+interface Props {
+  slug: string;
+  title: string;
+  accent: "blue" | "ink";
+  metric?: string;
+}
+
+const { slug, title, accent, metric } = Astro.props;
+
+const accentStroke = accent === "blue" ? "var(--color-accent)" : "var(--color-ink)";
+const plateBg =
+  accent === "blue"
+    ? "linear-gradient(135deg, #eff6ff 0%, #f8fafc 55%, #fafafa 100%)"
+    : "linear-gradient(135deg, #f4f4f5 0%, #fafafa 55%, #ffffff 100%)";
+---
+
+<div
+  class="reveal relative aspect-[16/8] w-full overflow-hidden rounded-2xl border border-line"
+  style={`background: ${plateBg};`}
+  data-key-art={slug}
+>
+  <!-- Accent rail -->
+  <span
+    class="absolute left-0 top-0 h-1.5 w-24"
+    style={`background: ${accentStroke};`}
+    aria-hidden="true"
+  ></span>
+
+  <!-- Tick marks across top edge -->
+  <svg
+    class="pointer-events-none absolute inset-x-0 top-0 h-3 w-full"
+    viewBox="0 0 1600 12"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    {Array.from({ length: 24 }).map((_, i) => (
+      <line
+        x1={1600 / 24 * (i + 1)}
+        y1="0"
+        x2={1600 / 24 * (i + 1)}
+        y2={i % 4 === 0 ? 6 : 3}
+        stroke="var(--color-line-strong)"
+        stroke-width="1"
+      />
+    ))}
+  </svg>
+
+  <!-- Tick marks down left edge -->
+  <svg
+    class="pointer-events-none absolute inset-y-0 left-0 h-full w-3"
+    viewBox="0 0 12 800"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    {Array.from({ length: 12 }).map((_, i) => (
+      <line
+        x1="0"
+        y1={800 / 12 * (i + 1)}
+        x2={i % 4 === 0 ? 6 : 3}
+        y2={800 / 12 * (i + 1)}
+        stroke="var(--color-line-strong)"
+        stroke-width="1"
+      />
+    ))}
+  </svg>
+
+  <!-- Project-specific composition -->
+  <svg
+    class="absolute inset-0 size-full"
+    viewBox="0 0 1600 800"
+    preserveAspectRatio="xMidYMid meet"
+    fill="none"
+    aria-hidden="true"
+  >
+    {/* === fida-delivery — route across a dotted city grid + pins === */}
+    {slug === "fida-delivery" && (
+      <>
+        {Array.from({ length: 16 }).flatMap((_, x) =>
+          Array.from({ length: 8 }).map((_, y) => (
+            <circle
+              cx={120 + x * 90}
+              cy={120 + y * 70}
+              r="2"
+              fill="var(--color-line-strong)"
+            />
+          )),
+        )}
+        <path
+          d="M 180 640 Q 420 540 600 460 T 1040 320 Q 1240 240 1440 200"
+          stroke={accentStroke}
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-dasharray="10 8"
+          class="geo-draw"
+          style="--geo-len: 1700;"
+        />
+        {/* pins */}
+        <g class="geo-fade">
+          <circle cx="180" cy="640" r="14" fill="var(--color-bg)" stroke="var(--color-ink)" stroke-width="2.5" />
+          <circle cx="180" cy="640" r="4" fill="var(--color-ink)" />
+        </g>
+        <g class="geo-fade geo-stagger-2">
+          <circle cx="600" cy="460" r="14" fill="var(--color-bg)" stroke="var(--color-ink)" stroke-width="2.5" />
+          <circle cx="600" cy="460" r="4" fill="var(--color-ink)" />
+        </g>
+        <g class="geo-fade geo-stagger-3">
+          <circle cx="1440" cy="200" r="16" fill="var(--color-bg)" stroke={accentStroke} stroke-width="2.5" />
+          <circle cx="1440" cy="200" r="5" fill={accentStroke} class="geo-pulse" />
+        </g>
+      </>
+    )}
+
+    {/* === fida-website — wireframe layout, nav + hero + grid + footer === */}
+    {slug === "fida-website" && (
+      <>
+        <g class="geo-draw" style="--geo-len: 4200;" stroke="var(--color-ink)" stroke-width="2">
+          {/* outer frame */}
+          <rect x="200" y="120" width="1200" height="560" rx="14" fill="none" />
+          {/* nav bar */}
+          <line x1="200" y1="180" x2="1400" y2="180" />
+          <rect x="240" y="142" width="80" height="20" rx="10" fill="none" />
+          <rect x="1240" y="142" width="120" height="22" rx="11" fill={accentStroke} stroke="none" />
+          {/* hero */}
+          <rect x="240" y="220" width="540" height="180" rx="6" fill="none" />
+          {/* grid of 3 */}
+          <rect x="240" y="430" width="350" height="180" rx="6" fill="none" />
+          <rect x="620" y="430" width="350" height="180" rx="6" fill="none" />
+          <rect x="1000" y="430" width="350" height="180" rx="6" fill="none" />
+        </g>
+        {/* telegram triangle marker */}
+        <g class="geo-fade geo-stagger-3">
+          <polygon points="1280,540 1340,510 1340,570" fill={accentStroke} />
+        </g>
+      </>
+    )}
+
+    {/* === bizbridge — node graph, central hub + connected sectors === */}
+    {slug === "bizbridge" && (
+      <>
+        {/* connecting lines */}
+        <g class="geo-draw" style="--geo-len: 3400;" stroke="var(--color-ink-subtle)" stroke-width="1.5">
+          <line x1="800" y1="400" x2="280" y2="200" />
+          <line x1="800" y1="400" x2="320" y2="500" />
+          <line x1="800" y1="400" x2="500" y2="680" />
+          <line x1="800" y1="400" x2="1100" y2="640" />
+          <line x1="800" y1="400" x2="1340" y2="500" />
+          <line x1="800" y1="400" x2="1280" y2="180" />
+          <line x1="800" y1="400" x2="780" y2="140" />
+        </g>
+        {/* outer nodes */}
+        <g class="geo-fade geo-stagger-1">
+          {[[280, 200], [320, 500], [500, 680], [1100, 640], [1340, 500], [1280, 180], [780, 140]].map(([cx, cy]) => (
+            <circle cx={cx} cy={cy} r="22" fill="var(--color-bg)" stroke="var(--color-ink)" stroke-width="2" />
+          ))}
+        </g>
+        {/* central hub */}
+        <g class="geo-fade geo-stagger-3">
+          <circle cx="800" cy="400" r="48" fill={accentStroke} />
+          <circle cx="800" cy="400" r="72" fill="none" stroke={accentStroke} stroke-width="1.5" opacity="0.4" />
+          <circle cx="800" cy="400" r="100" fill="none" stroke={accentStroke} stroke-width="1.5" opacity="0.2" />
+        </g>
+      </>
+    )}
+
+    {/* === lhf-ethiopia — stacked book spines + a quiet cross motif === */}
+    {slug === "lhf-ethiopia" && (
+      <>
+        <g class="geo-draw" style="--geo-len: 3600;" stroke="var(--color-ink)" stroke-width="2" fill="none">
+          {/* book spines */}
+          <rect x="260" y="220" width="60" height="380" rx="2" />
+          <rect x="340" y="240" width="80" height="360" rx="2" />
+          <rect x="440" y="200" width="50" height="400" rx="2" />
+          <rect x="510" y="260" width="70" height="340" rx="2" />
+          <rect x="600" y="220" width="90" height="380" rx="2" />
+          <rect x="710" y="240" width="50" height="360" rx="2" />
+          <rect x="780" y="200" width="60" height="400" rx="2" />
+        </g>
+        {/* highlighted spine */}
+        <rect x="600" y="220" width="90" height="380" rx="2" fill={accentStroke} opacity="0.95" class="geo-fade geo-stagger-2" />
+        {/* cross to the right */}
+        <g class="geo-fade geo-stagger-3" stroke="var(--color-ink)" stroke-width="3" stroke-linecap="round">
+          <line x1="1180" y1="220" x2="1180" y2="600" />
+          <line x1="1060" y1="360" x2="1300" y2="360" />
+        </g>
+      </>
+    )}
+
+    {/* === drbrug — austere shelf with one accented volume + index lines === */}
+    {slug === "drbrug" && (
+      <>
+        <g class="geo-draw" style="--geo-len: 3800;" stroke="var(--color-ink)" stroke-width="1.5" fill="none">
+          {/* baseline shelf */}
+          <line x1="180" y1="600" x2="1420" y2="600" />
+          {/* spines */}
+          <rect x="200" y="280" width="40" height="320" />
+          <rect x="250" y="240" width="55" height="360" />
+          <rect x="315" y="300" width="35" height="300" />
+          <rect x="360" y="260" width="50" height="340" />
+          <rect x="420" y="220" width="60" height="380" />
+          <rect x="490" y="280" width="40" height="320" />
+          <rect x="540" y="250" width="55" height="350" />
+          <rect x="605" y="290" width="45" height="310" />
+          <rect x="660" y="240" width="60" height="360" />
+          <rect x="730" y="270" width="45" height="330" />
+          <rect x="785" y="220" width="55" height="380" />
+        </g>
+        {/* accented spine */}
+        <rect x="420" y="220" width="60" height="380" fill={accentStroke} class="geo-fade geo-stagger-2" />
+        {/* search index — vertical hatch on the right */}
+        <g class="geo-fade geo-stagger-3" stroke="var(--color-ink-subtle)" stroke-width="1">
+          {Array.from({ length: 28 }).map((_, i) => (
+            <line
+              x1={1000 + (i % 14) * 28}
+              y1={i < 14 ? 240 : 420}
+              x2={1000 + (i % 14) * 28}
+              y2={i < 14 ? 380 : 580}
+            />
+          ))}
+        </g>
+      </>
+    )}
+
+    {/* === yeneta-master — seat grid (students) + two campus circles === */}
+    {slug === "yeneta-master" && (
+      <>
+        {/* student grid */}
+        <g class="geo-fade">
+          {Array.from({ length: 18 }).flatMap((_, x) =>
+            Array.from({ length: 9 }).map((_, y) => (
+              <rect
+                x={200 + x * 50}
+                y={140 + y * 50}
+                width="14"
+                height="14"
+                rx="2"
+                fill="var(--color-line-strong)"
+              />
+            )),
+          )}
+        </g>
+        {/* campus rings */}
+        <g class="geo-draw" style="--geo-len: 2400;" stroke={accentStroke} stroke-width="2.5" fill="none">
+          <circle cx="420" cy="400" r="160" />
+          <circle cx="1080" cy="400" r="160" />
+        </g>
+        {/* campus labels — dots */}
+        <g class="geo-fade geo-stagger-3">
+          <circle cx="420" cy="400" r="10" fill={accentStroke} />
+          <circle cx="1080" cy="400" r="10" fill={accentStroke} />
+        </g>
+      </>
+    )}
+
+    {/* === classic-noodle — bowl arc + chopsticks + menu grid === */}
+    {slug === "classic-noodle" && (
+      <>
+        <g class="geo-draw" style="--geo-len: 2600;" stroke="var(--color-ink)" stroke-width="3" fill="none">
+          {/* bowl */}
+          <path d="M 480 420 Q 800 720 1120 420" stroke-linecap="round" />
+          {/* bowl rim */}
+          <ellipse cx="800" cy="420" rx="320" ry="40" />
+          {/* steam */}
+          <path d="M 720 380 Q 740 320 720 260" stroke-linecap="round" />
+          <path d="M 800 380 Q 820 310 800 240" stroke-linecap="round" />
+          <path d="M 880 380 Q 900 320 880 260" stroke-linecap="round" />
+        </g>
+        {/* chopsticks */}
+        <g class="geo-fade geo-stagger-2" stroke={accentStroke} stroke-width="4" stroke-linecap="round">
+          <line x1="380" y1="180" x2="900" y2="500" />
+          <line x1="420" y1="160" x2="940" y2="480" />
+        </g>
+        {/* menu grid bottom right */}
+        <g class="geo-fade geo-stagger-3">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <rect
+              x={1240 + (i % 3) * 36}
+              y={620 + Math.floor(i / 3) * 36}
+              width="24"
+              height="24"
+              rx="3"
+              fill="none"
+              stroke="var(--color-ink)"
+              stroke-width="1.5"
+            />
+          ))}
+        </g>
+      </>
+    )}
+
+    {/* === doxa — layered offset rectangles (NDA-safe abstraction) === */}
+    {slug === "doxa" && (
+      <>
+        <g class="geo-draw" style="--geo-len: 3200;" stroke="var(--color-ink)" stroke-width="2" fill="none">
+          <rect x="280" y="180" width="640" height="440" rx="10" />
+          <rect x="360" y="220" width="640" height="440" rx="10" />
+          <rect x="440" y="260" width="640" height="440" rx="10" />
+        </g>
+        <rect x="520" y="300" width="640" height="440" rx="10" fill={accentStroke} class="geo-fade geo-stagger-2" />
+        {/* vertical guide lines */}
+        <g class="geo-fade geo-stagger-3" stroke="var(--color-line-strong)" stroke-width="1">
+          {[160, 260, 1300, 1400].map((x) => (
+            <line x1={x} y1="120" x2={x} y2="680" stroke-dasharray="4 6" />
+          ))}
+        </g>
+      </>
+    )}
+  </svg>
+
+  <!-- Title + metric overlay -->
+  <div class="relative z-10 flex h-full w-full items-end justify-between p-8 md:p-12">
+    <div class="font-display text-5xl tracking-tight text-ink/85 md:text-7xl">
+      {title.split(" ")[0]}
+    </div>
+    {
+      metric && (
+        <div class="rounded-full border border-line bg-bg/80 px-3 py-1 text-xs font-medium text-ink-muted backdrop-blur-sm">
+          {metric}
+        </div>
+      )
+    }
+  </div>
+</div>

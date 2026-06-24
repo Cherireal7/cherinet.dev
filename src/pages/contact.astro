@@ -1,0 +1,216 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../lib/site";
+
+// To enable form submission, set FORMSPREE_ID below or in `src/lib/site.ts`.
+// Until then the form falls back to opening the user's mail client.
+const FORMSPREE_ID = ""; // e.g. "xayblzpr"
+const action = FORMSPREE_ID ? `https://formspree.io/f/${FORMSPREE_ID}` : "";
+---
+
+<BaseLayout
+  title="Contact"
+  description={`Send a note to ${site.name} about roles, projects, or anything else.`}
+  current="Contact"
+>
+  <!-- Hero -->
+  <section class="px-6 pb-12 pt-36 md:px-10 md:pb-20 md:pt-44">
+    <div class="mx-auto max-w-6xl">
+      <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Contact</p>
+      <h1
+        class="mt-6 max-w-4xl font-display font-medium leading-[1.02] tracking-[-0.03em] text-ink"
+        style="font-size: var(--text-display-xl);"
+      >
+        Tell me what
+        <span class="italic text-ink-muted">you&rsquo;re building.</span>
+      </h1>
+      <p class="mt-8 max-w-2xl text-lg leading-relaxed text-ink-muted">
+        Roles, projects, collaborations, theological arguments — all welcome. I read every message and reply within a couple of working days.
+      </p>
+    </div>
+  </section>
+
+  <!-- Form + sidebar -->
+  <section class="px-6 pb-24 md:px-10 md:pb-32">
+    <div class="mx-auto grid max-w-6xl gap-12 md:grid-cols-12">
+      <div class="md:col-span-7">
+        <form
+          data-contact-form
+          method="POST"
+          action={action}
+          class="rounded-2xl border border-line bg-bg-elevated p-6 md:p-8"
+          novalidate
+        >
+          <div class="grid gap-5 md:grid-cols-2 md:gap-6">
+            <label class="block">
+              <span class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Your name</span>
+              <input
+                name="name"
+                type="text"
+                required
+                autocomplete="name"
+                class="mt-2 block w-full rounded-lg border border-line bg-bg px-4 py-3 text-base text-ink outline-none transition-colors placeholder:text-ink-subtle focus:border-line-strong focus:ring-2 focus:ring-accent/30"
+                placeholder="Cherinet Demeke"
+              />
+            </label>
+            <label class="block">
+              <span class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Email</span>
+              <input
+                name="email"
+                type="email"
+                required
+                autocomplete="email"
+                class="mt-2 block w-full rounded-lg border border-line bg-bg px-4 py-3 text-base text-ink outline-none transition-colors placeholder:text-ink-subtle focus:border-line-strong focus:ring-2 focus:ring-accent/30"
+                placeholder="you@company.com"
+              />
+            </label>
+          </div>
+          <label class="mt-5 block md:mt-6">
+            <span class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Subject</span>
+            <select
+              name="subject"
+              class="mt-2 block w-full rounded-lg border border-line bg-bg px-4 py-3 text-base text-ink outline-none transition-colors focus:border-line-strong focus:ring-2 focus:ring-accent/30"
+            >
+              <option>A role / opportunity</option>
+              <option>A project / collaboration</option>
+              <option>A question about a case study</option>
+              <option>Writing / theology / reading</option>
+              <option>Something else</option>
+            </select>
+          </label>
+          <label class="mt-5 block md:mt-6">
+            <span class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Message</span>
+            <textarea
+              name="message"
+              rows="6"
+              required
+              class="mt-2 block w-full rounded-lg border border-line bg-bg px-4 py-3 text-base text-ink outline-none transition-colors placeholder:text-ink-subtle focus:border-line-strong focus:ring-2 focus:ring-accent/30"
+              placeholder="A sentence or three is plenty to start."
+            ></textarea>
+          </label>
+
+          <!-- Honeypot -->
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+          <div class="mt-7 flex items-center justify-between gap-4">
+            <p class="text-xs text-ink-subtle" data-form-hint>
+              No newsletters. No follow-up spam.
+            </p>
+            <button
+              type="submit"
+              class="inline-flex cursor-pointer items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-bg transition-colors hover:bg-accent disabled:opacity-60"
+              data-submit
+            >
+              <span data-label>Send message</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+
+          <div data-form-success class="mt-6 hidden rounded-lg border border-accent/40 bg-accent/5 p-4 text-sm text-accent">
+            Sent — I&rsquo;ll get back to you within a couple of working days.
+          </div>
+          <div data-form-error class="mt-6 hidden rounded-lg border border-red-300 bg-red-50 p-4 text-sm text-red-700 dark:border-red-500/40 dark:bg-red-500/10 dark:text-red-300">
+            Couldn&rsquo;t send — try emailing me directly at <a href={`mailto:${site.email}`} class="underline">{site.email}</a>.
+          </div>
+        </form>
+      </div>
+
+      <aside class="md:col-span-5">
+        <div class="space-y-8">
+          <div>
+            <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Direct</p>
+            <ul class="mt-4 space-y-3 text-base">
+              <li>
+                <a href={`mailto:${site.email}`} class="text-ink accent-underline">{site.email}</a>
+              </li>
+              <li class="text-ink-muted">{site.phone}</li>
+              <li class="text-ink-muted">{site.location}</li>
+            </ul>
+          </div>
+
+          <div>
+            <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Best for</p>
+            <ul class="mt-4 space-y-3 text-base text-ink-muted">
+              <li class="flex gap-3">
+                <span class="mt-2 size-1.5 shrink-0 rounded-full bg-accent"></span>
+                Senior frontend / full-stack roles, remote
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-2 size-1.5 shrink-0 rounded-full bg-accent"></span>
+                Design + engineering on a single product
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-2 size-1.5 shrink-0 rounded-full bg-accent"></span>
+                Mission and faith-based product work
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-2 size-1.5 shrink-0 rounded-full bg-accent"></span>
+                Anything Ethiopia-tech adjacent
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Response time</p>
+            <p class="mt-4 text-base text-ink-muted">Within two working days. East African time (UTC+3).</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <script is:inline>
+    (function () {
+      const form = document.querySelector("[data-contact-form]");
+      if (!form) return;
+      const submitBtn = form.querySelector("[data-submit]");
+      const label = form.querySelector("[data-label]");
+      const success = form.querySelector("[data-form-success]");
+      const error = form.querySelector("[data-form-error]");
+      const hint = form.querySelector("[data-form-hint]");
+      const mailto = "mailto:cheridemeke7@gmail.com";
+
+      form.addEventListener("submit", async (e) => {
+        if (!form.action) {
+          // Fallback: open mail client with composed message
+          e.preventDefault();
+          const data = new FormData(form);
+          const subject = encodeURIComponent("[Portfolio] " + (data.get("subject") || "Hello"));
+          const body = encodeURIComponent(
+            `From: ${data.get("name") || ""} <${data.get("email") || ""}>\n\n${data.get("message") || ""}`,
+          );
+          window.location.href = `${mailto}?subject=${subject}&body=${body}`;
+          return;
+        }
+
+        e.preventDefault();
+        success.classList.add("hidden");
+        error.classList.add("hidden");
+        if (submitBtn) submitBtn.disabled = true;
+        if (label) label.textContent = "Sending…";
+
+        try {
+          const res = await fetch(form.action, {
+            method: "POST",
+            body: new FormData(form),
+            headers: { Accept: "application/json" },
+          });
+          if (res.ok) {
+            form.reset();
+            success.classList.remove("hidden");
+            if (hint) hint.textContent = "Thanks for the note.";
+          } else {
+            throw new Error("bad response");
+          }
+        } catch (_) {
+          error.classList.remove("hidden");
+        } finally {
+          if (submitBtn) submitBtn.disabled = false;
+          if (label) label.textContent = "Send message";
+        }
+      });
+    })();
+  </script>
+</BaseLayout>

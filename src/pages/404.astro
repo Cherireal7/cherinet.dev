@@ -1,0 +1,71 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../lib/site";
+
+const suggestions = [
+  { label: "Selected work", href: "/work", note: "Case studies + an index of everything." },
+  { label: "About", href: "/about", note: "The longer story and the timeline." },
+  { label: "Now", href: "/now", note: "What I'm building this month." },
+  { label: "Writing", href: "/writing", note: "Notes, when I have something to say." },
+  { label: "Contact", href: "/contact", note: "The fastest way to reach me." },
+];
+---
+
+<BaseLayout
+  title="Not found"
+  description="The page you asked for is missing — but here is where to go next."
+  current="404"
+>
+  <section class="px-6 pb-24 pt-44 md:px-10 md:pb-32 md:pt-56">
+    <div class="mx-auto max-w-3xl">
+      <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">404 · Not found</p>
+      <h1
+        class="mt-6 font-display font-medium leading-[0.95] tracking-[-0.03em] text-ink"
+        style="font-size: var(--text-display-2xl);"
+      >
+        404.
+        <span class="italic text-ink-muted">Nothing here.</span>
+      </h1>
+      <p class="mt-10 max-w-xl text-lg leading-relaxed text-ink-muted">
+        Either the link is old, or something I shipped was wrong. If it&rsquo;s the second, I&rsquo;d like to know — drop me a note and I&rsquo;ll fix it.
+      </p>
+
+      <div class="mt-10 flex flex-wrap items-center gap-3">
+        <a
+          href="/"
+          class="inline-flex cursor-pointer items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-bg transition-colors hover:bg-accent"
+        >
+          Back to home
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7"></path>
+          </svg>
+        </a>
+        <a
+          href={`mailto:${site.email}?subject=${encodeURIComponent("[Portfolio] broken link")}`}
+          class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line bg-bg-elevated px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-line-strong"
+        >
+          Report the broken link
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-line bg-bg-elevated px-6 py-20 md:px-10 md:py-24">
+    <div class="mx-auto max-w-3xl">
+      <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Try one of these instead</p>
+      <ul class="mt-8 divide-y divide-line border-t border-line">
+        {suggestions.map((s) => (
+          <li>
+            <a href={s.href} class="group flex items-baseline justify-between gap-6 py-5 transition-colors">
+              <span class="font-display text-xl tracking-tight text-ink transition-colors group-hover:text-accent md:text-2xl">
+                {s.label}
+              </span>
+              <span class="hidden text-sm text-ink-muted md:inline">{s.note}</span>
+              <span class="text-ink-muted transition-transform group-hover:translate-x-1 group-hover:text-accent" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

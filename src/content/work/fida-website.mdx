@@ -1,0 +1,38 @@
+---
+title: "FIDA Website"
+subtitle: "Marketing site and Telegram Mini App for the FIDA brand — with a live Leaflet coverage map and a shared component library."
+year: "2026"
+role: "Designer & engineer"
+stack: ["Next.js 16", "Tailwind v4", "Leaflet", "TypeScript"]
+summary: "The FIDA website is two surfaces sharing a brand: a public marketing site at fidadelivery.et and a Telegram Mini App that lives inside the messenger most Ethiopians actually use."
+accent: "blue"
+order: 3
+---
+
+## Two surfaces, one brand
+
+FIDA has a customer app and a rider app, but the first contact most people have with the brand is a Telegram message from a friend or a Google search for *"delivery Bishoftu"*. The marketing site has to handle both — a desktop recruiter scanning for "is this real?" and a phone user opening a Telegram link.
+
+The Telegram Mini App is the wedge for users who will not install another app. It runs the same booking flow as the customer app, restricted to what makes sense inside the messenger.
+
+## The map decision
+
+Coverage on a delivery brand's home page is not a decoration — it is the single question every visitor is asking: *do you serve me?* I built the coverage view on Leaflet (not Mapbox or Google Maps) because Leaflet has no SDK pricing, runs the same on Telegram in-app browser as it does on Chrome, and lets me ship a custom tile set keyed to FIDA's brand palette.
+
+The map shows live coverage polygons, per-area lead times, and a single "Request expansion" pin when a user taps outside the served zone. That pin posts straight to ops.
+
+## Component library
+
+The site shares its primitives — Button, Card, Input, Badge, plus a `CoverageMap` and a `PricingTier` — with the broader FIDA system. The same Button looks like the same Button in the customer app, the rider app, the marketing site, and the Mini App. This was deliberate: brand legibility is built by repetition, not by inventing each surface from scratch.
+
+## What it ships
+
+- Marketing pages with bilingual content
+- Live coverage view backed by the same coverage API the customer app uses
+- Telegram Mini App entry point with auth via Telegram WebApp
+- Lead capture for areas outside current coverage
+- Editor-driven content blocks so non-engineers can edit news and announcements
+
+## Why Next 16 + Tailwind v4
+
+Tailwind v4 collapses theming into CSS variables, which means the marketing site, the Mini App, and (soon) shared web touchpoints can all draw from the same `theme.css` without a build-time bridge. Next 16 brings PPR and improved cache primitives — both matter when the homepage is the SEO surface for the brand.

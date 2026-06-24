@@ -1,0 +1,212 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../lib/site";
+
+const timeline = [
+  {
+    year: "2024 — present",
+    title: "Co-founder & Senior Frontend Engineer",
+    org: "Doxa Innovations · Bishoftu",
+    body: "Co-founded Doxa and lead frontend on greenfield product work and system recoveries. Own design tokens, component libraries, and release engineering across React and React Native. Most engagements are under NDA — details on request.",
+  },
+  {
+    year: "2025 — present",
+    title: "Co-founder · design + engineering",
+    org: "FIDA Delivery",
+    body: "Co-founded FIDA and own design and engineering across the customer + rider Expo apps, the marketing site, and the Telegram Mini App. One operator across two production apps and a public surface.",
+  },
+  {
+    year: "2025 — present",
+    title: "Frontend lead",
+    org: "BizBridge Ethiopia · founding team",
+    body: "Frontend lead on a freemium business-setup platform covering 519 sectors, with bilingual content, expert booking, and payments.",
+  },
+  {
+    year: "2024 — present",
+    title: "Digital product & content",
+    org: "Classic Noodle & Burger",
+    body: "Built the digital surface — ordering channel, content rhythm, analytics — for a Bishoftu restaurant. Online orders grew ~40% off a small base.",
+  },
+  {
+    year: "2023 — 2024",
+    title: "UI/UX Designer (Internship → Contract)",
+    org: "Bishoftu studios",
+    body: "Moved from operations into design. Shipped product surfaces in Figma, built component libraries, and started writing frontend code in earnest.",
+  },
+  {
+    year: "2021 — 2024",
+    title: "Systems & Operations Lead",
+    org: "Yeneta Master Rollout",
+    body: "Implemented a school management platform across two campuses serving 1,000+ students. Data migration, training, daily support, trust-building with administrators.",
+  },
+];
+
+const principles = [
+  {
+    h: "Ship the channel that works at the worst moment.",
+    p: "Onboarding on a four-year-old Android, on 3G, after a long day — that is the design constraint that matters. Anything that survives that holds up everywhere else.",
+  },
+  {
+    h: "Edge cases are the product.",
+    p: "The default flow is what the demo shows. The hundred branches off that flow are what the user actually experiences over a year. If you do not design for those, you do not have a product.",
+  },
+  {
+    h: "Tokens before hex.",
+    p: "Theming, dark mode, and brand evolution should be one file change away. If you find yourself grepping for `#2563EB`, the system already broke.",
+  },
+  {
+    h: "Trust is earned weekly.",
+    p: "Real users do not adopt because the screen is pretty. They adopt because, week after week, the screen did not lie to them.",
+  },
+];
+---
+
+<BaseLayout title="About" description={`About ${site.name} — ${site.role} based in ${site.location}.`} current="About">
+  <!-- Hero -->
+  <section class="px-6 pb-16 pt-36 md:px-10 md:pb-24 md:pt-44">
+    <div class="mx-auto max-w-6xl">
+      <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">About</p>
+      <h1
+        class="mt-6 max-w-4xl font-display font-medium leading-[1.02] tracking-[-0.03em] text-ink"
+        style="font-size: var(--text-display-xl);"
+      >
+        I design systems —
+        <span class="italic text-ink-muted">then I build them.</span>
+      </h1>
+
+      <div class="mt-12 grid max-w-4xl gap-8 md:grid-cols-12">
+        <div class="md:col-span-8">
+          <p class="text-lg leading-relaxed text-ink-muted md:text-xl">
+            I'm Cherinet — co-founder of <span class="text-ink">Doxa Innovations</span> and <span class="text-ink">FIDA Delivery</span>, based in {site.location}. My path runs operations → UI/UX → product engineering, and the work I'm proudest of is the work where all three meet.
+          </p>
+          <p class="mt-5 text-lg leading-relaxed text-ink-muted">
+            For me, UI/UX isn't the Figma file — it's the full loop. I run <span class="text-ink">customer interviews and surveys</span> (we shipped a 2026 community survey in Bishoftu before drawing a screen), <span class="text-ink">competitor and market analysis</span>, <span class="text-ink">blue / red ocean positioning</span>, and then the design system, the React Native app, the SEO and analytics, and the funnel review that tells us whether any of it worked.
+          </p>
+          <p class="mt-5 text-lg leading-relaxed text-ink-muted">
+            At Doxa I lead frontend architecture. At FIDA I designed and shipped both apps end-to-end and run the marketing site. Day-to-day I work directly with founders and NGO leadership to turn vague requirements into shipped product.
+          </p>
+          <p class="mt-5 max-w-xl rounded-xl border border-line bg-bg-elevated p-5 text-[15px] leading-relaxed text-ink-muted">
+            <span class="text-ink">A note for hiring teams:</span> co-founder is an identity, not a calendar block. Both companies are at the stage where my contribution can compress to advisory + part-time. I&rsquo;m looking for one senior role with the bandwidth to fully commit.
+          </p>
+        </div>
+
+        <aside class="md:col-span-4">
+          <dl class="space-y-5 rounded-2xl border border-line bg-bg-elevated p-6">
+            <div>
+              <dt class="text-xs uppercase tracking-widest text-ink-subtle">Based</dt>
+              <dd class="mt-1 text-sm text-ink">{site.location}</dd>
+            </div>
+            <div>
+              <dt class="text-xs uppercase tracking-widest text-ink-subtle">Open to</dt>
+              <dd class="mt-1 text-sm text-ink">{site.availability}</dd>
+            </div>
+            <div>
+              <dt class="text-xs uppercase tracking-widest text-ink-subtle">Reach</dt>
+              <dd class="mt-1">
+                <a href={`mailto:${site.email}`} class="text-sm text-ink accent-underline">{site.email}</a>
+              </dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Principles -->
+  <section class="border-t border-line bg-bg-elevated px-6 py-20 md:px-10 md:py-28">
+    <div class="mx-auto grid max-w-6xl gap-10 md:grid-cols-12">
+      <div class="md:col-span-4">
+        <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">01 — How I work</p>
+        <h2
+          class="mt-4 font-display font-medium tracking-tight text-ink"
+          style="font-size: var(--text-display-lg);"
+        >
+          Four principles that survived two years of shipping.
+        </h2>
+      </div>
+      <div class="md:col-span-8">
+        <ol class="grid gap-6 md:grid-cols-2">
+          {
+            principles.map((p, i) => (
+              <li class="reveal flex flex-col gap-2 rounded-xl border border-line bg-bg p-6">
+                <span class="text-xs uppercase tracking-widest text-ink-subtle">{String(i + 1).padStart(2, "0")}</span>
+                <h3 class="font-display text-xl leading-tight tracking-tight text-ink md:text-2xl">{p.h}</h3>
+                <p class="mt-1 text-sm leading-relaxed text-ink-muted md:text-[15px]">{p.p}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="px-6 py-20 md:px-10 md:py-28">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-12 grid gap-6 md:grid-cols-12">
+        <div class="md:col-span-4">
+          <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">02 — Path</p>
+        </div>
+        <div class="md:col-span-8">
+          <h2
+            class="font-display font-medium tracking-tight text-ink"
+            style="font-size: var(--text-display-lg);"
+          >
+            From systems implementation to product engineering.
+          </h2>
+        </div>
+      </div>
+
+      <ol class="space-y-0 border-t border-line">
+        {
+          timeline.map((item) => (
+            <li class="reveal grid gap-4 border-b border-line py-8 md:grid-cols-12 md:gap-8">
+              <div class="md:col-span-3">
+                <p class="text-xs uppercase tracking-widest text-ink-subtle">{item.year}</p>
+              </div>
+              <div class="md:col-span-9">
+                <h3 class="font-display text-xl font-medium leading-tight tracking-tight text-ink md:text-2xl">
+                  {item.title}
+                </h3>
+                <p class="mt-1 text-sm text-ink-muted">{item.org}</p>
+                <p class="mt-4 max-w-2xl text-[15px] leading-relaxed text-ink-muted">{item.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Closing CTA -->
+  <section class="border-t border-line bg-bg-elevated px-6 py-20 md:px-10 md:py-28">
+    <div class="mx-auto max-w-6xl">
+      <div class="grid gap-8 md:grid-cols-12">
+        <div class="md:col-span-7">
+          <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">03 — Talk</p>
+          <h2
+            class="mt-4 font-display font-medium leading-[1.02] tracking-tight text-ink"
+            style="font-size: var(--text-display-xl);"
+          >
+            Want the longer story?
+          </h2>
+          <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-muted">
+            I'm happy to walk through a specific project, share code, or talk about the role you're hiring for. Email is the fastest way to reach me.
+          </p>
+        </div>
+        <div class="flex flex-col gap-3 md:col-span-5 md:justify-end">
+          <a
+            href={`mailto:${site.email}`}
+            class="inline-flex items-center justify-between gap-2 rounded-full bg-ink px-5 py-3 text-sm font-medium text-bg transition-colors hover:bg-accent"
+          >
+            <span>{site.email}</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 5l7 7-7 7"></path>
+            </svg>
+          </a>
+          <a href="/cv" class="text-sm text-ink-muted accent-underline hover:text-ink">Or read the CV →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

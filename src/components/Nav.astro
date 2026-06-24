@@ -1,0 +1,158 @@
+---
+import { nav, site } from "../lib/site";
+import ThemeToggle from "./ThemeToggle.astro";
+
+interface Props {
+  current?: string;
+}
+
+const { current } = Astro.props;
+---
+
+<header
+  class="fixed inset-x-4 top-4 z-50 mx-auto flex max-w-6xl items-center justify-between rounded-full border border-line bg-bg-elevated/80 px-4 py-2.5 backdrop-blur-md md:px-6"
+  data-nav
+>
+  <a
+    href="/"
+    class="flex items-center gap-2 text-sm font-medium tracking-tight text-ink"
+  >
+    <span class="inline-block size-2 rounded-full bg-accent" aria-hidden="true"></span>
+    <span>{site.shortName}</span>
+  </a>
+
+  <!-- Desktop / tablet primary nav -->
+  <nav aria-label="Primary" class="hidden md:block">
+    <ul class="flex items-center gap-1 text-sm">
+      {
+        nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              aria-current={current === item.label ? "page" : undefined}
+              class="rounded-full px-3 py-1.5 text-ink-muted transition-colors hover:bg-line/60 hover:text-ink aria-[current=page]:text-ink"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  <div class="flex items-center gap-1.5 md:gap-2">
+    <ThemeToggle />
+
+    <!-- Desktop / tablet CTA -->
+    <a
+      href="/contact"
+      class="hidden cursor-pointer items-center gap-1.5 rounded-full bg-ink px-3.5 py-1.5 text-sm font-medium text-bg transition-colors hover:bg-accent md:inline-flex"
+    >
+      Get in touch
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 12h14M13 5l7 7-7 7"></path>
+      </svg>
+    </a>
+
+    <!-- Mobile menu trigger -->
+    <button
+      type="button"
+      data-mobile-trigger
+      aria-label="Open menu"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+      class="inline-flex size-9 cursor-pointer items-center justify-center rounded-full border border-line text-ink transition-colors hover:bg-line/60 md:hidden"
+    >
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="4" x2="20" y1="7" y2="7"></line>
+        <line x1="4" x2="20" y1="17" y2="17"></line>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div
+  id="mobile-menu"
+  data-mobile-menu
+  hidden
+  class="fixed inset-0 z-[60] flex flex-col bg-bg/95 px-6 pb-10 pt-6 backdrop-blur-xl md:hidden"
+>
+  <div class="flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2 text-sm font-medium tracking-tight text-ink">
+      <span class="inline-block size-2 rounded-full bg-accent" aria-hidden="true"></span>
+      <span>{site.shortName}</span>
+    </a>
+    <button
+      type="button"
+      data-mobile-close
+      aria-label="Close menu"
+      class="inline-flex size-9 cursor-pointer items-center justify-center rounded-full border border-line text-ink transition-colors hover:bg-line/60"
+    >
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 6 6 18M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+
+  <nav aria-label="Mobile" class="mt-12 flex-1">
+    <ul class="flex flex-col gap-2 text-3xl font-display tracking-tight">
+      {
+        nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              aria-current={current === item.label ? "page" : undefined}
+              class="block rounded-lg px-2 py-2 text-ink-muted transition-colors hover:text-accent aria-[current=page]:text-ink"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  <div class="mt-8 flex flex-col gap-3 border-t border-line pt-8">
+    <a
+      href="/contact"
+      class="inline-flex w-full cursor-pointer items-center justify-between gap-2 rounded-full bg-ink px-5 py-3 text-sm font-medium text-bg transition-colors hover:bg-accent"
+    >
+      <span>Get in touch</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 12h14M13 5l7 7-7 7"></path>
+      </svg>
+    </a>
+    <a href={`mailto:${site.email}`} class="text-sm text-ink-muted accent-underline">
+      {site.email}
+    </a>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    const trigger = document.querySelector("[data-mobile-trigger]");
+    const menu = document.querySelector("[data-mobile-menu]");
+    const close = document.querySelector("[data-mobile-close]");
+    if (!trigger || !menu) return;
+
+    const open = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+      document.documentElement.style.overflow = "hidden";
+    };
+    const shut = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+      document.documentElement.style.overflow = "";
+    };
+
+    trigger.addEventListener("click", open);
+    close?.addEventListener("click", shut);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !menu.hidden) shut();
+    });
+    // Close after navigation
+    menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", shut));
+  })();
+</script>

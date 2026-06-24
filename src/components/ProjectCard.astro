@@ -1,0 +1,180 @@
+---
+import type { Project } from "../lib/projects";
+import { img, imgKind } from "../lib/images";
+
+interface Props {
+  project: Project;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const kind = imgKind(project.image);
+const logoBg =
+  project.accent === "blue"
+    ? "linear-gradient(135deg, #eff6ff 0%, #f8fafc 60%, #ffffff 100%)"
+    : "linear-gradient(135deg, #f4f4f5 0%, #fafafa 60%, #ffffff 100%)";
+
+const href =
+  project.status === "case-study"
+    ? `/work/${project.slug}`
+    : project.status === "external"
+      ? project.external
+      : undefined;
+
+const Tag = href ? "a" : "div";
+
+const spanClass =
+  project.span === "wide"
+    ? "md:col-span-2"
+    : project.span === "tall"
+      ? "md:row-span-2"
+      : "";
+
+const accentRail =
+  project.accent === "blue"
+    ? "bg-accent"
+    : "bg-ink";
+
+const isExternal = project.status === "external";
+const aspect = project.span === "wide" ? "aspect-[16/8]" : "aspect-[16/10]";
+const imgWidth = project.span === "wide" ? 2000 : 1400;
+---
+
+<Tag
+  href={href}
+  target={isExternal ? "_blank" : undefined}
+  rel={isExternal ? "noopener noreferrer" : undefined}
+  class:list={[
+    "reveal group relative flex flex-col overflow-hidden rounded-lg border border-line bg-bg-elevated p-6 transition-all duration-300 md:rounded-xl md:p-8",
+    href &&
+      "cursor-pointer hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_20px_40px_-20px_rgb(24,24,27,0.18)]",
+    spanClass,
+  ]}
+  style={`transition-delay: ${index * 60}ms;`}
+  aria-label={href ? `${project.title} — ${isExternal ? "visit live site" : "read case study"}` : project.title}
+>
+  <div
+    class:list={["relative w-full overflow-hidden rounded-md md:rounded-lg", aspect]}
+    style={kind === "logo" ? `background: ${logoBg};` : undefined}
+  >
+    {
+      kind === "logo" ? (
+        <div class="absolute inset-0 grid place-items-center p-8 md:p-10">
+          <img
+            src={img(project.image)}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            class="max-h-[78%] max-w-[68%] object-contain transition-transform duration-700 group-hover:scale-[1.05]"
+          />
+        </div>
+      ) : (
+        <>
+          <img
+            src={img(project.image, { w: imgWidth, q: 78 })}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            class="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-tr from-zinc-900/40 via-zinc-900/10 to-transparent"
+            aria-hidden="true"
+          />
+        </>
+      )
+    }
+    <span
+      class:list={[
+        "absolute left-0 top-0 h-1 w-12 transition-all duration-500 group-hover:w-32",
+        accentRail,
+      ]}
+    ></span>
+
+    {kind === "photo" && (
+      <div class="absolute inset-x-0 bottom-0 flex items-end justify-between p-4 md:p-5">
+        <div class="font-display text-2xl tracking-tight text-white drop-shadow-sm md:text-3xl">
+          {project.title.split(" ")[0]}
+        </div>
+        <div class="rounded-full bg-white/15 px-2.5 py-1 text-[10px] uppercase tracking-widest text-white backdrop-blur-md">
+          {project.year.split(" ")[0]}
+        </div>
+      </div>
+    )}
+
+    {kind === "logo" && (
+      <div class="absolute inset-x-0 bottom-0 flex items-end justify-end p-4 md:p-5">
+        <div class="rounded-full border border-line bg-bg/80 px-2.5 py-1 text-[10px] uppercase tracking-widest text-ink-muted backdrop-blur-md">
+          {project.year.split(" ")[0]}
+        </div>
+      </div>
+    )}
+
+    {isExternal && (
+      <div class:list={[
+        "absolute right-3 top-3 inline-flex items-center gap-1 rounded-full px-2 py-1 text-[10px] font-medium uppercase tracking-widest shadow-sm",
+        kind === "logo" ? "border border-line bg-bg text-ink" : "bg-white/85 text-ink",
+      ]}>
+        Live
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M7 17 17 7M9 7h8v8" />
+        </svg>
+      </div>
+    )}
+  </div>
+
+  <div class="mt-6 flex flex-1 flex-col">
+    <div class="flex items-baseline justify-between gap-4">
+      <h3 class="text-lg font-medium tracking-tight text-ink md:text-xl">
+        {project.title}
+      </h3>
+      {
+        project.metric && (
+          <span class="shrink-0 rounded-full border border-line bg-bg px-2.5 py-0.5 text-[11px] font-medium text-ink-muted">
+            {project.metric}
+          </span>
+        )
+      }
+    </div>
+
+    <p class="mt-2 text-sm leading-relaxed text-ink-muted md:text-[15px]">
+      {project.subtitle}
+    </p>
+
+    <div class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[11px] uppercase tracking-widest text-ink-subtle">
+      {project.stack.map((s) => <span>{s}</span>)}
+    </div>
+
+    {
+      href && (
+        <div class="mt-6 flex items-center gap-1.5 text-sm font-medium text-ink-muted transition-colors group-hover:text-accent">
+          <span>
+            {isExternal ? "Visit live site" : "Read case study"}
+          </span>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="transition-transform group-hover:translate-x-1"
+            aria-hidden="true"
+          >
+            <path d="M5 12h14M13 5l7 7-7 7" />
+          </svg>
+        </div>
+      )
+    }
+
+    {
+      project.status === "placeholder" && (
+        <div class="mt-6 text-sm font-medium text-ink-subtle">
+          By request →
+        </div>
+      )
+    }
+  </div>
+</Tag>

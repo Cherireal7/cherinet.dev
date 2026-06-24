@@ -1,0 +1,47 @@
+---
+title: "Dr. Brug Archive"
+subtitle: "A searchable online archive for the writings of Dr. John F. Brug — Lutheran theologian — rendered as a quiet, scholarly reading environment instead of a database front-end."
+year: "2025"
+role: "Designer & engineer"
+stack: ["Next.js", "MDX", "Search", "TypeScript"]
+summary: "Dr. Brug's writings — exegetical essays, devotional pieces, and correspondence — were scattered across PDFs, paper, and a couple of expired blogs. The archive consolidates them into one structured, searchable, citation-clean reading environment built to last a decade."
+accent: "ink"
+order: 5
+---
+
+## Why an archive at all
+
+There is a particular shape of work that does not survive its author: the scholar-pastor who writes carefully, publishes in small journals, and corresponds with two generations of students. The output is real and substantial, but the distribution is incidental. Within ten years of the author's death, most of it is unfindable.
+
+The Dr. Brug Archive is a small attempt at the opposite. The goal is not to make Dr. Brug famous; it is to make his work *citeable* — by a graduate student in 2035, on a phone, in a country with bad bandwidth, without paying anyone.
+
+## The design problem
+
+A reading site has a single hard problem: **render long-form text that wants to be respected, not scrolled past.** Everything else is downstream.
+
+I started from three references I trust:
+
+1. The typography of mid-century scholarly journals — generous leading, narrow measure, conservative type scale.
+2. The information density of an old encyclopedia entry — small typographic hierarchy, lots of nesting.
+3. The reading affordances of modern reading apps — sticky table of contents, persistent search, citation copy.
+
+The result lands on a single column at roughly 64 characters per line, set in a humanist serif at 17px, with a 1.7 line-height. Footnotes are sidenotes on desktop, expandable inline on mobile. There is no hero image on a writing page — just the title, a date, and the body.
+
+## Search that actually works
+
+A search field on an archive that returns ten irrelevant results is worse than no search field. I shipped two passes:
+
+- **Pass one**: a client-side index over titles, subtitles, and the first paragraph of every piece. Fast, no backend, good enough for navigation.
+- **Pass two**: a full-text index over the body, with a small ranking function that boosts exact phrases and de-prioritizes common theological vocabulary that would otherwise dominate.
+
+Both are static — the entire archive ships as a single read-only build, so there is no ongoing infrastructure cost. A volunteer can take the GitHub repo, run `pnpm build`, and host the result on free static hosting for as long as static hosting exists.
+
+## The hardest part
+
+The hardest part was **deciding what to leave out**. Dr. Brug's papers include unfinished drafts, marginalia, and personal correspondence — material that is interesting to a biographer and inappropriate for an open archive. I built a simple two-tier system: a *published* collection that anyone can read, and a *reference* collection that requires a credential and is excluded from search and from the build output by default.
+
+That distinction sounds editorial, not technical, but it ended up driving most of the data model.
+
+## What's live
+
+The reading environment, the structured frontmatter for every piece, and the search index are all built and in private review with the family. A public soft-launch is planned for late 2026, coordinated with a foreword from a colleague who can speak to the work's scope.

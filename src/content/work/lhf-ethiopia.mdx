@@ -1,0 +1,33 @@
+---
+title: "Lutheran Hour Ethiopia"
+subtitle: "A mission organization's site for book distribution, podcast, events, and donor flows — designed for a Bible-belt sensibility, built on a modern stack."
+year: "2026"
+role: "Designer & engineer"
+stack: ["Next.js 16", "Tailwind v4", "TypeScript"]
+summary: "Lutheran Hour Ethiopia distributes Christian literature, runs a podcast, and hosts events across the country. The site is the connective tissue: it tells donors where their money goes, lets pastors order books, and surfaces upcoming events without feeling corporate."
+accent: "ink"
+order: 4
+---
+
+## Designing for a sensibility
+
+Mission organizations have a specific visual language — restrained, reverent, a little classical. The cheap version reads as a church bulletin; the expensive version reads as a 19th-century scholarly publisher. I aimed for the second.
+
+The palette settled on a deep **crimson** for emphasis, a **navy** for body chrome, and a quiet **teal** for the donate CTA — chosen so the "Donate" button reads as warm rather than salesy. Headings run in **Garamond**, body in a humanist sans, and the leading is generous enough to read like a printed page.
+
+## The four surfaces
+
+1. **Books** — a catalog of titles distributed by LHF, with order requests for pastors and bookstores.
+2. **Podcast** — episode index with show-notes pages, embedded player, and subscribe links.
+3. **Events** — upcoming retreats and conferences with registration and location maps.
+4. **Donate** — recurring and one-off giving, with a "where the money goes" breakdown to make the case before the form.
+
+Each surface is its own information design problem. A podcast page wants to feel like a print publication. An event page wants to feel like an invitation. A donate page wants to feel like a careful conversation, not a checkout.
+
+## What was hard
+
+The hardest part was **scope drift in slow motion**. The original brief was a book catalog. Halfway through, the podcast and events scope were added — each its own content model, each its own navigation pattern. The fix was less code and more documentation: a clear content map that the organization's editors could understand and own, so the site grew with them instead of becoming the engineer's pet.
+
+## What's live and what's next
+
+The marketing surfaces and book catalog are in production. The podcast index and donate flow are next, behind a feature flag for a soft launch tied to the ministry's next campaign.

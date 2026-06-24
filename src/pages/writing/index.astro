@@ -1,0 +1,103 @@
+---
+import { getCollection } from "astro:content";
+import readingTime from "reading-time";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const posts = (await getCollection("posts", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .map((post) => {
+    const stats = readingTime(post.body ?? "");
+    return {
+      post,
+      readLabel: `${Math.max(1, Math.round(stats.minutes))} min read`,
+    };
+  });
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+---
+
+<BaseLayout
+  title="Writing"
+  description="Essays and notes by Cherinet Demeke on frontend, design systems, and shipping software from Ethiopia."
+  current="Writing"
+>
+  <!-- Hero -->
+  <section class="px-6 pb-12 pt-36 md:px-10 md:pb-20 md:pt-44">
+    <div class="mx-auto max-w-6xl">
+      <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Writing</p>
+      <h1
+        class="mt-6 max-w-4xl font-display font-medium leading-[1.02] tracking-[-0.03em] text-ink"
+        style="font-size: var(--text-display-xl);"
+      >
+        Notes on building —
+        <span class="italic text-ink-muted">from a small city.</span>
+      </h1>
+      <p class="mt-8 max-w-2xl text-lg leading-relaxed text-ink-muted">
+        Short essays on frontend, design systems, and the practice of shipping product from Bishoftu. Sporadic; written when there is something specific worth saying.
+      </p>
+    </div>
+  </section>
+
+  <!-- Posts or empty state -->
+  <section class="px-6 pb-32 md:px-10">
+    <div class="mx-auto max-w-3xl">
+      {
+        posts.length === 0 ? (
+          <div class="reveal rounded-2xl border border-dashed border-line bg-bg-elevated p-10 text-center md:p-16">
+            <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Empty for now</p>
+            <h2
+              class="mt-4 font-display font-medium tracking-tight text-ink"
+              style="font-size: var(--text-display-lg);"
+            >
+              The first post is coming soon.
+            </h2>
+            <p class="mx-auto mt-6 max-w-md text-base leading-relaxed text-ink-muted">
+              I write less than I'd like — I'm shipping product instead. When something is worth a longer note, it'll land here.
+            </p>
+            <a
+              href="https://github.com/Cherireal7"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-8 inline-flex items-center gap-2 rounded-full border border-line bg-bg px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-line-strong"
+            >
+              Follow on GitHub instead ↗
+            </a>
+          </div>
+        ) : (
+          <ul class="divide-y divide-line border-t border-line">
+            {posts.map(({ post, readLabel }) => (
+              <li class="reveal py-8">
+                <a href={`/writing/${post.id}`} class="group block">
+                  <div class="flex flex-wrap items-center gap-3 text-xs uppercase tracking-widest text-ink-subtle">
+                    <time datetime={post.data.date.toISOString()}>{fmt(post.data.date)}</time>
+                    <span>·</span>
+                    <span>{readLabel}</span>
+                    {post.data.tags.length > 0 && (
+                      <>
+                        <span>·</span>
+                        <span>{post.data.tags.join(" · ")}</span>
+                      </>
+                    )}
+                  </div>
+                  <h2 class="mt-3 font-display text-2xl font-medium leading-tight tracking-tight text-ink transition-colors group-hover:text-accent md:text-3xl">
+                    {post.data.title}
+                  </h2>
+                  <p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-ink-muted">
+                    {post.data.description}
+                  </p>
+                  <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-ink-muted transition-colors group-hover:text-accent">
+                    Read
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-1" aria-hidden="true">
+                      <path d="M5 12h14M13 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

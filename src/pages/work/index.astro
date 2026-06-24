@@ -1,0 +1,88 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { projects } from "../../lib/projects";
+
+// Group by year buckets (keep declaration order within bucket)
+const buckets = [
+  { label: "2025 — present", filter: (p: { year: string }) => p.year.includes("2025") || p.year.includes("2026") || p.year.includes("present") },
+  { label: "Earlier work", filter: (p: { year: string }) => !p.year.includes("2025") && !p.year.includes("2026") && !p.year.includes("present") },
+];
+
+const grouped = buckets
+  .map((b) => ({ label: b.label, items: projects.filter((p) => b.filter(p)) }))
+  .filter((g) => g.items.length > 0);
+---
+
+<BaseLayout
+  title="Work"
+  description="Selected work by Cherinet Demeke — frontend engineering, design systems, and digital product."
+  current="Work"
+>
+  <!-- Header -->
+  <section class="px-6 pb-12 pt-36 md:px-10 md:pb-20 md:pt-44">
+    <div class="mx-auto max-w-6xl">
+      <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">
+        01 — Index
+      </p>
+      <h1
+        class="mt-6 max-w-4xl font-display font-medium leading-[1.02] tracking-[-0.03em] text-ink"
+        style="font-size: var(--text-display-xl);"
+      >
+        Selected work,
+        <span class="italic text-ink-muted">in order.</span>
+      </h1>
+      <p class="mt-8 max-w-2xl text-lg leading-relaxed text-ink-muted">
+        A working set, not a portfolio archive. Each project is something I designed or shipped end-to-end — most are in production today. Older operations and content work sits at the bottom.
+      </p>
+    </div>
+  </section>
+
+  <!-- Grouped grid -->
+  {
+    grouped.map((group) => (
+      <section class="px-6 pb-12 md:px-10 md:pb-20">
+        <div class="mx-auto max-w-6xl">
+          <div class="mb-8 flex items-center gap-4 border-b border-line pb-4">
+            <p class="text-xs uppercase tracking-widest text-ink-subtle">
+              {group.label}
+            </p>
+            <span class="text-xs text-ink-subtle">
+              {group.items.length} {group.items.length === 1 ? "project" : "projects"}
+            </span>
+          </div>
+          <div class="grid auto-rows-fr gap-5 md:grid-cols-2 md:gap-6">
+            {group.items.map((p, i) => (
+              <ProjectCard project={p} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <!-- Footer CTA -->
+  <section class="border-t border-line bg-bg-elevated px-6 py-20 md:px-10 md:py-28">
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Anything not here</p>
+      <h2
+        class="mt-4 font-display font-medium tracking-tight text-ink"
+        style="font-size: var(--text-display-lg);"
+      >
+        Available on request.
+      </h2>
+      <p class="mt-6 text-lg leading-relaxed text-ink-muted">
+        Most Doxa client work is under NDA. If a specific case study would help you evaluate me for a role, send a note and I'll walk you through it privately.
+      </p>
+      <a
+        href="mailto:cheridemeke7@gmail.com"
+        class="mt-8 inline-flex cursor-pointer items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-bg transition-colors hover:bg-accent"
+      >
+        Email me
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M13 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
