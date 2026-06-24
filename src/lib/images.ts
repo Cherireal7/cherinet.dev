@@ -17,6 +17,12 @@ export type ImageTag =
   | "project-nexus"
   | "apartment-guide"
   | "ai-workflows"
+  | "maor-seminary"
+  | "kla-constructions"
+  | "myseed"
+  | "zoe-delivery"
+  | "scholten"
+  | "zoa"
   | "books-old"
   | "manuscript"
   | "church-interior"
@@ -117,6 +123,38 @@ const PHOTOS: Record<ImageTag, PhotoMeta> = {
     id: "1620712943543-bcc4688e7485",
     credit: "Photo by Markus Spiske",
     href: "https://unsplash.com/photos/colorful-software-or-web-code-on-a-computer-monitor-iar-afB0QQw",
+  },
+
+  // Doxa client work
+  "maor-seminary": {
+    id: "1438232992991-995b7058bbb3",
+    credit: "Photo by Josh Applegate",
+    href: "https://unsplash.com/photos/lit-candles-inside-cathedral-cu7xQXAHTSk",
+  },
+  "kla-constructions": {
+    id: "1581094288338-2314dddb7ece",
+    credit: "Photo by Josh Olalde",
+    href: "https://unsplash.com/photos/construction-equipment-on-site-X1P1_EDNnok",
+  },
+  myseed: {
+    id: "1497486751825-1233686d5d80",
+    credit: "Photo by Annie Spratt",
+    href: "https://unsplash.com/photos/children-sitting-on-chairs-inside-classroom-LiNIONbajm4",
+  },
+  "zoe-delivery": {
+    id: "1416879595882-3373a0480b5b",
+    credit: "Photo by Annie Spratt",
+    href: "https://unsplash.com/photos/green-plants-on-white-pots-h0_SKZARQiI",
+  },
+  scholten: {
+    id: "1581094288338-2314dddb7ece",
+    credit: "Photo by Josh Olalde",
+    href: "https://unsplash.com/photos/construction-equipment-on-site-X1P1_EDNnok",
+  },
+  zoa: {
+    id: "1488521787991-ed7bbaae773c",
+    credit: "Photo by Larm Rmah",
+    href: "https://unsplash.com/photos/people-walking-in-refugee-camp-AEaTUnvneik",
   },
 
   // Thematic / page-level

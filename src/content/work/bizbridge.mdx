@@ -3,9 +3,9 @@ title: "BizBridge Ethiopia"
 subtitle: "A freemium platform that walks Ethiopian entrepreneurs through 519 business sectors — from idea to license to launch."
 year: "2025 — present"
 role: "Frontend lead"
-stack: ["Next.js 15", "Payload v3", "Fastify", "Drizzle", "Better Auth", "Neon"]
-metric: "519 sectors · bilingual"
-summary: "BizBridge is the only place an Ethiopian entrepreneur can search across all 519 licensed business sectors, get the specific document checklist, book an expert, and pay — without leaving the page."
+stack: ["Next.js 15", "Payload v3", "Fastify", "Drizzle", "Better Auth", "Neon", "Chapa", "Stripe", "MeiliSearch", "Cal.com"]
+metric: "Turborepo · bilingual"
+summary: "BizBridge is the place an Ethiopian entrepreneur can search across licensed business sectors, get the specific document checklist sourced from Ministry of Revenue records, book an expert via Cal.com, and pay through Chapa or Stripe — without leaving the page."
 accent: "ink"
 order: 2
 ---
@@ -18,16 +18,20 @@ BizBridge collapses that into a single product surface. Type your sector. Get th
 
 ## What I work on
 
-I lead the frontend across a **Turborepo monorepo**: a Next.js 15 marketing + app surface, a Payload v3 CMS for the sector content model, and a Fastify service for transactional flows. The frontend ties them together — search, sector pages, expert booking, payments, and the dashboard customers use after they pay.
+I lead the frontend across a **Turborepo monorepo** — `apps/web` (Next.js 15 + Payload v3 CMS embedded), `apps/api` (Fastify + Drizzle ORM), `packages/shared` (Zod schemas), `packages/ui`, `packages/config`. The frontend ties them together — search, sector pages, expert booking, payments, and the dashboard customers use after they pay.
 
-The hardest part is not the framework choice. It is the **bilingual content model**. A sector's requirements need to render in Amharic or English without translation drift, and the checklist for a downtown Addis salon is genuinely different from one in Bishoftu — so the data model has to carry location-specific overrides without forcing editors to author the same content twice.
+The hardest part is not the framework choice. It is the **bilingual content model**. A sector's requirements need to render in Amharic or English without translation drift, and the checklist for a downtown Addis salon is genuinely different from one in Bishoftu — so the data model has to carry location-specific overrides without forcing editors to author the same content twice. The Ministry of Revenue source documents live in `docs/mor/` and feed a typed seeder into the database.
 
 ## Decisions worth naming
 
 - **Payload v3 over headless WordPress.** Type-safe content, native Postgres via Drizzle, and a UI editors actually use without training.
-- **Better Auth over Clerk/Auth.js.** Self-hosted, free, no per-MAU pricing in a market where unit economics matter early.
+- **Better Auth over Clerk / Auth.js.** Self-hosted, free, no per-MAU pricing in a market where unit economics matter early.
 - **Neon serverless Postgres.** Scale-to-zero pricing for a product still finding its base load.
-- **Server-rendered sector pages.** SEO is the channel; pre-rendering 519 sector pages with localized metadata is non-negotiable.
+- **Server-rendered sector pages.** SEO is the channel; pre-rendering localized sector pages with proper metadata is non-negotiable.
+- **MeiliSearch for sector lookup.** Typo tolerance and Amharic tokenization out of the box, hosted lightweight enough to run alongside the API.
+- **Chapa + Stripe in parallel.** Chapa handles ETB locally; Stripe handles diaspora and partner payments in USD.
+- **Cal.com for expert booking.** Self-hostable, embeddable, doesn't lock the booking flow inside a third-party domain.
+- **BullMQ on ioredis** for any work that shouldn't block a request — payment reconciliation, document parsing, email batches.
 
 ## What's live
 

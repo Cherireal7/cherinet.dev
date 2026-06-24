@@ -2,10 +2,10 @@
 title: "FIDA Delivery"
 subtitle: "Customer and rider apps for Ethiopia's first vertically-integrated last-mile delivery brand, designed and shipped from Bishoftu."
 year: "2025 — present"
-role: "Lead designer & frontend engineer"
-stack: ["Expo (SDK 56)", "React Native New Arch", "TypeScript", "Zustand", "EAS Build & Updates", "Reanimated"]
+role: "Co-founder · design + engineering"
+stack: ["Expo SDK 56", "React Native 0.85", "React 19.2", "MapLibre", "Firebase", "TanStack Query", "EAS Build & Updates", "Reanimated 4", "MMKV", "Notifee"]
 metric: "Two production apps · one shared backend"
-summary: "FIDA is two production React Native apps — one for customers ordering deliveries, one for riders fulfilling them — backed by a single API. I lead design and frontend end-to-end: from token system and component library to release engineering and OTA updates."
+summary: "FIDA is two production React Native apps — one for customers ordering deliveries, one for riders fulfilling them — backed by a single API. I co-founded FIDA and own design and frontend end-to-end: from token system and component library to release engineering and OTA updates."
 accent: "blue"
 order: 1
 ---
@@ -14,26 +14,28 @@ order: 1
 
 Bishoftu is a city of two million people 47 km southeast of Addis Ababa, with no reliable on-demand delivery network. Local commerce runs on phone calls, motorbike couriers paid in cash, and a wall of *"can you bring this to my office?"* WhatsApp threads. FIDA's bet is that a single, well-designed app pair — customer and rider — can replace that informal layer with something verifiable, dispatchable, and economically sustainable.
 
-I joined FIDA as the founding designer and frontend engineer. The product had to launch in a market with low smartphone uniformity, weak data connections, and zero brand recognition. The apps had to be obviously trustworthy on the first screen, fast on 3G, and small enough to install over patchy Wi-Fi.
+I co-founded FIDA and built the design and frontend end-to-end. The product had to launch in a market with low smartphone uniformity, weak data connections, and zero brand recognition. The apps had to be obviously trustworthy on the first screen, fast on 3G, and small enough to install over patchy Wi-Fi.
 
 ## Constraints that shaped the build
 
-- **Two apps, one team of one.** A unified design system was not a nice-to-have — it was the only way to ship both apps before runway pressure hit.
-- **Bilingual from day one.** Amharic and English need first-class treatment in every screen — including RTL-friendly numerals and locale-aware formatting.
+- **Two apps, one operator.** A unified design system was not a nice-to-have — it was the only way to ship both apps before runway pressure hit.
+- **Multilingual from day one.** Amharic and English need first-class treatment in every screen — including locale-aware numerals and date/time formatting via `i18next`.
 - **Offline-resilient.** Riders lose signal in the city's older neighborhoods; orders cannot be lost when the radio drops.
 - **Trust signals over feature breadth.** First-time users need to see verified riders, clear pricing, and a real phone number before they will tap *Order*.
 
 ## How it's built
 
-The stack settled on **Expo SDK 56** with the **New Architecture** turned on, **continuous native generation** so we never commit `ios/` and `android/`, and **EAS Build + Updates** as the release pipeline. State is a small set of Zustand stores with persistence. Maps render through `react-native-maps` on the customer side and a custom rider-side tile view for low-bandwidth tracking.
+The stack settled on **Expo SDK 56** with the **New Architecture** turned on, **continuous native generation** so we never commit `ios/` and `android/`, and **EAS Build + Updates** as the release pipeline. Server state is **TanStack React Query** with **persist + sync storage** so the apps cold-start instantly with the last known shape of orders, riders, and pricing. Local persistence uses **react-native-mmkv** (sync, fast) instead of AsyncStorage.
 
-A shared `@fida/ui` package owns the design tokens, the typography scale, and a primitive set — Button, Sheet, Field, Badge, Pill, Map, AddressCard — that both apps consume identically. Color, radius, and motion are bound to tokens so a single change in the theme file updates both apps and the marketing site.
+Maps render through **`@maplibre/maplibre-react-native`** on both customer and rider sides — the same vector tile source the FIDA marketing site uses, which keeps coverage logic and styling consistent across web and mobile. Push and in-app notifications run through **Notifee** + **React Native Firebase Messaging**. Animations are **Reanimated 4** (worklets for any non-trivial gesture). Forms use **React Hook Form**. Icons come through **`lucide-react-native`**.
+
+A shared `@fida/ui` package owns the design tokens, the typography scale, and a primitive set — Button, Sheet, Field, Badge, Pill, MapView, AddressCard — that both apps consume identically. Color, radius, and motion are bound to tokens so a single change in the theme file updates both apps and the marketing site.
 
 A `MockServer` adapter sits between the apps and `https://api.fidadelivery.et/api/v1`. Default-on mock data means every screen renders without the backend — designers can iterate without waiting on infra, and QA can reproduce any state by toggling a fixture.
 
 ## What ships today
 
-- **Customer app**: address search, delivery price quote, rider tracking, in-app calling, ride history, profile.
+- **Customer app**: address search, delivery price quote, MapLibre rider tracking, in-app calling, ride history, profile, push notifications.
 - **Rider app**: shift control, foreground location during shift only, order acceptance, navigation handoff, SOS-to-ops, daily earnings view.
 - **OTA channel** wired on customer (preview + production); rider on the same pipeline by next release.
 

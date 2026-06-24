@@ -1,30 +1,43 @@
 ---
-title: "Yeneta Master Rollout"
-subtitle: "Implementing a school management platform across two campuses serving 1,000+ students — and learning what 'production' really means."
-year: "2021 — 2024"
-role: "Systems & operations lead"
-stack: ["Implementation", "Training", "Records", "Operations"]
-metric: "1,000+ students"
-summary: "Before I wrote frontend professionally, I shipped software the operational way — rolling out a school management platform across two campuses, training staff who had never used a digital system, and earning the trust of administrators who still kept paper backups for a year."
+title: "Yeneta Master SIS"
+subtitle: "School information system for Ethiopian schools, built at Doxa Innovations. Multi-campus by design — teachers, parents, and administration in one platform, in development for first-campus rollout."
+year: "2025 — present"
+role: "Product designer · frontend (Doxa)"
+stack: ["React", "Tailwind", "Laravel", "PostgreSQL", "Redis", "Cloudflare R2"]
+metric: "Multi-campus architecture"
+summary: "Yeneta Master is Doxa's flagship school information system, designed from the ground up for the realities of Ethiopian schools: multi-campus organizations, paper-to-digital transitions, mixed-language admin (Amharic + English), and admins who keep one foot in the ledger for the first year."
 accent: "ink"
 order: 6
 ---
 
-## What I actually did
+## The opening
 
-Yeneta Master is a school management system used by Ethiopian institutions for student records, attendance, grades, fees, and communication. My job was not to build it — it was to **make it real** for two campuses that had been running on paper and Excel for fifteen years.
+Most school information systems sold in Ethiopia are foreign software bolted to a local market — single-campus by assumption, English-only by default, priced for institutions that don't exist here. We built Yeneta Master for the school that actually does exist: two to twelve campuses under one administration, Amharic on the parent-facing surface and English on the internal one, fee structures that have to flex for siblings and scholarships, and grades that mean different things in different programs.
 
-That meant: data migration from handwritten records, role-by-role training, payroll and fee module configuration, troubleshooting at six in the morning when a kindergarten teacher could not mark attendance, and weekly conversations with administrators who, reasonably, did not trust a screen.
+## The architecture decision
 
-## The operational lessons
+**Multi-campus is in the data model from day one.** A *school group* contains *campuses*, each campus has its own staff, classes, calendar, and fee schedule, but they share student records when families move between them. Trying to retrofit this onto a single-tenant SIS later is hopeless — we made it the foundation.
 
-The lessons I took into engineering:
+The stack is **Laravel** on the backend (PostgreSQL primary, Redis for cache and queues, Cloudflare R2 for student/staff documents and gradebook exports), **React + Tailwind** on the front-end, **Inertia** as the bridge so the rendering is mostly server-driven without the SPA tax. Reports and bulk operations get queued; long-running PDF generation never blocks a user.
 
-- **Production is not deployment.** A feature is in production when the person who needs it can use it without help. Most software is not in production. Most of it is just deployed.
-- **Empathy beats elegance.** The cleanest UI in the world fails if it does not match the mental model of the user. A "Mark Absent" button needs to be the size of a thumb on a phone held vertically in a classroom.
-- **Edge cases are the product.** The default flow is what the demo shows. The hundred branches off that flow are what the user actually experiences over a school year — make-up exams, sibling discounts, scholarship overrides, mid-term transfers. If you do not design for those, you do not have a product, you have a slide.
-- **Trust is earned weekly.** It took twelve months for administrators to retire the paper ledger. That is fine. They were right to be cautious.
+## The interface
 
-## How this shows up in my code today
+I lead the design system across the product. The screens have to absorb a lot of density — a grades view, an attendance grid, a fee ledger — without becoming a wall of cells. The decisions that buy back the headroom:
 
-When I lead a UX decision on FIDA or BizBridge, I am not arguing from a Dribbble shot. I am arguing from a thousand small moments of watching real users hit the wrong button. That instinct came from this work.
+- **One accent color used sparingly.** Severity comes from typography and position, not from a status palette.
+- **Tabular numerals everywhere** financial or grade data appears, so columns align without manual width-tuning.
+- **Sticky context** — when an admin drills into a student, the breadcrumb stays anchored so they never have to recover where they are after three taps.
+- **Mobile-first parent views, desktop-first admin views.** Parents look at this on phones in the evening. Admins look at it on laptops during the day. The same backend, two different layout grammars.
+
+## What's in scope
+
+- **Records** — student, guardian, staff, payroll
+- **Attendance** — per-class, per-period, with bulk corrections
+- **Grades** — configurable per program (national curriculum, IB, private)
+- **Fees** — sibling discounts, scholarships, payment plans, reconciliation
+- **Communication** — Amharic SMS + email + in-app notifications
+- **Reports** — Ministry-of-Education-ready exports
+
+## What's live and what's next
+
+The platform is in development for the first-campus rollout. Marketing site at **[yenetamaster.net](https://yenetamaster.net)**. The next milestone is a live pilot with a Bishoftu school group whose admin team has been part of the design conversations from week one — the SIS that lands isn't going to be a surprise to them.

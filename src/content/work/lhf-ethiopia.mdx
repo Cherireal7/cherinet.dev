@@ -1,33 +1,45 @@
 ---
-title: "Lutheran Hour Ethiopia"
-subtitle: "A mission organization's site for book distribution, podcast, events, and donor flows — designed for a Bible-belt sensibility, built on a modern stack."
+title: "Lutheran Heritage Foundation — Ethiopia"
+subtitle: "Marketing site and CMS for LHF Ethiopia — the regional arm of a US-based mission that translates, prints, and distributes confessional Lutheran books in six Ethiopian languages, free of charge."
 year: "2026"
 role: "Designer & engineer"
-stack: ["Next.js 16", "Tailwind v4", "TypeScript"]
-summary: "Lutheran Hour Ethiopia distributes Christian literature, runs a podcast, and hosts events across the country. The site is the connective tissue: it tells donors where their money goes, lets pastors order books, and surfaces upcoming events without feeling corporate."
+stack: ["Next.js 16", "React 19", "Tailwind v4", "Drizzle ORM", "GSAP", "Radix UI"]
+summary: "LHF Ethiopia is the regional arm of the Lutheran Heritage Foundation — a Recognized Service Organization of the Lutheran Church—Missouri Synod, headquartered in Macomb, Michigan. Since 1992 LHF has translated Luther's Small Catechism into more than 150 languages and published over 2,000 titles. The Ethiopia site is the digital front door for that work in Amharic, Afaan Oromoo, Tigrinya, Somali, Sidaama, and Wolaytta."
 accent: "ink"
 order: 4
 ---
 
-## Designing for a sensibility
+## Why this site matters
 
-Mission organizations have a specific visual language — restrained, reverent, a little classical. The cheap version reads as a church bulletin; the expensive version reads as a 19th-century scholarly publisher. I aimed for the second.
+LHF places confessional Lutheran books — catechisms, hymnals, devotionals, theological primers — into the hands of pastors and congregations in nearly 100 countries. The Ethiopia arm carries that mission into the highlands and lowlands here at home. The website's job is small and specific: tell donors what their gift does, let pastors and bookstores request titles, and surface the publication catalog in the languages people actually read.
 
-The palette settled on a deep **crimson** for emphasis, a **navy** for body chrome, and a quiet **teal** for the donate CTA — chosen so the "Donate" button reads as warm rather than salesy. Headings run in **Garamond**, body in a humanist sans, and the leading is generous enough to read like a printed page.
+I'm not a neutral builder on this one. I'm a theology student at **Maor Lutheran Seminary** in Bishoftu — itself an LCE institution — so the work sits inside a tradition I belong to.
 
-## The four surfaces
+## The design call
 
-1. **Books** — a catalog of titles distributed by LHF, with order requests for pastors and bookstores.
-2. **Podcast** — episode index with show-notes pages, embedded player, and subscribe links.
-3. **Events** — upcoming retreats and conferences with registration and location maps.
-4. **Donate** — recurring and one-off giving, with a "where the money goes" breakdown to make the case before the form.
+Mission sites have a particular failure mode: they read either as church-bulletin amateur or as corporate-NGO sterile. I aimed for a third register — restrained, reverent, scholarly. The kind of weight a 19th-century catechism has on a shelf.
 
-Each surface is its own information design problem. A podcast page wants to feel like a print publication. An event page wants to feel like an invitation. A donate page wants to feel like a careful conversation, not a checkout.
+Palette stays tight and deliberate:
+
+- **Heritage blue** `#1B3A6B` for chrome and headings
+- **Gold** `#E6A817` — Ethiopian-flag-derived, used sparingly for the donate CTA
+- **Green** `#0F8A4C` for confirmation states only
+- **Cream** `#FAF6EE` page background; **charcoal** `#0E1525` body text
+
+A tri-color stripe (the Ethiopian flag) appears only in the footer as a decorative accent. Beyond that, no color noise.
+
+## What's on the site
+
+Seven routes carry the work: **home**, **about** (the parent foundation, the Ethiopia arm, the LCMS lineage), **publications** (the catalog by language), **projects** (active translation and printing efforts), **news**, **donate**, **contact**. Content lives in a typed TypeScript module right now and is being migrated to a small CMS layer behind Drizzle so editors can update titles, languages, and donation context without touching code.
+
+The donate flow is intentionally not a checkout. LHF's giving still routes through the US foundation — `Lutheran Heritage Foundation, 51474 Romeo Plank, Macomb, MI 48042` with a memo of "Ethiopia." The site's job there is to make the case carefully before handing off, not to imitate a Shopify store.
 
 ## What was hard
 
-The hardest part was **scope drift in slow motion**. The original brief was a book catalog. Halfway through, the podcast and events scope were added — each its own content model, each its own navigation pattern. The fix was less code and more documentation: a clear content map that the organization's editors could understand and own, so the site grew with them instead of becoming the engineer's pet.
+**Multilingual rendering across scripts.** Amharic and Tigrinya are Ge'ez script; Afaan Oromoo, Somali, Sidaama, and Wolaytta use Latin with diacritics; English is the donor-facing default. Each needs the right font, the right line-height, and copy that wasn't translated by machine. We're staged through three of the six languages with native review for the rest.
+
+The other quiet problem was tone. A donor in the US Midwest and a pastor in Wolayta are reading the same site. The page architecture lets each find what they're looking for without making the other feel out of place — the donor reads English without seeing untranslated placeholders; the pastor reads Afaan Oromoo without the page feeling like an afterthought translation.
 
 ## What's live and what's next
 
-The marketing surfaces and book catalog are in production. The podcast index and donate flow are next, behind a feature flag for a soft launch tied to the ministry's next campaign.
+Marketing surfaces, the publications catalog skeleton, and the bilingual structure (English + Afaan Oromoo) are live. Amharic and the four remaining languages roll out as native review wraps. The donation flow ships behind a feature flag, coordinated with LHF US so the campaign attribution stays clean.

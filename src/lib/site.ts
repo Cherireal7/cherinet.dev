@@ -1,7 +1,7 @@
 export const site = {
   name: "Cherinet Demeke",
   shortName: "Cherinet",
-  role: "Co-founder, Product Designer & Senior Frontend Engineer",
+  role: "Co-founder & Vice Manager · Product Designer + Frontend Engineer",
   tagline:
     "Product designer, researcher, and frontend engineer. I run the full UX loop — research, strategy, design, build, measure — from one operator.",
   location: "Bishoftu, Ethiopia",
