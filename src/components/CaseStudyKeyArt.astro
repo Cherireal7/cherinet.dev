@@ -226,33 +226,48 @@ const plateBg =
       </>
     )}
 
-    {/* === yeneta-master — seat grid (students) + two campus circles === */}
-    {slug === "yeneta-master" && (
+    {/* === kla-constructions — construction-equipment storefront: chassis silhouette + product grid === */}
+    {slug === "kla-constructions" && (
       <>
-        {/* student grid */}
+        {/* product card grid */}
         <g class="geo-fade">
-          {Array.from({ length: 18 }).flatMap((_, x) =>
-            Array.from({ length: 9 }).map((_, y) => (
+          {Array.from({ length: 12 }).map((_, i) => {
+            const col = i % 4;
+            const row = Math.floor(i / 4);
+            return (
               <rect
-                x={200 + x * 50}
-                y={140 + y * 50}
-                width="14"
-                height="14"
-                rx="2"
-                fill="var(--color-line-strong)"
+                x={900 + col * 140}
+                y={180 + row * 140}
+                width="120"
+                height="120"
+                rx="6"
+                fill="none"
+                stroke="var(--color-line-strong)"
+                stroke-width="1.5"
               />
-            )),
-          )}
+            );
+          })}
         </g>
-        {/* campus rings */}
-        <g class="geo-draw" style="--geo-len: 2400;" stroke={accentStroke} stroke-width="2.5" fill="none">
-          <circle cx="420" cy="400" r="160" />
-          <circle cx="1080" cy="400" r="160" />
+        {/* heavy-equipment silhouette — abstract excavator/loader */}
+        <g class="geo-draw" style="--geo-len: 3000;" stroke="var(--color-ink)" stroke-width="2.5" fill="none">
+          {/* chassis */}
+          <rect x="180" y="440" width="380" height="120" rx="8" />
+          {/* cab */}
+          <rect x="240" y="340" width="180" height="120" rx="6" />
+          {/* arm */}
+          <line x1="420" y1="380" x2="640" y2="260" />
+          <line x1="640" y1="260" x2="720" y2="340" />
+          {/* bucket */}
+          <path d="M 700 320 L 760 320 L 770 380 L 690 380 Z" />
+          {/* tracks (two wheels) */}
+          <circle cx="240" cy="600" r="40" />
+          <circle cx="500" cy="600" r="40" />
+          <line x1="200" y1="600" x2="540" y2="600" />
         </g>
-        {/* campus labels — dots */}
+        {/* accent: "live catalog" indicator */}
         <g class="geo-fade geo-stagger-3">
-          <circle cx="420" cy="400" r="10" fill={accentStroke} />
-          <circle cx="1080" cy="400" r="10" fill={accentStroke} />
+          <rect x="900" y="180" width="120" height="120" rx="6" fill={accentStroke} opacity="0.92" />
+          <circle cx="1050" cy="210" r="5" fill={accentStroke} class="geo-pulse" />
         </g>
       </>
     )}

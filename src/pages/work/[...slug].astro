@@ -59,6 +59,37 @@ const next = idx >= 0 && idx < caseSlugs.length - 1 ? projects.find((p) => p.slu
           <dd class="mt-1.5 text-sm text-ink">{data.stack.join(" · ")}</dd>
         </div>
       </dl>
+
+      {(data.live || data.repo) && (
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          {data.live && (
+            <a
+              href={data.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2 text-sm font-medium text-bg transition-colors hover:bg-accent"
+            >
+              Visit live site
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M7 17 17 7M9 7h8v8" />
+              </svg>
+            </a>
+          )}
+          {data.repo && (
+            <a
+              href={data.repo}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 rounded-full border border-line bg-bg-elevated px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-line-strong"
+            >
+              View repository
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M7 17 17 7M9 7h8v8" />
+              </svg>
+            </a>
+          )}
+        </div>
+      )}
     </div>
   </section>
 

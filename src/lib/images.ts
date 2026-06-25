@@ -8,21 +8,12 @@ export type ImageTag =
   | "bizbridge"
   | "lhf-ethiopia"
   | "classic-noodle"
-  | "yeneta-master"
   | "doxa"
   | "drbrug"
   | "geez-transcribe"
   | "liturgical"
   | "christian-worship"
-  | "project-nexus"
-  | "apartment-guide"
-  | "ai-workflows"
-  | "maor-seminary"
   | "kla-constructions"
-  | "myseed"
-  | "zoe-delivery"
-  | "scholten"
-  | "zoa"
   | "books-old"
   | "manuscript"
   | "church-interior"
@@ -61,9 +52,9 @@ const PHOTOS: Record<ImageTag, PhotoMeta> = {
     local: { src: "/projects/fida-website/cover.png" },
   },
   bizbridge: {
-    id: "1551836022-deb4988cc6c0",
-    credit: "Photo by Sebastian Herrmann",
-    href: "https://unsplash.com/photos/people-having-meeting-NbtIDoFKGO8",
+    id: "1647316703389-e114712500e5",
+    credit: "Modern Addis Ababa skyline — Unsplash",
+    href: "https://unsplash.com/photos/a-night-view-of-a-city-with-a-lot-of-tall-buildings-WMB-Fb5LHeg",
   },
   "lhf-ethiopia": {
     id: "1507434965-365f8da4c970",
@@ -76,11 +67,6 @@ const PHOTOS: Record<ImageTag, PhotoMeta> = {
     credit: "Photo by alexander mils",
     href: "https://unsplash.com/photos/brown-and-white-noodles-in-white-ceramic-bowl-w7dMlCmnsKw",
     local: { src: "/projects/classic-noodle/logo.png", isLogo: true },
-  },
-  "yeneta-master": {
-    id: "1497486751825-1233686d5d80",
-    credit: "Photo by Annie Spratt",
-    href: "https://unsplash.com/photos/children-sitting-on-chairs-inside-classroom-LiNIONbajm4",
   },
   doxa: {
     id: "1551434678-e076c223a692",
@@ -109,52 +95,11 @@ const PHOTOS: Record<ImageTag, PhotoMeta> = {
     credit: "Photo by Edward Cisneros",
     href: "https://unsplash.com/photos/group-of-people-raising-their-hands-c-S4UVitvNI",
   },
-  "project-nexus": {
-    id: "1485846234645-a62644f84728",
-    credit: "Photo by Jeremy Yap",
-    href: "https://unsplash.com/photos/people-inside-cinema-jn1u5ATt87E",
-  },
-  "apartment-guide": {
-    id: "1502672023488-70e25813eb80",
-    credit: "Photo by Spacejoy",
-    href: "https://unsplash.com/photos/yellow-leather-couch-near-glass-window-9M66C_w_ToM",
-  },
-  "ai-workflows": {
-    id: "1620712943543-bcc4688e7485",
-    credit: "Photo by Markus Spiske",
-    href: "https://unsplash.com/photos/colorful-software-or-web-code-on-a-computer-monitor-iar-afB0QQw",
-  },
-
   // Doxa client work
-  "maor-seminary": {
-    id: "1438232992991-995b7058bbb3",
-    credit: "Photo by Josh Applegate",
-    href: "https://unsplash.com/photos/lit-candles-inside-cathedral-cu7xQXAHTSk",
-  },
   "kla-constructions": {
     id: "1581094288338-2314dddb7ece",
     credit: "Photo by Josh Olalde",
     href: "https://unsplash.com/photos/construction-equipment-on-site-X1P1_EDNnok",
-  },
-  myseed: {
-    id: "1497486751825-1233686d5d80",
-    credit: "Photo by Annie Spratt",
-    href: "https://unsplash.com/photos/children-sitting-on-chairs-inside-classroom-LiNIONbajm4",
-  },
-  "zoe-delivery": {
-    id: "1416879595882-3373a0480b5b",
-    credit: "Photo by Annie Spratt",
-    href: "https://unsplash.com/photos/green-plants-on-white-pots-h0_SKZARQiI",
-  },
-  scholten: {
-    id: "1581094288338-2314dddb7ece",
-    credit: "Photo by Josh Olalde",
-    href: "https://unsplash.com/photos/construction-equipment-on-site-X1P1_EDNnok",
-  },
-  zoa: {
-    id: "1488521787991-ed7bbaae773c",
-    credit: "Photo by Larm Rmah",
-    href: "https://unsplash.com/photos/people-walking-in-refugee-camp-AEaTUnvneik",
   },
 
   // Thematic / page-level

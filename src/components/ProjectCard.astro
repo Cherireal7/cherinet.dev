@@ -36,7 +36,7 @@ const accentRail =
     : "bg-ink";
 
 const isExternal = project.status === "external";
-const aspect = project.span === "wide" ? "aspect-[16/8]" : "aspect-[16/10]";
+const aspect = project.span === "wide" ? "aspect-[21/9]" : "aspect-[16/9]";
 const imgWidth = project.span === "wide" ? 2000 : 1400;
 ---
 
@@ -45,7 +45,7 @@ const imgWidth = project.span === "wide" ? 2000 : 1400;
   target={isExternal ? "_blank" : undefined}
   rel={isExternal ? "noopener noreferrer" : undefined}
   class:list={[
-    "reveal group relative flex flex-col overflow-hidden rounded-lg border border-line bg-bg-elevated p-6 transition-all duration-300 md:rounded-xl md:p-8",
+    "reveal group relative flex flex-col overflow-hidden rounded-lg border border-line bg-bg-elevated p-5 transition-all duration-300 md:rounded-xl md:p-6",
     href &&
       "cursor-pointer hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_20px_40px_-20px_rgb(24,24,27,0.18)]",
     spanClass,
@@ -123,7 +123,7 @@ const imgWidth = project.span === "wide" ? 2000 : 1400;
     )}
   </div>
 
-  <div class="mt-6 flex flex-1 flex-col">
+  <div class="mt-5 flex flex-1 flex-col">
     <div class="flex items-baseline justify-between gap-4">
       <h3 class="text-lg font-medium tracking-tight text-ink md:text-xl">
         {project.title}
@@ -147,7 +147,7 @@ const imgWidth = project.span === "wide" ? 2000 : 1400;
 
     {
       href && (
-        <div class="mt-6 flex items-center gap-1.5 text-sm font-medium text-ink-muted transition-colors group-hover:text-accent">
+        <div class="mt-5 flex items-center gap-1.5 text-sm font-medium text-ink-muted transition-colors group-hover:text-accent">
           <span>
             {isExternal ? "Visit live site" : "Read case study"}
           </span>

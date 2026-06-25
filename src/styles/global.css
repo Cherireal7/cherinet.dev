@@ -17,9 +17,9 @@
   --font-display: "Fraunces", "DM Sans", ui-serif, Georgia, serif;
   --font-mono: ui-monospace, "JetBrains Mono", "Fira Code", monospace;
 
-  --text-display-2xl: clamp(3rem, 8vw + 1rem, 7.5rem);
-  --text-display-xl: clamp(2.25rem, 5vw + 1rem, 5rem);
-  --text-display-lg: clamp(1.75rem, 3vw + 1rem, 3rem);
+  --text-display-2xl: clamp(2.5rem, 5vw + 0.5rem, 4.5rem);
+  --text-display-xl: clamp(2rem, 3.5vw + 0.5rem, 3.25rem);
+  --text-display-lg: clamp(1.5rem, 2.5vw + 0.5rem, 2.25rem);
 
   --tracking-display: -0.035em;
   --tracking-tight: -0.02em;

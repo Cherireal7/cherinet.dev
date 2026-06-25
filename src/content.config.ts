@@ -14,6 +14,8 @@ const work = defineCollection({
     accent: z.enum(["blue", "ink"]).default("ink"),
     order: z.number().default(99),
     draft: z.boolean().default(false),
+    live: z.string().url().optional(),
+    repo: z.string().url().optional(),
   }),
 });
 

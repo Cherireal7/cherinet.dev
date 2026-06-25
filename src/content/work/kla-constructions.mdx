@@ -1,0 +1,50 @@
+---
+title: "KLA Construction Equipment"
+subtitle: "E-commerce platform for a US construction-equipment vendor with a live eBay catalog import. Doxa client — I led design, brand, and the frontend."
+year: "2025"
+role: "Lead designer · brand · frontend (Doxa)"
+stack: ["React", "Inertia.js", "Laravel", "Filament", "MySQL", "eBay"]
+metric: "Live US e-commerce"
+summary: "KLA needed a storefront that didn't feel like a marketplace listing — one that respected the weight of buying heavy equipment, ran on top of their existing eBay inventory, and could be operated by a small US team without engineering on call."
+accent: "blue"
+order: 4
+live: "https://klaconstructionequipment.com"
+---
+
+## The starting line
+
+KLA sells construction equipment — excavators, loaders, hard hats, ground-engaging tools. The existing channel was an eBay storefront: real reach, but every buyer interaction happened on someone else's UI, under someone else's brand, with someone else's pricing logic running in the background.
+
+The brief was straight — **build them a direct storefront** with the operating discipline of e-commerce, without forcing them to maintain two inventories.
+
+## What I owned
+
+Full Doxa engagement, design half end-to-end:
+
+- **Brand identity.** Construction is a category that defaults to garish — yellow, black, red, exclamation marks. We went the other way: condensed display type (Anton + Oswald + Syne), restrained palette, the catalog doing the visual work.
+- **Storefront UX.** Browse, search, product detail, cart, wishlist, and **two parallel checkouts** — one for returning customers, one for guests buying without an account. The buying decision on a $40k machine is not impulse; the design has to support a slow read.
+- **Front-end build.** **React on Inertia.js**, sharing a session with the Laravel backend. Inertia let us ship a SPA-feeling storefront without standing up a separate API surface — which matters for a small team that doesn't want two services to deploy.
+
+## What the platform actually is
+
+Public storefront, **Filament-powered admin panel**, and a content layer in between.
+
+- **Inertia + React + Laravel + MySQL + Vite** — visit the site and the HTML still mounts an Inertia `data-page` payload; pages like `Home`, `Search`, `Show`, `Cart`, `Checkout`, `NoAuthCheckout`, `Wishlist`, `Owner`, `Orders` are all real route components.
+- **Filament v3** for the operator side — admins, customers, messages, orders, exports, and imports are all managed there. The team can run the store without engineering on call.
+- **A keyed CMS pattern** — every editable string and image on the marketing surfaces lives as a keyed `element` (`whykla_title`, `about_hero_image`, etc.) so the same Filament-trained operator can edit hero copy without touching code. Currently ~80 published elements across the public pages.
+
+## The eBay piece
+
+The hard part isn't the storefront, it's keeping ~900 SKUs reasonable.
+
+- KLA's eBay listings are imported into a local catalog with full product schema — `name`, `description`, `brand`, `model`, `mpn`, `upc`, `condition`, `made_in`, `weight`, `dimensions`, `price`, `currency`, plus an `additional_info` JSON bag for the long tail of category-specific fields.
+- Product **imagery is served live** from eBay's CDN (`i.ebayimg.com`) — we don't try to mirror the assets. eBay is the system of record for imagery; the local DB carries the catalog metadata, pricing, and condition. That split lets the storefront render fast without taking on a media-storage problem the client doesn't need.
+- The design decision that fell out of this constraint: a product page that reads like a clean spec sheet (brand, model, MPN, condition) rather than a marketplace card.
+
+## What's live
+
+The storefront ships at [klaconstructionequipment.com](https://klaconstructionequipment.com). Browse, search, wishlist, guest checkout, authenticated checkout, payment success / failure callbacks, and the admin panel are all in production. The operator runs the store without engineering involved day to day.
+
+## Why it's the featured engagement
+
+It's the cleanest example of the shape I want to be hired for: one operator handling **design strategy, brand, UX, and the frontend** against a non-trivial integration constraint, for a real US client, in production. Most of my work isn't pure greenfield — it's threading a clean experience through a system that already exists. KLA is that, end to end.
