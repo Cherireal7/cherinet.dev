@@ -40,6 +40,66 @@ A `MockServer` adapter sits between the apps and `https://api.fidadelivery.et/ap
 - **Rider app**: shift control, foreground location during shift only, order acceptance, navigation handoff, SOS-to-ops, daily earnings view.
 - **OTA channel** wired on customer (preview + production); rider on the same pipeline by next release.
 
+<figure>
+  <img src="/projects/fida/app-providers.png" alt="FIDA Delivery customer app — All food providers screen showing partnered restaurants with ratings, prices, and delivery status" />
+  <figcaption>Customer app — “All food providers” screen. Partner restaurants render with rating, tag, and side-scroll food thumbnails.</figcaption>
+</figure>
+
+## Brand system
+
+The FIDA mark is a monogram — an **F** slotted into a **D** with a courier-tail slice — meant to read as a moving vehicle. One red, one white. The wordmark is a custom cursive to signal warmth (delivery is a hospitality business) against a hard geometric icon. Every surface in the product, on the website, and on print collateral pulls from the same three assets below.
+
+<div class="mdx-grid-3">
+  <figure>
+    <img src="/projects/fida/logo.png" alt="FIDA Delivery — primary lockup with icon and wordmark on red gradient" />
+    <figcaption>Primary lockup</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/fida/logo-red.png" alt="FIDA app icon — square rounded icon on red" />
+    <figcaption>App icon (Android + iOS)</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/fida/mark-white.png" alt="FIDA icon-only mark in signature red on white" />
+    <figcaption>Mark on white</figcaption>
+  </figure>
+</div>
+
+## In the wild
+
+The same design system carries into paid social, Google Play listing, Amharic-language promo posts for local restaurants, print flyers with QR-code onboarding, and a Telegram Mini App for the messenger most Ethiopians already have open. Everything below is built inside the shared token set — one change to `--brand-red` or the typography scale re-flows every surface.
+
+<div class="mdx-grid-2">
+  <figure>
+    <img src="/projects/fida/feature.png" alt="FIDA Google Play feature graphic — Bringing everything closer" />
+    <figcaption>Google Play feature graphic</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/fida/social.png" alt="FIDA delivery service social ad with rider, benefits list, and CTA" />
+    <figcaption>Paid social — delivery service ad</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/fida/telegram-mini-app.png" alt="FIDA Telegram Mini App promo showing the bot inside Telegram with two phone screens" />
+    <figcaption>Telegram Mini App launch</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/fida/amharic-promo.png" alt="Amharic burger promo — Klassik Bergerin BeFIDA yizzi" />
+    <figcaption>Restaurant promo — Amharic content</figcaption>
+  </figure>
+</div>
+
+<figure>
+  <img src="/projects/fida/flyer-a5.png" alt="FIDA A5 print flyer with QR code, scooter rider illustration, and phone numbers" />
+  <figcaption>A5 print flyer — QR-code first-run onboarding for street distribution.</figcaption>
+</figure>
+
+## Try it
+
+The Android customer build is public. iOS build is queued for TestFlight after the App Store review completes. The rider app is invite-only for now — ping me if you want a build.
+
+- [Download the FIDA customer APK](https://cdn.fidadelivery.et/apk_folder/fida-customer-production.apk) (Android, latest production build)
+- [Visit fidadelivery.et](https://fidadelivery.et) (marketing site + coverage map)
+- [Open @fida_delivery_bot](https://t.me/fida_delivery_bot) (Telegram Mini App)
+
 ## What I learned
 
 Vertical integration — same designer, same engineer across two apps and a website — let the brand cohere in a way a typical contractor handoff never produces. A pill in the customer app feels exactly like a pill in the rider app, because it *is* the same pill. The cost is that the bus factor is one. The next phase is hiring a second engineer onto the shared component package so the system survives me.
