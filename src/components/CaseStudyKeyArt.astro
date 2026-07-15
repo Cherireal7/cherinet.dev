@@ -14,16 +14,12 @@ interface Props {
 const { slug, title, accent, metric } = Astro.props;
 
 const accentStroke = accent === "blue" ? "var(--color-accent)" : "var(--color-ink)";
-const plateBg =
-  accent === "blue"
-    ? "linear-gradient(135deg, #eff6ff 0%, #f8fafc 55%, #fafafa 100%)"
-    : "linear-gradient(135deg, #f4f4f5 0%, #fafafa 55%, #ffffff 100%)";
 ---
 
 <div
-  class="reveal relative aspect-[16/8] w-full overflow-hidden rounded-2xl border border-line"
-  style={`background: ${plateBg};`}
+  class="key-art-plate reveal relative aspect-[16/8] w-full overflow-hidden rounded-2xl border border-line"
   data-key-art={slug}
+  data-accent={accent}
 >
   <!-- Accent rail -->
   <span

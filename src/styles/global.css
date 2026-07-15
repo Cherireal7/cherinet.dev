@@ -118,6 +118,21 @@
     background-size: 100% 2px;
   }
 
+  /* Case-study key-art plate — theme-aware background so ink strokes remain
+     legible in both light and dark mode. Consumed by CaseStudyKeyArt.astro. */
+  .key-art-plate[data-accent="blue"] {
+    background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 55%, #fafafa 100%);
+  }
+  .key-art-plate[data-accent="ink"] {
+    background: linear-gradient(135deg, #f4f4f5 0%, #fafafa 55%, #ffffff 100%);
+  }
+  html.dark .key-art-plate[data-accent="blue"] {
+    background: linear-gradient(135deg, #0b1a35 0%, #0d1218 55%, #09090b 100%);
+  }
+  html.dark .key-art-plate[data-accent="ink"] {
+    background: linear-gradient(135deg, #1c1c1f 0%, #131316 55%, #09090b 100%);
+  }
+
   /* Geometric / SVG motion vocabulary
      Shared across CaseStudyKeyArt, HeroMotif, StepGlyph, and /system.
      Honors prefers-reduced-motion via the base rule that disables all
@@ -271,5 +286,37 @@
   .prose-case img {
     border-radius: 12px;
     border: 1px solid var(--color-line);
+  }
+
+  /* MDX gallery grids — for brand marks, screens, marketing surfaces */
+  .prose-case .mdx-grid-2,
+  .prose-case .mdx-grid-3 {
+    display: grid;
+    gap: 0.75rem;
+    margin: 1.5em 0;
+  }
+  .prose-case .mdx-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .prose-case .mdx-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .prose-case .mdx-grid-2 img,
+  .prose-case .mdx-grid-3 img,
+  .prose-case .mdx-grid-2 figure,
+  .prose-case .mdx-grid-3 figure {
+    margin: 0;
+    width: 100%;
+    height: auto;
+  }
+  .prose-case figure { margin: 1.5em 0; }
+  .prose-case figure img { margin: 0; width: 100%; }
+  .prose-case figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--color-ink-subtle);
+    text-align: center;
+  }
+  @media (max-width: 640px) {
+    .prose-case .mdx-grid-2,
+    .prose-case .mdx-grid-3 {
+      grid-template-columns: 1fr;
+    }
   }
 }

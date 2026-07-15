@@ -76,6 +76,9 @@ const { current } = Astro.props;
   id="mobile-menu"
   data-mobile-menu
   hidden
+  role="dialog"
+  aria-modal="true"
+  aria-label="Site menu"
   class="fixed inset-0 z-[60] flex flex-col bg-bg/95 px-6 pb-10 pt-6 backdrop-blur-xl md:hidden"
 >
   <div class="flex items-center justify-between">
@@ -140,11 +143,15 @@ const { current } = Astro.props;
       menu.hidden = false;
       trigger.setAttribute("aria-expanded", "true");
       document.documentElement.style.overflow = "hidden";
+      // Move focus into the dialog for keyboard users.
+      requestAnimationFrame(() => close?.focus());
     };
     const shut = () => {
       menu.hidden = true;
       trigger.setAttribute("aria-expanded", "false");
       document.documentElement.style.overflow = "";
+      // Return focus to the trigger.
+      trigger.focus();
     };
 
     trigger.addEventListener("click", open);
