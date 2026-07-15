@@ -23,6 +23,8 @@ export interface Project {
     | "civic"
     | "faith";
   featured?: boolean;
+  /** Deployment state displayed on project cards — e.g. "Live", "In development" */
+  liveStatus?: "live" | "in-development" | "private-beta" | "wip";
 }
 
 export const projects: readonly Project[] = [
@@ -41,6 +43,7 @@ export const projects: readonly Project[] = [
     image: "fida-delivery",
     category: "product",
     featured: true,
+    liveStatus: "in-development",
   },
   {
     slug: "bizbridge",
@@ -50,12 +53,13 @@ export const projects: readonly Project[] = [
     year: "2025 — present",
     role: "Frontend lead",
     stack: ["Next.js 15", "Payload v3", "Fastify", "Drizzle", "Better Auth"],
-    metric: "Turborepo · bilingual",
+    metric: "519 sectors indexed",
     status: "case-study",
     span: "default",
     image: "bizbridge",
     category: "product",
     featured: true,
+    liveStatus: "private-beta",
   },
   {
     slug: "fida-website",
@@ -65,11 +69,13 @@ export const projects: readonly Project[] = [
     year: "2026",
     role: "Designer & engineer",
     stack: ["Next.js 16", "React 19", "Tailwind v4", "MapLibre GL", "GSAP"],
+    metric: "Live · fidadelivery.et",
     status: "case-study",
     span: "default",
     image: "fida-website",
     category: "marketing",
     featured: true,
+    liveStatus: "live",
   },
   {
     slug: "lhf-ethiopia",
@@ -79,11 +85,13 @@ export const projects: readonly Project[] = [
     year: "2026",
     role: "Designer & engineer",
     stack: ["Next.js 16", "React 19", "Tailwind v4", "Drizzle", "GSAP"],
+    metric: "6 Ethiopian languages",
     status: "case-study",
     span: "default",
     image: "lhf-ethiopia",
     category: "faith",
     featured: true,
+    liveStatus: "live",
   },
   {
     slug: "drbrug",
@@ -93,12 +101,14 @@ export const projects: readonly Project[] = [
     year: "2025",
     role: "Designer & engineer",
     stack: ["Next.js", "MDX", "Search"],
+    metric: "Long-form scholarship archive",
     repo: "https://github.com/Cherireal7/drbrug",
     status: "case-study",
     span: "default",
     image: "drbrug",
     category: "faith",
     featured: true,
+    liveStatus: "wip",
   },
   {
     slug: "geez-transcribe",
@@ -160,6 +170,7 @@ export const projects: readonly Project[] = [
     accent: "blue",
     image: "classic-noodle",
     category: "marketing",
+    liveStatus: "live",
   },
   {
     slug: "doxa",
@@ -174,6 +185,7 @@ export const projects: readonly Project[] = [
     span: "default",
     image: "doxa",
     category: "product",
+    liveStatus: "live",
   },
   {
     slug: "kla-constructions",
@@ -183,10 +195,12 @@ export const projects: readonly Project[] = [
     year: "2025",
     role: "Lead designer · brand · frontend (Doxa)",
     stack: ["React", "Inertia.js", "Laravel", "Filament", "MySQL"],
+    metric: "~900 SKUs synced from eBay",
     status: "case-study",
     span: "default",
     image: "kla-constructions",
     category: "product",
+    liveStatus: "live",
   },
 ] as const;
 

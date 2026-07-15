@@ -38,6 +38,20 @@ const accentRail =
 const isExternal = project.status === "external";
 const aspect = project.span === "wide" ? "aspect-[21/9]" : "aspect-[16/9]";
 const imgWidth = project.span === "wide" ? 2000 : 1400;
+
+const liveStatusLabel: Record<NonNullable<Project["liveStatus"]>, string> = {
+  live: "Live",
+  "in-development": "In development",
+  "private-beta": "Private beta",
+  wip: "In review",
+};
+
+const liveStatusStyle: Record<NonNullable<Project["liveStatus"]>, string> = {
+  live: "border-accent/40 bg-accent/5 text-accent",
+  "in-development": "border-amber-300/50 bg-amber-50/60 text-amber-700 dark:border-amber-400/30 dark:bg-amber-400/10 dark:text-amber-300",
+  "private-beta": "border-violet-300/50 bg-violet-50/60 text-violet-700 dark:border-violet-400/30 dark:bg-violet-400/10 dark:text-violet-300",
+  wip: "border-line-strong bg-bg text-ink-muted",
+};
 ---
 
 <Tag
@@ -119,6 +133,16 @@ const imgWidth = project.span === "wide" ? 2000 : 1400;
         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M7 17 17 7M9 7h8v8" />
         </svg>
+      </div>
+    )}
+
+    {project.liveStatus && (
+      <div class:list={[
+        "absolute left-3 top-3 inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[9px] font-medium uppercase tracking-widest shadow-sm backdrop-blur-md",
+        liveStatusStyle[project.liveStatus],
+      ]}>
+        <span class="size-1 rounded-full bg-current"></span>
+        {liveStatusLabel[project.liveStatus]}
       </div>
     )}
   </div>
