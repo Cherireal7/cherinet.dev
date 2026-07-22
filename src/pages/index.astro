@@ -1,10 +1,18 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
-import HeroMotif from "../components/HeroMotif.astro";
 import StepGlyph from "../components/StepGlyph.astro";
 import { featuredProjects } from "../lib/projects";
 import { site } from "../lib/site";
+
+const stack = ["Figma", "React", "Next", "Astro", "RN", "Tailwind", "TypeScript"];
+
+const specGrid = [
+  { idx: "01", label: "Co-founder", value: "Doxa · FIDA" },
+  { idx: "02", label: "Disciplines", value: "Research · Design · Engineering" },
+  { idx: "03", label: "Stack", value: "Figma · React · Next · RN" },
+  { idx: "04", label: "Base", value: "Bishoftu · Remote-first" },
+];
 
 const loopPhases = [
   { glyph: 2, label: "Discover", note: "Interviews, surveys, competitor maps, heatmaps." },
@@ -16,86 +24,156 @@ const loopPhases = [
 ---
 
 <BaseLayout current="Work">
-  <!-- Hero -->
-  <section class="relative overflow-hidden px-6 pb-16 pt-28 md:px-10 md:pb-24 md:pt-36">
-    <HeroMotif />
+  <!-- Hero — structural, engineered surface -->
+  <section class="hero-surface relative overflow-hidden px-6 pb-16 pt-28 md:px-10 md:pb-24 md:pt-36">
+    <!-- Corner registration marks -->
+    <span class="hero-tick hero-tick--tl" aria-hidden="true"></span>
+    <span class="hero-tick hero-tick--tr" aria-hidden="true"></span>
+    <span class="hero-tick hero-tick--bl" aria-hidden="true"></span>
+    <span class="hero-tick hero-tick--br" aria-hidden="true"></span>
+
     <div class="relative mx-auto max-w-6xl">
-      <div class="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-ink-subtle">
-        <span class="inline-block size-1.5 rounded-full bg-accent"></span>
-        <span>Available · Remote · {site.location}</span>
+      <!-- Top spec bar: status · loc · tz · rev -->
+      <div class="grid grid-cols-2 items-center gap-y-3 border-b border-line pb-4 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-subtle md:grid-cols-4 md:gap-x-6">
+        <div class="flex items-center gap-2">
+          <span class="relative flex h-2 w-2">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60"></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
+          </span>
+          <span class="text-ink">Available · Q3&rsquo;26</span>
+        </div>
+        <div><span class="text-ink-subtle">Loc /</span> <span class="text-ink">Bishoftu 8.75°N</span></div>
+        <div><span class="text-ink-subtle">Tz /</span> <span class="text-ink">UTC+3</span></div>
+        <div><span class="text-ink-subtle">Rev /</span> <span class="text-ink">v2026.07</span></div>
       </div>
 
-      <h1
-        class="mt-8 font-display font-medium leading-[1.02] tracking-[-0.025em] text-ink"
-        style="font-size: var(--text-display-2xl);"
-      >
-        Product designer<br />
-        <span class="italic text-ink-muted">&amp; frontend</span><br />
-        <span class="relative inline-block">
-          engineer.
-          <span
-            class="absolute -bottom-1.5 left-0 h-[5px] w-full rounded-full bg-accent md:-bottom-2 md:h-[7px]"
-            aria-hidden="true"></span>
-        </span>
-      </h1>
+      <div class="mt-12 grid gap-10 md:mt-16 md:grid-cols-12 md:gap-8">
+        <!-- LEFT: identity + H1 + copy + CTAs -->
+        <div class="md:col-span-8">
+          <div class="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-ink-subtle">
+            <span class="rounded-full border border-line bg-bg-elevated px-2.5 py-1 text-ink">00 / Identity</span>
+            <span aria-hidden="true">—</span>
+            <span>Product · Design · Code</span>
+          </div>
 
-      <p class="mt-10 max-w-2xl text-lg leading-relaxed text-ink-muted md:text-xl">
-        I run the full UX loop end-to-end — research, strategy, design, build, measure — from one operator. Co-founder of <a
-          href="https://github.com/Cherireal7"
-          class="accent-underline text-ink"
-          >Doxa Innovations</a
-        > and <a href="#work" class="accent-underline text-ink">FIDA Delivery</a>. Based in Bishoftu — open to a senior role with full bandwidth.
-      </p>
-
-      <div class="mt-10 flex flex-wrap items-center gap-3">
-        <a
-          href="#work"
-          class="inline-flex cursor-pointer items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-bg transition-colors hover:bg-accent"
-        >
-          See selected work
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
+          <h1
+            class="mt-8 font-display font-medium leading-[1.02] tracking-[-0.028em] text-ink"
+            style="font-size: var(--text-display-2xl);"
           >
-            <path d="M12 5v14M5 12l7 7 7-7"></path>
-          </svg>
-        </a>
-        <a
-          href={`mailto:${site.email}`}
-          class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line bg-bg-elevated px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-line-strong hover:bg-line/40"
-        >
-          Email me
-        </a>
-        <a
-          href="/cv"
-          class="inline-flex cursor-pointer items-center gap-2 rounded-full px-3 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:text-ink"
-        >
-          CV →
-        </a>
+            Product designer<br />
+            <span class="italic text-ink-muted">&amp; frontend</span><br />
+            <span class="relative inline-block">
+              engineer.
+              <span
+                class="absolute -bottom-1.5 left-0 h-[5px] w-full rounded-full bg-accent md:-bottom-2 md:h-[7px]"
+                aria-hidden="true"></span>
+            </span>
+          </h1>
+
+          <p class="mt-10 max-w-2xl text-lg leading-relaxed text-ink-muted md:text-xl">
+            I run the full UX loop end-to-end — research, strategy, design, build, measure — from one operator. Co-founder of <a
+              href="https://github.com/Cherireal7"
+              class="accent-underline text-ink"
+              >Doxa Innovations</a
+            > and <a href="#work" class="accent-underline text-ink">FIDA Delivery</a>. Based in Bishoftu — open to a senior role with full bandwidth.
+          </p>
+
+          <div class="mt-10 flex flex-wrap items-center gap-3">
+            <a
+              href="#work"
+              class="inline-flex cursor-pointer items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-bg transition-colors hover:bg-accent"
+            >
+              See selected work
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M12 5v14M5 12l7 7 7-7"></path>
+              </svg>
+            </a>
+            <a
+              href={`mailto:${site.email}`}
+              class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line bg-bg-elevated px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-line-strong hover:bg-line/40"
+            >
+              Email me
+            </a>
+            <a
+              href="/cv"
+              class="inline-flex cursor-pointer items-center gap-2 rounded-full px-3 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:text-ink"
+            >
+              CV →
+            </a>
+          </div>
+        </div>
+
+        <!-- RIGHT: system spec card -->
+        <aside class="md:col-span-4">
+          <div class="relative h-full rounded-xl border border-line bg-bg-elevated p-6">
+            <span class="hero-bracket hero-bracket--tl" aria-hidden="true"></span>
+            <span class="hero-bracket hero-bracket--tr" aria-hidden="true"></span>
+            <span class="hero-bracket hero-bracket--bl" aria-hidden="true"></span>
+            <span class="hero-bracket hero-bracket--br" aria-hidden="true"></span>
+
+            <div class="flex items-center justify-between">
+              <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-subtle">System spec</p>
+              <span class="font-mono text-[10px] text-ink-subtle">v.01</span>
+            </div>
+
+            <dl class="mt-6 space-y-5">
+              <div>
+                <dt class="font-mono text-[10px] uppercase tracking-widest text-ink-subtle">Role</dt>
+                <dd class="mt-1.5 font-display text-lg tracking-tight text-ink">Senior FE + Design</dd>
+              </div>
+              <div>
+                <dt class="font-mono text-[10px] uppercase tracking-widest text-ink-subtle">Stack</dt>
+                <dd class="mt-2 flex flex-wrap gap-1.5">
+                  {stack.map((s) => (
+                    <span class="rounded-md border border-line px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-ink">{s}</span>
+                  ))}
+                </dd>
+              </div>
+              <div>
+                <dt class="font-mono text-[10px] uppercase tracking-widest text-ink-subtle">Ships to</dt>
+                <dd class="mt-1.5 text-sm text-ink">Web · iOS · Android · Print</dd>
+              </div>
+            </dl>
+
+            <div class="mt-6 border-t border-line pt-4">
+              <p class="font-mono text-[10px] uppercase tracking-widest text-ink-subtle">Currently // 2026.07</p>
+              <ul class="mt-2.5 space-y-1.5 text-sm text-ink">
+                <li class="flex items-center gap-2">
+                  <span class="text-accent" aria-hidden="true">▸</span>
+                  Prof Brug archive
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-accent" aria-hidden="true">▸</span>
+                  BizBridge Ethiopia
+                </li>
+              </ul>
+            </div>
+          </div>
+        </aside>
       </div>
 
-      <!-- Quiet stat row -->
-      <dl class="mt-14 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-6 border-t border-line pt-8 md:grid-cols-3">
-        <div>
-          <dt class="text-xs uppercase tracking-widest text-ink-subtle">Co-founder</dt>
-          <dd class="mt-1.5 text-sm text-ink">Doxa · FIDA</dd>
-        </div>
-        <div>
-          <dt class="text-xs uppercase tracking-widest text-ink-subtle">Disciplines</dt>
-          <dd class="mt-1.5 text-sm text-ink">Research · Design · Engineering · Growth</dd>
-        </div>
-        <div>
-          <dt class="text-xs uppercase tracking-widest text-ink-subtle">Stack</dt>
-          <dd class="mt-1.5 text-sm text-ink">Figma · React · Next · React Native</dd>
-        </div>
-      </dl>
+      <!-- Numbered spec grid (keylined) -->
+      <div class="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line md:mt-20 md:grid-cols-4">
+        {specGrid.map((cell) => (
+          <div class="bg-bg p-5">
+            <div class="flex items-center justify-between">
+              <p class="font-mono text-[10px] uppercase tracking-widest text-ink-subtle">{cell.label}</p>
+              <span class="font-mono text-[10px] text-ink-subtle">{cell.idx}</span>
+            </div>
+            <p class="mt-3 font-display text-base leading-snug tracking-tight text-ink md:text-lg">{cell.value}</p>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
