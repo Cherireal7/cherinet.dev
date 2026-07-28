@@ -304,6 +304,148 @@ const accentStroke = accent === "blue" ? "var(--color-accent)" : "var(--color-in
       </>
     )}
 
+    {/* === geez-transcribe — scanned page → structured lines + fidel glyph mark === */}
+    {slug === "geez-transcribe" && (
+      <>
+        {/* left: "scanned page" — a paper rectangle with noisy horizontal strokes */}
+        <g class="geo-draw" style="--geo-len: 3200;" stroke="var(--color-ink)" stroke-width="2" fill="none">
+          <rect x="180" y="160" width="500" height="480" rx="6" />
+        </g>
+        <g class="geo-fade" stroke="var(--color-ink-subtle)" stroke-width="2" stroke-linecap="round">
+          {Array.from({ length: 14 }).map((_, i) => (
+            <line
+              x1={220}
+              y1={210 + i * 30}
+              x2={220 + 380 + (i % 3) * -40}
+              y2={210 + i * 30}
+              stroke-dasharray={i % 3 === 0 ? "6 4" : "3 3"}
+            />
+          ))}
+        </g>
+        {/* arrow between the two panels */}
+        <g class="geo-fade geo-stagger-2" stroke={accentStroke} stroke-width="3" stroke-linecap="round" fill="none">
+          <line x1="720" y1="400" x2="900" y2="400" />
+          <polyline points="870,378 900,400 870,422" />
+        </g>
+        {/* right: "structured output" — clean tabular lines */}
+        <g class="geo-draw geo-stagger-2" style="--geo-len: 3400;" stroke="var(--color-ink)" stroke-width="2" fill="none">
+          <rect x="940" y="160" width="480" height="480" rx="6" />
+          {Array.from({ length: 10 }).map((_, i) => (
+            <line
+              x1={980}
+              y1={210 + i * 40}
+              x2={1380}
+              y2={210 + i * 40}
+              stroke="var(--color-line-strong)"
+              stroke-width="1.2"
+            />
+          ))}
+        </g>
+        {/* accent glyph — abstract "fidel" square-in-circle mark */}
+        <g class="geo-fade geo-stagger-3">
+          <circle cx="1180" cy="410" r="72" fill={accentStroke} opacity="0.15" />
+          <rect x="1140" y="370" width="80" height="80" rx="6" fill="none" stroke={accentStroke} stroke-width="3" />
+          <circle cx="1180" cy="410" r="8" fill={accentStroke} class="geo-pulse" />
+        </g>
+      </>
+    )}
+
+    {/* === liturgical-data-engine — Bahire Hasab: dial + orbit + trace bars === */}
+    {slug === "liturgical-data-engine" && (
+      <>
+        {/* central circular dial (the year) */}
+        <g class="geo-draw" style="--geo-len: 3200;" stroke="var(--color-ink)" stroke-width="2" fill="none">
+          <circle cx="800" cy="400" r="220" />
+          <circle cx="800" cy="400" r="160" />
+        </g>
+        {/* tick marks around the outer dial — 12 feasts */}
+        <g class="geo-fade geo-stagger-1" stroke="var(--color-ink)" stroke-width="2">
+          {Array.from({ length: 12 }).map((_, i) => {
+            const angle = (i / 12) * Math.PI * 2 - Math.PI / 2;
+            const x1 = 800 + Math.cos(angle) * 220;
+            const y1 = 400 + Math.sin(angle) * 220;
+            const x2 = 800 + Math.cos(angle) * (i % 3 === 0 ? 250 : 236);
+            const y2 = 400 + Math.sin(angle) * (i % 3 === 0 ? 250 : 236);
+            return <line x1={x1} y1={y1} x2={x2} y2={y2} />;
+          })}
+        </g>
+        {/* orbit / offset from Fast of Nineveh — an accent arc */}
+        <g class="geo-fade geo-stagger-2">
+          <path
+            d="M 800 180 A 220 220 0 0 1 1020 400"
+            stroke={accentStroke}
+            stroke-width="4"
+            fill="none"
+            stroke-linecap="round"
+          />
+          <circle cx="1020" cy="400" r="10" fill={accentStroke} class="geo-pulse" />
+        </g>
+        {/* trace bars on the right — algorithm steps */}
+        <g class="geo-fade geo-stagger-3">
+          {[[1200, 260, 220], [1200, 320, 300], [1200, 380, 180], [1200, 440, 260], [1200, 500, 320], [1200, 560, 200]].map(([x, y, w]) => (
+            <rect x={x} y={y} width={w} height="18" rx="3" fill="var(--color-line-strong)" />
+          ))}
+          <rect x="1200" y="320" width="300" height="18" rx="3" fill={accentStroke} />
+        </g>
+        {/* left column — Gregorian → Ethiopian arrow */}
+        <g class="geo-fade geo-stagger-1" stroke="var(--color-ink-subtle)" stroke-width="1.5" fill="none">
+          <rect x="140" y="300" width="120" height="60" rx="4" />
+          <rect x="140" y="440" width="120" height="60" rx="4" />
+          <line x1="200" y1="360" x2="200" y2="440" stroke-dasharray="4 4" />
+        </g>
+      </>
+    )}
+
+    {/* === christian-worship-app — phone frame with liturgical color band + hymn lines === */}
+    {slug === "christian-worship-app" && (
+      <>
+        {/* phone frame */}
+        <g class="geo-draw" style="--geo-len: 3600;" stroke="var(--color-ink)" stroke-width="2.5" fill="none">
+          <rect x="620" y="140" width="360" height="560" rx="36" />
+          <rect x="680" y="200" width="240" height="12" rx="6" fill="var(--color-line-strong)" stroke="none" />
+        </g>
+        {/* liturgical color band at top of screen */}
+        <rect x="660" y="240" width="280" height="60" rx="4" fill={accentStroke} class="geo-fade geo-stagger-2" />
+        {/* hymn / reading lines */}
+        <g class="geo-fade geo-stagger-3" stroke="var(--color-ink-subtle)" stroke-width="2" stroke-linecap="round">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <line
+              x1={660}
+              y1={340 + i * 34}
+              x2={660 + 260 - (i % 4) * 30}
+              y2={340 + i * 34}
+            />
+          ))}
+        </g>
+        {/* bottom tab bar dots */}
+        <g class="geo-fade geo-stagger-3">
+          {[720, 780, 840, 900].map((cx, i) => (
+            <circle
+              cx={cx}
+              cy="660"
+              r={i === 0 ? 6 : 4}
+              fill={i === 0 ? accentStroke : "var(--color-ink-subtle)"}
+            />
+          ))}
+        </g>
+        {/* calendar grid on the left */}
+        <g class="geo-draw geo-stagger-1" style="--geo-len: 2400;" stroke="var(--color-line-strong)" stroke-width="1.2" fill="none">
+          {Array.from({ length: 7 }).flatMap((_, x) =>
+            Array.from({ length: 5 }).map((_, y) => (
+              <rect x={180 + x * 44} y={240 + y * 44} width="36" height="36" rx="3" />
+            )),
+          )}
+        </g>
+        {/* today's date accent on calendar */}
+        <rect x="268" y="328" width="36" height="36" rx="3" fill={accentStroke} class="geo-fade geo-stagger-3" />
+        {/* cross motif on the right */}
+        <g class="geo-fade geo-stagger-3" stroke="var(--color-ink)" stroke-width="3" stroke-linecap="round">
+          <line x1="1200" y1="280" x2="1200" y2="520" />
+          <line x1="1100" y1="380" x2="1300" y2="380" />
+        </g>
+      </>
+    )}
+
     {/* === doxa — layered offset rectangles (NDA-safe abstraction) === */}
     {slug === "doxa" && (
       <>

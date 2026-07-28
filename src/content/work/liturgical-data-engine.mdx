@@ -1,0 +1,53 @@
+---
+title: "Liturgical Data Engine"
+subtitle: "A TypeScript implementation of the Ethiopian Bahire Hasab computus, wired to the full Mekane Yesus three-year lectionary — served as an open dashboard and a reusable data foundation."
+year: "2025"
+role: "Designer & engineer"
+stack: ["Next.js 16", "React 19", "TypeScript", "D3", "Tailwind v4", "Ethiopian Calendar"]
+metric: "Bahire Hasab · open source"
+summary: "The Ethiopian liturgical year is computed from an ancient lunar arithmetic called Bahire Hasab — the same computus tradition the Coptic and Ethiopian Orthodox churches have used for centuries. The engine ports that math to TypeScript, anchors the whole calendar to the Fast of Nineveh, and exposes it as both a converter dashboard and an npm-ready JSON dataset."
+accent: "ink"
+order: 21
+live: "https://liturgical-data-engine.vercel.app"
+repo: "https://github.com/Cherireal7/liturgical-data-engine"
+---
+
+## The gap
+
+Ethiopian Lutheran congregations — the LCE, EECMY, and EELC among them — plan services against a calendar most software has never heard of. The dates of Tinsae (Easter) and every movable feast are derived from *Bahire Hasab*, an Alexandrian computus built on lunar constants rather than the Gregorian rules baked into every JavaScript date library. A pastor building a service schedule today either does the arithmetic by hand or lifts numbers off a printed almanac. There is no clean data source to build against.
+
+The engine closes that gap. One TypeScript module computes the year; one JSON dataset carries the readings; a small Next.js dashboard proves the math on screen and lets anyone convert between Gregorian and Ethiopian dates in real time.
+
+## What's inside
+
+- **A Bahire Hasab core** — pure functions, no framework, adapted from Henok Mikre's open-source Kenat project and cross-validated against known feast dates across multiple years.
+- **The Mekane Yesus lectionary** — the full three-year cycle (Matthew, Mark, Luke, plus the unique Year of John), with epistle, gospel, Old Testament, and sermon theme keyed to every Sunday, fast, and holy day.
+- **Liturgical color mapping** — Blue, Violet, White, Red, Scarlet, Green, applied by season and feast, so a UI can theme itself without hard-coding dates.
+- **An algorithm trace view** — the dashboard doesn't just show the answer; it walks the reader through the intermediate values (Metq, Wenber, Abektē, Metqē), which is the only way this project earns the trust of clergy who have been doing this arithmetic by hand for decades.
+
+## The dashboard
+
+The site is a single dark-mode landing built around six sections: Year View, Feast Timeline, Four-Year Cycle, Trace, Converter, and FAQ. A separate `/mekane-yesus` route surfaces the full lectionary as a browseable observance library, with dynamic feast timelines and seasonal color coordination that adapt to light and dark modes.
+
+The point of the dashboard is not the UI; it is the **transparency**. Anyone can verify a specific feast on a specific year against a printed almanac and, if they disagree, open the Trace panel and see exactly which step of the computus produced the number. That's the review path that makes a religious data source useful instead of merely correct.
+
+## Why an "engine" and not just a site
+
+The dataset is the product. The site exists so a developer can trust the numbers before pulling them into their own app.
+
+Everything that matters — the algorithm, the lectionary JSON, the color mapping — lives in typed, importable modules under `src/`. A React Native worship app, a Django parish tool, or a Telegram bot can consume the same data foundation without depending on the frontend. The dashboard is intentionally the smallest interface that proves the engine works.
+
+## Precomputation
+
+`scripts/precompute.ts` walks a target year range and materializes the full liturgical calendar as static JSON. Two reasons:
+
+1. **The runtime cost of Bahire Hasab is not zero** — for a mobile app rendering a whole year of Sundays at once, precomputed data avoids re-deriving the same feast dates on every scroll.
+2. **The dataset can be audited independently** — a scholar can review the JSON without ever running the Next.js app or trusting my TypeScript port.
+
+## What it is not
+
+It is not an official product of any denomination. It is an unofficial, community-collaborated effort explicitly designed to be forked. The README acknowledges the debt to the Ethiopian Orthodox Tewahedo Church whose scholarship this arithmetic descends from — the Lutheran lectionary is layered on top, not substituted for it.
+
+## Pair with
+
+This engine is the data layer under [[christian-worship-app]] and the language layer under [[geez-transcribe]] — three projects circling the same question: *what does modern software owe to Ethiopian church tradition, and what can it give back?*

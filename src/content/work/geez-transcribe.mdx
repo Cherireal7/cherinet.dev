@@ -1,0 +1,57 @@
+---
+title: "Ge'ez Transcribe"
+subtitle: "A browser-only pipeline that turns scanned Ge'ez PDFs — hymns, catechisms, patristic texts — into clean, structured, exportable text without ever uploading a file."
+year: "2025"
+role: "Designer & engineer"
+stack: ["Next.js 16", "React 19", "Tesseract.js", "pdf.js", "Tailwind v4", "docx"]
+metric: "100% client-side"
+summary: "Ge'ez is a low-resource script with almost no commercial OCR support. Ge'ez Transcribe is a single-page browser app that runs the whole extract → OCR-fallback → encoding-fix → structure pipeline locally, so anyone with a scanned page and a laptop can get usable text back — no account, no upload, no server bill."
+accent: "blue"
+order: 20
+live: "https://geez-transcribe.vercel.app"
+repo: "https://github.com/Cherireal7/geez-transcribe"
+---
+
+## Why this exists
+
+Most of the primary sources for Ethiopian Christianity — the *Deggua*, the *Mäṣḥafä Qeddase*, Luther's *Small Catechism* in Amharic, a shelf of 20th-century commentary — exist as scanned PDFs. The scans are readable to a human and opaque to a search engine. Commercial OCR either doesn't ship a Ge'ez language model, ships one that hallucinates diacritics, or charges per-page rates that make bulk work impossible for a volunteer translator or a small parish.
+
+Ge'ez Transcribe is the smallest useful tool for that gap: drop a PDF, get back structured text you can actually paste into a document.
+
+## The pipeline
+
+The whole thing runs in the tab. There is no backend. `transcribePdf(file, options, onProgress)` in `src/lib/pipeline.ts` orchestrates five stages, each swappable:
+
+1. **Extract** — `pdf.js` pulls embedded text where the PDF already carries a text layer. Fast, lossless, correct.
+2. **Detect** — if extraction returns near-empty pages, the pipeline flips to OCR without asking.
+3. **OCR** — Tesseract.js under an `OcrProfile` (currently `ethiopic`, `koine-greek`, `hebrew`, `polyglot`). The profile controls language pack, PSM mode, and a `normalize()` pass tuned to that script's common misreads.
+4. **Fix encoding** — a word map + diff generator that catches the systematic mojibake introduced by decades of legacy Ge'ez fonts (pre-Unicode fidels rendered as Latin glyphs).
+5. **Structure** — auto-detects whether the document is Q&A (numbered catechism), sectioned (headings + body), or paginated, and emits a typed `TranscribeResult`.
+
+The output is exportable as **JSON, DOCX, or TXT** — the DOCX path uses the `docx` library so the result opens cleanly in Word or LibreOffice with paragraph structure intact.
+
+## Reliability, not just accuracy
+
+OCR against a low-resource script fails in specific, boring ways: one page is skewed, one is a photocopy of a photocopy, one has bleed-through. So the OCR module ships three things most demos skip:
+
+- **Per-page confidence telemetry** — every page returns a Tesseract confidence score.
+- **Low-confidence retries** — pages under the threshold (default 70) are automatically re-processed under a `binary-retry` pass (aggressive thresholding) and then a `highres-retry` pass. The user sees which pages needed the fallback.
+- **A single PDF session per run** — the document is opened once with `pdf.js` and each page rasterizes from the same session instead of reloading the file, which was the difference between a 40-page catechism taking three minutes and taking twenty.
+
+## The design constraint
+
+The workspace has to accommodate a screen full of Ge'ez while remaining navigable by an operator who reads Latin. The layout is a resizable two-pane workspace — PDF preview on the left, live pipeline output on the right — with recent uploads persisted to `localStorage` so a translator working through a long book doesn't lose their place.
+
+Type is set for parallel reading, not for beauty: the output pane uses a system font at a size where a Ge'ez fidel and a Latin word wrap consistently on the same line.
+
+## Why browser-only was the right call
+
+The audience is small, the files are private-by-default (a translator's working corpus, a parish's own hymnal), and the moment the project takes a backend it takes on a hosting bill and a data-liability question. Running the entire pipeline in WebAssembly (via `tesseract.js`) and Web APIs means:
+
+- **The tool works offline** after first load — critical in Ethiopian bandwidth conditions.
+- **A user's PDFs never leave the tab.** No upload, no logs, nothing to breach.
+- **Deployment is one static build** on any CDN. The project can outlive me.
+
+## What's next
+
+The near-term work is a proper `amharic` profile separate from `ethiopic` (different word-frequency tuning), and a per-page correction UI so a user can hand-fix a low-confidence line without re-running the whole pipeline. Longer term, the encoding-fix module is a candidate to spin out as an npm package — every project working with pre-Unicode Ge'ez fonts hits the same wall.

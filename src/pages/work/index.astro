@@ -20,20 +20,20 @@ const grouped = buckets
   current="Work"
 >
   <!-- Header -->
-  <section class="px-6 pb-12 pt-36 md:px-10 md:pb-20 md:pt-44">
+  <section class="px-6 pb-8 pt-28 md:px-10 md:pb-12 md:pt-32">
     <div class="mx-auto max-w-6xl">
-      <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">
+      <p class="text-[11px] uppercase tracking-[0.18em] text-ink-subtle">
         01 — Index
       </p>
       <h1
-        class="mt-6 max-w-4xl font-display font-medium leading-[1.02] tracking-[-0.03em] text-ink"
-        style="font-size: var(--text-display-xl);"
+        class="mt-4 max-w-4xl font-display font-medium leading-[1.05] tracking-[-0.03em] text-ink"
+        style="font-size: var(--text-display-lg);"
       >
         Selected work,
         <span class="italic text-ink-muted">in order.</span>
       </h1>
-      <p class="mt-8 max-w-2xl text-lg leading-relaxed text-ink-muted">
-        A working set, not a portfolio archive. Each project is something I designed or shipped end-to-end — most are in production today. Older operations and content work sits at the bottom.
+      <p class="mt-5 max-w-2xl text-[15px] leading-relaxed text-ink-muted">
+        A working set, not a portfolio archive. Each project is something I designed or shipped end-to-end — most are in production today.
       </p>
     </div>
   </section>
@@ -41,17 +41,17 @@ const grouped = buckets
   <!-- Grouped grid -->
   {
     grouped.map((group) => (
-      <section class="px-6 pb-12 md:px-10 md:pb-20">
+      <section class="px-6 pb-8 md:px-10 md:pb-12">
         <div class="mx-auto max-w-6xl">
-          <div class="mb-8 flex items-center gap-4 border-b border-line pb-4">
-            <p class="text-xs uppercase tracking-widest text-ink-subtle">
+          <div class="mb-5 flex items-center gap-3 border-b border-line pb-3">
+            <p class="text-[11px] uppercase tracking-widest text-ink-subtle">
               {group.label}
             </p>
-            <span class="text-xs text-ink-subtle">
+            <span class="text-[11px] text-ink-subtle">
               {group.items.length} {group.items.length === 1 ? "project" : "projects"}
             </span>
           </div>
-          <div class="grid auto-rows-fr gap-5 md:grid-cols-2 md:gap-6">
+          <div class="grid auto-rows-fr gap-3 md:grid-cols-2 md:gap-4 lg:grid-cols-3">
             {group.items.map((p, i) => (
               <ProjectCard project={p} index={i} />
             ))}
@@ -62,24 +62,21 @@ const grouped = buckets
   }
 
   <!-- Footer CTA -->
-  <section class="border-t border-line bg-bg-elevated px-6 py-20 md:px-10 md:py-28">
+  <section class="border-t border-line bg-bg-elevated px-6 py-12 md:px-10 md:py-16">
     <div class="mx-auto max-w-3xl text-center">
-      <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Anything not here</p>
-      <h2
-        class="mt-4 font-display font-medium tracking-tight text-ink"
-        style="font-size: var(--text-display-lg);"
-      >
+      <p class="text-[11px] uppercase tracking-[0.18em] text-ink-subtle">Anything not here</p>
+      <h2 class="mt-3 font-display text-2xl font-medium tracking-tight text-ink md:text-3xl">
         Available on request.
       </h2>
-      <p class="mt-6 text-lg leading-relaxed text-ink-muted">
+      <p class="mt-4 text-[15px] leading-relaxed text-ink-muted">
         Most Doxa client work is under NDA. If a specific case study would help you evaluate me for a role, send a note and I'll walk you through it privately.
       </p>
       <a
         href="mailto:cheridemeke7@gmail.com"
-        class="mt-8 inline-flex cursor-pointer items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-bg transition-colors hover:bg-accent"
+        class="mt-6 inline-flex cursor-pointer items-center gap-2 rounded-full bg-ink px-4 py-2 text-[13px] font-medium text-bg transition-colors hover:bg-accent"
       >
         Email me
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M5 12h14M13 5l7 7-7 7"></path>
         </svg>
       </a>

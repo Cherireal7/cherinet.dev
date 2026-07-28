@@ -36,7 +36,6 @@ export const footerNav = {
   ],
   Explore: [
     { label: "Writing", href: "/writing" },
-    { label: "Reading", href: "/reading" },
     { label: "Stack / Uses", href: "/stack" },
     { label: "Tools I built", href: "/tools" },
     { label: "Design system", href: "/system" },

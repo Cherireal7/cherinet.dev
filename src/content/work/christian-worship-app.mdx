@@ -1,0 +1,59 @@
+---
+title: "Christian Worship App"
+subtitle: "An Expo companion for confessional Lutheran worship — LSB one-year lectionary, an Amharic hymnal, Luther's Small Catechism with commentary, and the Book of Concord's confessions, offline-first."
+year: "2025"
+role: "Designer & engineer"
+stack: ["Expo SDK 55", "React Native 0.83", "expo-router", "NativeWind", "dayjs", "TypeScript"]
+metric: "Offline · zero backend"
+summary: "One app that carries the four things a confessional Lutheran actually opens on Sunday morning — the readings, the hymn, the catechism, the creed. Built as a self-contained lectionary + hymnal in React Native, with no server, no login, and no dependency on external liturgical APIs."
+accent: "ink"
+order: 22
+live: "https://github.com/Cherireal7/christian-worship-app"
+repo: "https://github.com/Cherireal7/christian-worship-app"
+---
+
+## What it does
+
+The app sits in four tabs — Home, Calendar, Hymn Book, Favorites — and a set of stack routes for the deeper material: hymn detail, calendar detail, Small Catechism, Declaration of Faith, other prayers.
+
+Open it on a Sunday and it tells you what week of the liturgical year it is, what color the paraments should be, what the epistle and gospel are, which hymn is appointed, and what the collect for the day reads. Open it on a Tuesday and it walks you through Luther's *Small Catechism*, section by section, with the traditional commentary.
+
+## The lectionary module
+
+The Sunday-readings engine is a self-contained TypeScript module ported from `stanlemon/lectionary-js` (MIT) and sitting under `data/`. It ships the full **Lutheran Historic 1-Year (LSB)** cycle across four JSON files:
+
+- `lsb-1yr.json` — Sunday propers (epistle, gospel, OT, collect, introit, gradual, verse)
+- `lsb-daily.json` — daily office readings
+- `lsb-festivals.json` — feasts & festivals (Christmas Day, Reformation, All Saints, etc.)
+- `lsb-commemorations.json` — saints' days
+
+The API is a small set of hooks — `useLiturgical()`, `useLiturgicalDay(date)`, `useToday()` — plus a non-hook service (`getDay`, `getMonthCalendar`, `getKeyDates`) so components that don't need React state can pull data directly. `useToday()` refreshes at midnight without a timer library.
+
+Every day returns a rich shape: `weekNumber`, `weekName`, `season`, `color`, `isSunday`, `isFestival`, `festivalTitle`, `moveableFeast`, `propers { epistle, gospel, oldTestament, collect, introit, gradual, verse }`, `dailyReadings`, and the raw entries so a screen can render the same data three different ways without re-querying.
+
+## The hymnal
+
+The Amharic hymnal is the piece I care most about. `hymns_amharic_structured.json` carries the corpus in a structured shape — verses, refrains, hymn number, tune, category — so a screen can render a hymn as flowing prose, as verse-by-verse cards, or as a plain-text share sheet without a second pass through the data. The parallel `hymn-detail` route handles both rendering and favouriting; favourites persist to `AsyncStorage` and populate the Favorites tab.
+
+## The catechism + confessions
+
+`catechism_small_catechism.json` and `catechism_commentary.json` carry Luther's *Small Catechism* alongside the traditional commentary, keyed section-by-section so both render side by side. `confessions.json` carries the Declaration of Faith and pieces of the Book of Concord. All of it renders in a reading-first typography — one column, generous leading, no navigation chrome inside the body — because catechism is meant to be *sat with*, not scrolled past.
+
+## Design choices that mattered
+
+- **Offline-first, no backend.** Every JSON file ships in the bundle. The app opens the same way on a rural parish's phone with no signal as it does on wifi. No login, no telemetry, no server bill I have to answer for a decade from now.
+- **Expo SDK 55 + New Architecture.** Reanimated 4, React Native 0.83, expo-router 55. Modern enough to survive maintenance, boring enough to still be maintainable.
+- **NativeWind for styling.** Same Tailwind tokens I use on the web sites, so the visual language stays coherent across the family of church-facing tools I'm building.
+- **`react-native-calendars` for the month grid.** A calendar grid is a solved problem; the value is in what you render into each cell, not the grid itself.
+- **`dayjs` as the only heavy date dep.** Small, tree-shakable, correct.
+- **Liturgical colors as a first-class utility.** `liturgicalColors.ts` returns full palettes (accent, background, text) for both light and dark modes given a color name — so any screen can theme itself to match the season without hard-coded hex.
+
+## The onboarding flow
+
+First-run: splash → onboarding → home. Onboarding completion persists to `AsyncStorage` under a single key; on subsequent launches the splash short-circuits straight to home. No account creation, no permissions ceremony. The app is a book you open, not a service you subscribe to.
+
+## Where it sits in the family
+
+This app is downstream of two other projects in this portfolio: the Ge'ez text pipeline in [[geez-transcribe]] is what would produce the Ge'ez-script prayers and hymns a future version will render, and the [[liturgical-data-engine]] is the natural upgrade path when I'm ready to swap the LSB Western cycle for the full Ethiopian Bahire Hasab computus and the Mekane Yesus lectionary.
+
+The goal across all three is the same: the software the Ethiopian church deserves should be *made carefully*, not marketed loudly.

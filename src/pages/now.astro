@@ -21,33 +21,6 @@ const building = [
   },
 ];
 
-const reading = [
-  {
-    title: "Bleak House",
-    by: "Charles Dickens",
-    tag: "Fiction",
-    note: "Dickens on institutional inertia — a slow, structural read that hits differently when you spend your day untangling client systems.",
-  },
-  {
-    title: "The 3D Gospel: Ministry in Guilt, Shame, and Fear Cultures",
-    by: "Jayson Georges",
-    tag: "Missiology",
-    note: "Three cultural registers for the gospel — guilt, shame, fear. A working frame for Ethiopian context, not just Western contextualization theory.",
-  },
-  {
-    title: "The Pastor as Exegete",
-    by: "Goetzinger",
-    tag: "Hermeneutics",
-    note: "The practical case that exegesis is the pastor's craft, not a scholar's optional add-on. Short, sharp, and impossible to skim honestly.",
-  },
-  {
-    title: "Hermeneutics and the Confessions",
-    by: "Tomczak",
-    tag: "Confessions",
-    note: "How the Lutheran Confessions read Scripture — and why that reading is a working method, not just a historical artifact.",
-  },
-];
-
 const learning = [
   "React Server Components patterns past the basics",
   "Type-safe i18n for Ge'ez script rendering",
@@ -57,103 +30,64 @@ const learning = [
 
 <BaseLayout
   title="Now"
-  description="What Cherinet Demeke is working on, reading, and learning — updated monthly."
+  description="What Cherinet Demeke is working on and learning — updated monthly."
   current="Now"
 >
   <!-- Hero -->
-  <section class="relative px-6 pb-12 pt-36 md:px-10 md:pb-20 md:pt-44">
+  <section class="relative px-6 pb-8 pt-28 md:px-10 md:pb-12 md:pt-32">
     <div class="mx-auto max-w-6xl">
-      <div class="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-ink-subtle">
+      <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-ink-subtle">
         <span class="size-1.5 rounded-full bg-accent"></span>
         <span>Updated {updated}</span>
       </div>
       <h1
-        class="mt-6 max-w-4xl font-display font-medium leading-[1.02] tracking-[-0.03em] text-ink"
-        style="font-size: var(--text-display-xl);"
+        class="mt-4 max-w-4xl font-display font-medium leading-[1.05] tracking-[-0.03em] text-ink"
+        style="font-size: var(--text-display-lg);"
       >
         What I&rsquo;m doing
         <span class="italic text-ink-muted">right now.</span>
       </h1>
-      <p class="mt-8 max-w-2xl text-lg leading-relaxed text-ink-muted">
-        A monthly snapshot — what I&rsquo;m building, reading, and learning. Inspired by Derek Sivers&rsquo; <a href="https://sive.rs/nowff" class="accent-underline text-ink" target="_blank" rel="noopener">/now page movement</a>. If you&rsquo;re reading this more than a month after the date above, ping me — I probably forgot to update it.
+      <p class="mt-5 max-w-2xl text-[15px] leading-relaxed text-ink-muted">
+        A monthly snapshot — what I&rsquo;m building and learning. Inspired by Derek Sivers&rsquo; <a href="https://sive.rs/nowff" class="accent-underline text-ink" target="_blank" rel="noopener">/now page movement</a>. If you&rsquo;re reading this more than a month after the date above, ping me — I probably forgot to update it.
       </p>
     </div>
   </section>
 
   <!-- Building -->
-  <section class="px-6 pb-20 md:px-10 md:pb-28">
+  <section class="px-6 pb-10 md:px-10 md:pb-14">
     <div class="mx-auto max-w-6xl">
-      <div class="mb-10 grid gap-2 md:grid-cols-12">
-        <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle md:col-span-3">01 — Building</p>
-        <h2
-          class="font-display font-medium tracking-tight text-ink md:col-span-9"
-          style="font-size: var(--text-display-lg);"
-        >
+      <div class="mb-5 grid gap-2 md:grid-cols-12">
+        <p class="text-[11px] uppercase tracking-[0.18em] text-ink-subtle md:col-span-3">01 — Building</p>
+        <h2 class="font-display text-xl font-medium tracking-tight text-ink md:col-span-9 md:text-2xl">
           Three things on the bench.
         </h2>
       </div>
-      <div class="grid gap-5 md:grid-cols-3 md:gap-6">
+      <div class="grid gap-3 md:grid-cols-3 md:gap-4">
         {building.map((b) => (
-          <article class="reveal flex flex-col rounded-xl border border-line bg-bg-elevated p-6">
+          <article class="reveal flex flex-col rounded-lg border border-line bg-bg-elevated p-4">
             <p class="text-[10px] uppercase tracking-widest text-ink-subtle">{b.tag}</p>
-            <h3 class="mt-4 font-display text-2xl tracking-tight text-ink">{b.title}</h3>
-            <p class="mt-3 text-sm leading-relaxed text-ink-muted">{b.body}</p>
+            <h3 class="mt-2 font-display text-lg tracking-tight text-ink">{b.title}</h3>
+            <p class="mt-1.5 text-[13px] leading-relaxed text-ink-muted">{b.body}</p>
           </article>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Reading -->
-  <section class="border-t border-line bg-bg-elevated px-6 py-20 md:px-10 md:py-28">
-    <div class="mx-auto max-w-6xl">
-      <div class="mb-10 grid gap-2 md:mb-14 md:grid-cols-12">
-        <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle md:col-span-3">02 — Reading</p>
-        <div class="md:col-span-9">
-          <h2
-            class="font-display font-medium tracking-tight text-ink"
-            style="font-size: var(--text-display-lg);"
-          >
-            On the desk.
-          </h2>
-          <p class="mt-4 max-w-2xl text-sm leading-relaxed text-ink-muted md:text-base">
-            The real stack, not a curated one — theology + hermeneutics I&rsquo;m working through, plus one long novel to keep the rhythm honest.
-          </p>
-        </div>
-      </div>
-      <ul class="grid gap-5 md:grid-cols-2 md:gap-6">
-        {reading.map((r) => (
-          <li class="reveal flex flex-col rounded-xl border border-line bg-bg p-6">
-            <p class="font-mono text-[10px] uppercase tracking-widest text-ink-subtle">{r.tag}</p>
-            <p class="mt-4 font-display text-xl leading-snug tracking-tight text-ink">{r.title}</p>
-            <p class="mt-1.5 text-sm text-ink-muted">by {r.by}</p>
-            <p class="mt-4 text-sm leading-relaxed text-ink-muted">{r.note}</p>
-          </li>
-        ))}
-      </ul>
-      <a href="/reading" class="mt-10 inline-flex items-center gap-1.5 text-sm font-medium text-ink accent-underline">
-        Full reading list →
-      </a>
-    </div>
-  </section>
-
   <!-- Learning -->
-  <section class="px-6 py-20 md:px-10 md:py-28">
+  <section class="border-t border-line bg-bg-elevated px-6 py-10 md:px-10 md:py-14">
     <div class="mx-auto max-w-6xl">
-      <div class="mb-10 grid gap-2 md:grid-cols-12">
-        <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle md:col-span-3">03 — Learning</p>
-        <h2
-          class="font-display font-medium tracking-tight text-ink md:col-span-9"
-          style="font-size: var(--text-display-lg);"
-        >
+      <div class="mb-5 grid gap-2 md:grid-cols-12">
+        <p class="text-[11px] uppercase tracking-[0.18em] text-ink-subtle md:col-span-3">02 — Learning</p>
+        <h2 class="font-display text-xl font-medium tracking-tight text-ink md:col-span-9 md:text-2xl">
           Sharpening up on.
         </h2>
       </div>
-      <ol class="grid gap-5 md:grid-cols-3 md:gap-6">
+      <ol class="grid gap-3 md:grid-cols-3 md:gap-4">
         {learning.map((l, i) => (
-          <li class="reveal flex flex-col rounded-xl border border-line bg-bg-elevated p-6">
-            <span class="font-display text-3xl italic text-accent">{String(i + 1).padStart(2, "0")}</span>
-            <p class="mt-4 text-base leading-relaxed text-ink">{l}</p>
+          <li class="reveal flex flex-col rounded-lg border border-line bg-bg-elevated p-4">
+            <span class="font-display text-xl italic text-accent">{String(i + 1).padStart(2, "0")}</span>
+            <p class="mt-2 text-[14px] leading-relaxed text-ink">{l}</p>
           </li>
         ))}
       </ol>
