@@ -65,11 +65,11 @@ export const projects: readonly Project[] = [
     slug: "fida-website",
     title: "FIDA Website",
     subtitle:
-      "The front door most first-time users see before installing FIDA — marketing site with live coverage map plus a Telegram Mini App for the messenger every Ethiopian already has open.",
+      "The front door most first-time users see before installing FIDA — 18 real Bishoftu partners indexed, live MapLibre coverage map, plus a Telegram Mini App for the messenger every Ethiopian already has open.",
     year: "2026",
     role: "Designer & engineer",
     stack: ["Next.js 16", "React 19", "Tailwind v4", "MapLibre GL", "GSAP"],
-    metric: "Live · fidadelivery.et",
+    metric: "18 partners · fidadelivery.com",
     status: "case-study",
     span: "default",
     image: "fida-website",
