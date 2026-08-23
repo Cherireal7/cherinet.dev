@@ -1,23 +1,23 @@
 ---
 title: "FIDA Delivery"
-subtitle: "Two apps that turned Bishoftu's WhatsApp-and-cash delivery scene into a dispatchable network — a customer app for a city of 2 million that had never had one, and a rider app that turns freelance couriers into a trackable fleet."
+subtitle: "Four surfaces that turned Bishoftu's WhatsApp-and-cash delivery scene into a dispatchable network — customer app, rider app, operator dashboard, and marketing site + Telegram Mini App — all shipped by one designer/engineer."
 year: "2025 — present"
-role: "Co-founder · design + engineering"
-stack: ["Expo SDK 56", "React Native 0.85", "React 19.2", "MapLibre", "Firebase", "TanStack Query", "EAS Build & Updates", "Reanimated 4", "MMKV", "Notifee"]
-metric: "12+ restaurant partners · 500+ deliveries fulfilled"
-summary: "FIDA is Bishoftu's first real on-demand delivery network — a customer app, a rider app, one shared brand — serving a city of 2 million with no prior formal delivery infrastructure. I co-founded it and own design and frontend end-to-end: from token system and component library to release engineering and OTA updates."
+role: "Co-founder · design + engineering across all four surfaces"
+stack: ["Expo SDK 56", "React Native 0.85", "React 19.2", "Next.js 16.2", "Laravel 13", "Filament 5", "PostgreSQL + PostGIS", "Redis 7", "Laravel Reverb", "MapLibre GL", "OSRM", "TileServer GL", "TanStack Query", "EAS Build & Updates", "Reanimated 4", "MMKV"]
+metric: "18+ restaurant partners · 500+ deliveries fulfilled"
+summary: "FIDA is Bishoftu's first real on-demand delivery network — a customer app, a rider app, an operator dashboard, and a marketing site plus Telegram Mini App — serving a city of two million with no prior formal delivery infrastructure. I co-founded it and own design and frontend end-to-end across every surface, from token system and component library to release engineering and admin UX."
 accent: "blue"
 order: 1
-live: "https://fidadelivery.et"
+live: "https://fidadelivery.com"
 ---
 
 ## What shipped
 
-- **12+ restaurant partners** onboarded in Bishoftu since launch
+- **18+ restaurant partners** onboarded in Bishoftu since launch
 - **500+ deliveries** fulfilled through the customer app + rider fleet
-- **2 production apps** (iOS + Android) + marketing site + Telegram Mini App — all from one designer/engineer
-- **1 shared design system** (`@fida/ui`) powering both apps and web
-- **Live at** [fidadelivery.et](https://fidadelivery.et) · [customer APK download](https://cdn.fidadelivery.et/apk_folder/fida-customer-production.apk)
+- **4 production surfaces** — customer app, rider app, operator dashboard, marketing site — all under one brand, one design system, one operator
+- **1 shared design system** (`@fida/ui`) powering both mobile apps and web
+- **Live at** [fidadelivery.com](https://fidadelivery.com) · [customer APK download](https://cdn.fidadelivery.com/apk_folder/fida-customer-production.apk) · [@fida_delivery_bot](https://t.me/fida_delivery_bot)
 
 ## The customer app, in five screens
 
@@ -44,34 +44,97 @@ live: "https://fidadelivery.et"
   </figure>
 </div>
 
+## The operator dashboard
+
+Every day at FIDA is run out of the operator panel — a Filament 5 admin on top of the Laravel 13 API, sharing the same auth pool and PostGIS locations as the customer and rider apps. I designed the operator UX end-to-end: which resource lives where, what a dispatcher sees first at 7am, what the reconciliation workflow feels like after a busy weekend, and how a KYC review screen keeps a new rider from being blocked by a bad photograph.
+
+The panel isn't just CRUD over a database. It's a small operating system for the business: **live KPIs and a deliveries trend chart** on the landing dashboard, a **live rider map widget** driven by WebSockets over Laravel Reverb, **KYC delivery approvals** with an inbox pattern for new-rider onboarding, **SOS tickets** wired directly to the rider app's emergency button, **cash ledger + reconciliation** flows so ops can close the books without an accountant in the room, **SMS campaign setup** for partner promos, **disputes and blocks** for problem accounts, **refund + payout transfer** screens for money movement, and **locations map view** for editing service polygons directly on a PostGIS-backed map. Admin auth adds TOTP on top of session; roles and permissions run through `spatie/laravel-permission`; every money field is stored and rendered as integer ETB cents so accounting never rounds.
+
+<div class="mdx-grid-3">
+  <figure>
+    <img src="/projects/fida/admin/dashboard.png" alt="FIDA operator dashboard — main landing view with live KPI widgets, recent deliveries table, deliveries trend chart, and rider map widget" />
+    <figcaption>Dashboard — live KPIs, deliveries trend, rider map</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/fida/admin/deliveries.png" alt="FIDA operator dashboard — deliveries / dispatch view showing active and past orders with status pills, rider assignment, and ETB totals" />
+    <figcaption>Deliveries — dispatch + timeline</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/fida/admin/rider-map.png" alt="FIDA operator dashboard — live rider map with on-shift positions, service polygons, and per-rider status" />
+    <figcaption>Rider map — live positions, PostGIS polygons</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/fida/admin/clients.png" alt="FIDA operator dashboard — clients / customers list with search, KYC status, delivery history counts" />
+    <figcaption>Clients — customer database + support tooling</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/fida/admin/reports.png" alt="FIDA operator dashboard — reconciliation report page with account and flow widgets, period picker, and downloadable summaries" />
+    <figcaption>Reports — reconciliation, MoM, cash ledger</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/fida/admin/settings.png" alt="FIDA operator dashboard — system settings page with commission configs, service areas, feature flags, and role management" />
+    <figcaption>Settings — commissions, service areas, roles</figcaption>
+  </figure>
+</div>
+
+## The marketing site + Telegram Mini App
+
+FIDA's first contact with most users happens two places: a Google search for *"delivery Bishoftu"*, or a friend forwarding a Telegram message. The marketing site at [fidadelivery.com](https://fidadelivery.com) handles both — a desktop recruiter scanning for "is this real?" and a phone user opening a Telegram link. The Telegram Mini App is the wedge for users who will not install another app; it runs the same booking flow as the customer app, restricted to what makes sense inside the messenger.
+
+<div class="mdx-grid-2">
+  <figure>
+    <img src="/projects/fida-website/home.png" alt="FIDA marketing site home — 'Food, parcels, and essentials.' hero in red on white with an illustrated Bishoftu routes map, plus a floating info card promoting the app and Telegram order flow" />
+    <figcaption>Home — coverage answer above the fold</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/fida-website/restaurants.png" alt="FIDA marketing site partners page — 'Every partner in one place' with 18+ real Bishoftu partners (Bama Taste, Carmel Kitchen, Classic Noodle, Cochin Fried Chicken), category chips, and distance-aware cards" />
+    <figcaption>Partners — 18+ real Bishoftu partners, distance-aware</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/fida-website/about.png" alt="FIDA marketing site about — 'Before we built anything, we listened.' with the story of a 3-month field survey of 200+ Bishoftu residents; stats strip: 200+ residents surveyed, 3 mo. preparation, Jun 10 launch, 4 service verticals, 47 km from Addis Ababa" />
+    <figcaption>About — 200+ resident field-survey founding story</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/fida-website/coverage-map.png" alt="FIDA coverage — Bishoftu vector map in cyan on deep ink with a magenta route callout" />
+    <figcaption>Coverage — brand-styled vector tiles</figcaption>
+  </figure>
+</div>
+
+Coverage on a delivery brand's home page is not decoration — it is the single question every visitor is asking: *do you serve me?* The map runs on **MapLibre GL** (not Mapbox or Google) because MapLibre has no SDK pricing, renders the same on Telegram in-app browser as it does on Chrome, and lets me ship a custom vector tile set keyed to FIDA's brand palette. It's the same engine the customer and rider apps use through `@maplibre/maplibre-react-native`, so coverage logic and styling stay consistent across web, mobile, and Mini App.
+
 ## The opening
 
-Bishoftu is a city of two million people 47 km southeast of Addis Ababa, with no reliable on-demand delivery network. Local commerce runs on phone calls, motorbike couriers paid in cash, and a wall of *"can you bring this to my office?"* WhatsApp threads. FIDA's bet is that a single, well-designed app pair — customer and rider — can replace that informal layer with something verifiable, dispatchable, and economically sustainable.
+Bishoftu is a city of two million people 47 km southeast of Addis Ababa, with no reliable on-demand delivery network. Local commerce runs on phone calls, motorbike couriers paid in cash, and a wall of *"can you bring this to my office?"* WhatsApp threads. FIDA's bet is that a well-designed set of surfaces — customer app, rider app, ops dashboard, marketing web — can replace that informal layer with something verifiable, dispatchable, and economically sustainable.
 
-I co-founded FIDA and built the design and frontend end-to-end. The product had to launch in a market with low smartphone uniformity, weak data connections, and zero brand recognition. The apps had to be obviously trustworthy on the first screen, fast on 3G, and small enough to install over patchy Wi-Fi.
+I co-founded FIDA and built the design and frontend end-to-end across all four surfaces. The product had to launch in a market with low smartphone uniformity, weak data connections, and zero brand recognition. Every surface had to be obviously trustworthy on the first screen, fast on 3G, and small enough to install over patchy Wi-Fi.
 
 ## Constraints that shaped the build
 
-- **Two apps, one operator.** A unified design system was not a nice-to-have — it was the only way to ship both apps before runway pressure hit.
-- **Multilingual from day one.** Amharic and English need first-class treatment in every screen — including locale-aware numerals and date/time formatting via `i18next`.
+- **Four surfaces, one operator.** A unified design system was not a nice-to-have — it was the only way to ship customer + rider + admin + website before runway pressure hit.
+- **Multilingual from day one.** Amharic and English need first-class treatment in every surface — including locale-aware numerals and date/time formatting via `i18next`.
 - **Offline-resilient.** Riders lose signal in the city's older neighborhoods; orders cannot be lost when the radio drops.
 - **Trust signals over feature breadth.** First-time users need to see verified riders, clear pricing, and a real phone number before they will tap *Order*.
+- **Sovereign map stack.** No SDK pricing surprises, no third-party takedowns — the same MapLibre + OSRM + TileServer GL pipeline serves web, mobile, and the admin's rider map.
 
 ## How it's built
 
-The stack settled on **Expo SDK 56** with the **New Architecture** turned on, **continuous native generation** so we never commit `ios/` and `android/`, and **EAS Build + Updates** as the release pipeline. Server state is **TanStack React Query** with **persist + sync storage** so the apps cold-start instantly with the last known shape of orders, riders, and pricing. Local persistence uses **react-native-mmkv** (sync, fast) instead of AsyncStorage.
+**Mobile.** The customer and rider apps run on **Expo SDK 56** with the **New Architecture** turned on, **continuous native generation** so we never commit `ios/` and `android/`, and **EAS Build + Updates** as the release pipeline. Server state is **TanStack React Query** with **persist + sync storage** so the apps cold-start instantly with the last known shape of orders, riders, and pricing. Local persistence uses **react-native-mmkv** (sync, fast) instead of AsyncStorage. Maps render through **`@maplibre/maplibre-react-native`** on both customer and rider sides. Push and in-app notifications run through **Notifee** + **React Native Firebase Messaging**. Animations are **Reanimated 4**. Forms use **React Hook Form**. Icons come through **`lucide-react-native`**.
 
-Maps render through **`@maplibre/maplibre-react-native`** on both customer and rider sides — the same vector tile source the FIDA marketing site uses, which keeps coverage logic and styling consistent across web and mobile. Push and in-app notifications run through **Notifee** + **React Native Firebase Messaging**. Animations are **Reanimated 4** (worklets for any non-trivial gesture). Forms use **React Hook Form**. Icons come through **`lucide-react-native`**.
+**Backend + admin.** The API tier and operator panel are one **Laravel 13** codebase (PHP 8.4). The admin lives at `/admin` on **Filament 5**, roles through **spatie/laravel-permission**. Data on **PostgreSQL 16 + PostGIS**; sessions, cache, and queues on **Redis 7**; queue monitoring through **Horizon** at `/horizon` (super-admin only). Real-time channels for the rider map + live delivery events run on **Laravel Reverb**. Authentication is split by client: **Sanctum + SMS OTP** for mobile and web, **session + TOTP** for the admin. Money is stored and rendered as **integer ETB cents** across every surface — no float rounding ever reaches the ledger.
 
-A shared `@fida/ui` package owns the design tokens, the typography scale, and a primitive set — Button, Sheet, Field, Badge, Pill, MapView, AddressCard — that both apps consume identically. Color, radius, and motion are bound to tokens so a single change in the theme file updates both apps and the marketing site.
+**Web.** The marketing site + Telegram Mini App run on **Next.js 16.2** with **React 19**, **Tailwind v4**, **GSAP** for the timeline-heavy scroll moments and **Framer Motion** for component-scoped transitions. Type-safe API contracts are generated from `docs/openapi.yaml` via **`openapi-typescript`** — the site can never call an endpoint that doesn't exist.
 
-A `MockServer` adapter sits between the apps and `https://api.fidadelivery.et/api/v1`. Default-on mock data means every screen renders without the backend — designers can iterate without waiting on infra, and QA can reproduce any state by toggling a fixture.
+**Design system.** A shared `@fida/ui` package owns the design tokens, the typography scale, and a primitive set — Button, Sheet, Field, Badge, Pill, MapView, AddressCard — that both mobile apps consume identically. Color, radius, and motion are bound to tokens so a single change in the theme file updates both apps, the marketing site, and (with a small bridge) the Filament theme.
+
+A `MockServer` adapter sits between the apps and the live API. Default-on mock data means every screen renders without the backend — designers can iterate without waiting on infra, and QA can reproduce any state by toggling a fixture.
 
 ## What ships today
 
-- **Customer app**: address search, delivery price quote, MapLibre rider tracking, in-app calling, ride history, profile, push notifications.
-- **Rider app**: shift control, foreground location during shift only, order acceptance, navigation handoff, SOS-to-ops, daily earnings view.
-- **OTA channel** wired on customer (preview + production); rider on the same pipeline by next release.
+- **Customer app** — address search, delivery price quote, MapLibre rider tracking, in-app calling, ride history, profile, push notifications.
+- **Rider app** — shift control, foreground location during shift only, order acceptance, navigation handoff, SOS-to-ops, daily earnings view.
+- **Operator dashboard** — live KPIs and rider map, deliveries + dispatch, KYC + delivery approvals, SOS ticketing, cash ledger + reconciliation, SMS campaigns, refunds + payout transfers, disputes/blocks, service-area editing.
+- **Marketing site + Telegram Mini App** — coverage-map home, 18+ partner directory, about story, live at `fidadelivery.com` and inside `@fida_delivery_bot`.
+- **OTA channels** — customer wired (preview + production); rider on the same pipeline by next release.
 
 <figure>
   <img src="/projects/fida/app-providers.png" alt="FIDA Delivery customer app — All food providers screen showing partnered restaurants with ratings, prices, and delivery status" />
@@ -99,7 +162,7 @@ The FIDA mark is a monogram — an **F** slotted into a **D** with a courier-tai
 
 ## In the wild
 
-The same design system carries into paid social, Google Play listing, Amharic-language promo posts for local restaurants, print flyers with QR-code onboarding, and a Telegram Mini App for the messenger most Ethiopians already have open. Everything below is built inside the shared token set — one change to `--brand-red` or the typography scale re-flows every surface.
+The same design system carries into paid social, Google Play listing, Amharic-language promo posts for local restaurants, print flyers with QR-code onboarding, and the Telegram Mini App. Everything below is built inside the shared token set — one change to `--brand-red` or the typography scale re-flows every surface.
 
 <div class="mdx-grid-2">
   <figure>
@@ -127,12 +190,11 @@ The same design system carries into paid social, Google Play listing, Amharic-la
 
 ## Try it
 
-The Android customer build is public. iOS build is queued for TestFlight after the App Store review completes. The rider app is invite-only for now — ping me if you want a build.
-
-- [Download the FIDA customer APK](https://cdn.fidadelivery.et/apk_folder/fida-customer-production.apk) (Android, latest production build)
-- [Visit fidadelivery.et](https://fidadelivery.et) (marketing site + coverage map)
+- [Download the FIDA customer APK](https://cdn.fidadelivery.com/apk_folder/fida-customer-production.apk) (Android, latest production build)
+- [Visit fidadelivery.com](https://fidadelivery.com) (marketing site + coverage map + 18+ partners)
 - [Open @fida_delivery_bot](https://t.me/fida_delivery_bot) (Telegram Mini App)
+- **Operator dashboard** is staff-only. Happy to walk through the admin surfaces in a call.
 
 ## What I learned
 
-Vertical integration — same designer, same engineer across two apps and a website — let the brand cohere in a way a typical contractor handoff never produces. A pill in the customer app feels exactly like a pill in the rider app, because it *is* the same pill. The cost is that the bus factor is one. The next phase is hiring a second engineer onto the shared component package so the system survives me.
+Vertical integration — same designer, same engineer across two mobile apps, a marketing site, a Telegram Mini App, and a Filament admin panel — let the brand cohere in a way a typical contractor handoff never produces. A pill in the customer app feels exactly like a pill in the rider app because it *is* the same pill; the operator dashboard uses the same red, the same radius, the same typographic scale. The cost is that the bus factor is one. The next phase is hiring a second engineer onto the shared component package so the system survives me.
