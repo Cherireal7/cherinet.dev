@@ -46,34 +46,26 @@ live: "https://fidadelivery.com"
 
 ## The operator dashboard
 
-Every day at FIDA is run out of the operator panel — a Filament 5 admin on top of the Laravel 13 API, sharing the same auth pool and PostGIS locations as the customer and rider apps. I designed the operator UX end-to-end: which resource lives where, what a dispatcher sees first at 7am, what the reconciliation workflow feels like after a busy weekend, and how a KYC review screen keeps a new rider from being blocked by a bad photograph.
+Every day at FIDA is run out of the operator panel — a Filament 5 admin on top of the Laravel 13 API, sharing the same auth pool and PostGIS locations as the customer and rider apps. I designed the operator UX end-to-end: what a dispatcher sees first at 7am, how a KYC review screen keeps a new rider from being blocked by a bad photograph, what pricing looks like as a heatmap of distance × hour, and what the ledger looks like when accounting closes the week.
 
-The panel isn't just CRUD over a database. It's a small operating system for the business: **live KPIs and a deliveries trend chart** on the landing dashboard, a **live rider map widget** driven by WebSockets over Laravel Reverb, **KYC delivery approvals** with an inbox pattern for new-rider onboarding, **SOS tickets** wired directly to the rider app's emergency button, **cash ledger + reconciliation** flows so ops can close the books without an accountant in the room, **SMS campaign setup** for partner promos, **disputes and blocks** for problem accounts, **refund + payout transfer** screens for money movement, and **locations map view** for editing service polygons directly on a PostGIS-backed map. Admin auth adds TOTP on top of session; roles and permissions run through `spatie/laravel-permission`; every money field is stored and rendered as integer ETB cents so accounting never rounds.
+The panel is organized as a small operating system for the business — **Operations** (Deliveries, Order Approvals, Rider SOS), **Users** (Customers, Riders, Providers, Team), **Catalog** (Items, Categories, Locations), **Finance** (Payments, Payouts, Refunds, Rider cash, Tariffs), **Trust & Safety** (KYC Verification, Blocked Identities, Disputes & Flags), and a **Reports** section (Deliveries, Revenue, Rider Performance, Ledger, Reconciliation, User Retention, App Traction). The live rider map runs on WebSockets over Laravel Reverb; auth adds TOTP on top of session; roles run through `spatie/laravel-permission`; every money field is stored and rendered as integer ETB cents so accounting never rounds.
 
-<div class="mdx-grid-3">
+<div class="mdx-grid-2">
   <figure>
-    <img src="/projects/fida/admin/dashboard.png" alt="FIDA operator dashboard — main landing view with live KPI widgets, recent deliveries table, deliveries trend chart, and rider map widget" />
-    <figcaption>Dashboard — live KPIs, deliveries trend, rider map</figcaption>
+    <img src="/projects/fida/admin/dashboard.png" alt="FIDA operator dashboard — live overview with four KPI cards (Active deliveries, Revenue last 7 days ETB 807.95 up 75.5%, Riders active now 3, Needs attention 0), a 14-day Delivery & revenue trend chart, a Riders right now panel showing 2 online / 1 on a job / 13 offline out of 16 total, and a Live rider map on OpenStreetMap tiles" />
+    <figcaption>Dashboard — live KPIs, 14-day revenue trend, live rider map + status</figcaption>
   </figure>
   <figure>
-    <img src="/projects/fida/admin/deliveries.png" alt="FIDA operator dashboard — deliveries / dispatch view showing active and past orders with status pills, rider assignment, and ETB totals" />
-    <figcaption>Deliveries — dispatch + timeline</figcaption>
+    <img src="/projects/fida/admin/deliveries.png" alt="FIDA operator dashboard — Deliveries report with five metric tiles (Created 81, Completed 58, Completion rate 72%, In flight 0, Canceled 17), a Deliveries over time chart (Created vs Completed), a Payment mode chart (COD 56 vs Prepaid 25), and a Recent orders table with real customer + rider names and ETB totals" />
+    <figcaption>Deliveries report — 81 created / 58 completed / 72% completion · COD vs prepaid split</figcaption>
   </figure>
   <figure>
-    <img src="/projects/fida/admin/rider-map.png" alt="FIDA operator dashboard — live rider map with on-shift positions, service polygons, and per-rider status" />
-    <figcaption>Rider map — live positions, PostGIS polygons</figcaption>
+    <img src="/projects/fida/admin/tariffs.png" alt="FIDA operator dashboard — Tariffs page with four pricing bands (60 ETB base, 80/100/150 ETB + per-metre rates) shown as a When-each-price-applies stack, a Distance × hour Price surface heatmap, and an editable Bands table with Default / Small / Medium / Long Distance rules" />
+    <figcaption>Tariffs — distance × hour price surface, editable per-band pricing</figcaption>
   </figure>
   <figure>
-    <img src="/projects/fida/admin/clients.png" alt="FIDA operator dashboard — clients / customers list with search, KYC status, delivery history counts" />
-    <figcaption>Clients — customer database + support tooling</figcaption>
-  </figure>
-  <figure>
-    <img src="/projects/fida/admin/reports.png" alt="FIDA operator dashboard — reconciliation report page with account and flow widgets, period picker, and downloadable summaries" />
-    <figcaption>Reports — reconciliation, MoM, cash ledger</figcaption>
-  </figure>
-  <figure>
-    <img src="/projects/fida/admin/settings.png" alt="FIDA operator dashboard — system settings page with commission configs, service areas, feature flags, and role management" />
-    <figcaption>Settings — commissions, service areas, roles</figcaption>
+    <img src="/projects/fida/admin/ledger.png" alt="FIDA operator dashboard — Ledger view with Credits ETB 62,562.50 / Debits ETB 77,352.69 / 332 entries / Net -ETB 14,790.19, a Credits-vs-debits line chart, and a By-entry-type breakdown (Charge, Company revenue, Deliverer earning, Provider cost, Payout, Fee, Promotional discount) shown as color-coded rows + a donut chart" />
+    <figcaption>Ledger — every credit + debit typed and accounted, ready to reconcile</figcaption>
   </figure>
 </div>
 
