@@ -8,22 +8,24 @@ const experience = [
     title: "Co-founder & Senior Frontend Engineer",
     org: "Doxa Innovations Software Development PLC · Bishoftu, Ethiopia",
     bullets: [
-      "Co-founded Doxa with two technical partners. Lead design across the studio — UI/UX, brand identity, and web design — and own the frontend on client work.",
-      "Featured engagement: KLA Construction Equipment (US e-commerce, with a live eBay catalog import). React + Tailwind + Laravel + MySQL.",
-      "Comfortable across the stack — strong API consumption (REST + GraphQL), intermediate backend in Laravel and Node where the design decisions need to land in the data model.",
-      "Studio standard: Tailwind + React/Next.js + Laravel + PostgreSQL/MySQL + Redis + Cloudflare R2.",
+      "Co-founded Doxa with two technical partners. Lead design across the studio — UI/UX, brand identity, web design — and own the frontend on client work. 8 shipped client projects across Ethiopia and the US.",
+      "Featured US engagements: KLA Construction Equipment (heavy-equipment e-commerce with live eBay catalog sync, ~900 SKUs — React + Inertia + Laravel + Filament) and Peja Vu (Sheboygan WI chef-owned food truck + catering, full Wix-to-Next rebuild — Next 16 + Payload v3 + Postgres + Radix).",
+      "Comfortable across the stack — strong API consumption (REST + GraphQL, openapi-typescript codegen), intermediate backend in Laravel and Node where design decisions need to land in the data model.",
+      "Studio standard: Tailwind v4 + React/Next.js 16 + Laravel + PostgreSQL + Redis + Cloudflare R2.",
     ],
   },
   {
     year: "2025 — present",
     title: "Co-founder · design + engineering",
-    org: "FIDA Delivery",
+    org: "FIDA Delivery — Bishoftu's first on-demand delivery network",
     bullets: [
-      "Co-founded FIDA; designed and shipped two production React Native apps (customer + rider) on Expo SDK 56 / New Architecture / React 19.2 / RN 0.85.",
-      "Stack: MapLibre, TanStack Query (with persist + sync storage), Firebase Messaging + Notifee, MMKV, Reanimated 4, i18next, React Hook Form.",
-      "Built shared `@fida/ui` package — tokens, primitives, and screens — consumed by both apps and the marketing site.",
+      "Co-founded FIDA; designed and shipped four production surfaces — customer app, rider app, operator dashboard, and marketing site + Telegram Mini App — all from one operator. 18+ restaurant partners, 500+ deliveries.",
+      "Mobile: Expo SDK 56 / New Architecture / React 19.2 / RN 0.85; MapLibre, TanStack Query with persist + sync storage, Firebase Messaging + Notifee, MMKV, Reanimated 4, i18next, React Hook Form.",
+      "Operator dashboard: designed the UX end-to-end on Filament 5 over Laravel 13 + PostgreSQL 16 + PostGIS + Redis 7 + Laravel Reverb (WebSockets) + Horizon. Live KPI widgets, live rider map, KYC delivery approvals, cash ledger + reconciliation, SMS campaigns, SOS ticketing, disputes/blocks, PostGIS service-area editing. Auth split: Sanctum + SMS OTP for mobile, session + TOTP for admin; roles via spatie/laravel-permission; money as integer ETB cents.",
+      "Marketing site + Telegram Mini App: Next.js 16.2 + React 19 + Tailwind v4, MapLibre GL coverage view, openapi-typescript API client, GSAP + Framer Motion.",
+      "Sovereign map pipeline: MapLibre GL + self-hosted OSRM + TileServer GL across web, mobile, and admin — no third-party SDK pricing surprises.",
+      "Built shared `@fida/ui` package — tokens, primitives, screens — consumed by both mobile apps and the web surfaces.",
       "Set up EAS Build + Updates pipeline; wired OTA channels for staged rollout.",
-      "Built the marketing site and Telegram Mini App in Next.js 16.2 + React 19 + Tailwind v4, with a MapLibre GL coverage view and openapi-typescript API client.",
     ],
   },
   {
@@ -90,30 +92,41 @@ const skills = {
     "Bilingual product (Amharic / English)",
   ],
   "Languages & frameworks": [
-    "TypeScript",
-    "React",
+    "TypeScript (strict)",
+    "React 19",
     "React Native",
-    "Next.js (15/16)",
-    "Astro",
+    "Next.js 16 (App Router, PPR)",
+    "Astro 5",
+    "SvelteKit 2 / Svelte 5",
     "Node.js",
+    "PHP 8.4",
   ],
   "Mobile & release": [
     "Expo SDK 56",
     "React Native New Arch",
     "EAS Build & Updates",
     "Continuous native generation",
-    "OTA channels",
+    "OTA channels + staged rollouts",
   ],
   "Backend & data": [
-    "Laravel (primary backend across Doxa client work)",
+    "Laravel 13 (primary backend across Doxa + FIDA)",
+    "Filament 5 admin panels",
     "Payload v3 CMS",
     "Fastify",
-    "Drizzle ORM",
-    "PostgreSQL / Neon",
+    "Drizzle ORM · Prisma",
+    "PostgreSQL 16 + PostGIS · Neon",
     "MySQL",
-    "Redis / BullMQ",
-    "Better Auth · NextAuth",
-    "REST + GraphQL API design",
+    "Redis 7 · BullMQ · Horizon",
+    "Laravel Reverb (WebSockets)",
+    "Better Auth · NextAuth · Sanctum + SMS OTP",
+    "REST + GraphQL + openapi-typescript codegen",
+  ],
+  "Maps & geo": [
+    "MapLibre GL (web + React Native)",
+    "Self-hosted OSRM routing",
+    "TileServer GL",
+    "PostGIS polygons + spatial queries",
+    "Leaflet",
   ],
   "Growth & measurement": [
     "Technical SEO (schema, sitemaps, Core Web Vitals)",
@@ -194,7 +207,7 @@ const skills = {
       <section class="mt-12">
         <h2 class="cv-h2 text-xs uppercase tracking-[0.18em] text-ink-subtle">Profile</h2>
         <p class="mt-4 max-w-3xl text-base leading-relaxed text-ink-muted">
-          Product designer and frontend engineer based in Bishoftu, Ethiopia. Co-founder & Vice Manager at Doxa Innovations Software Development PLC (UI/UX, product design, brand strategy, frontend) and co-founder of FIDA Delivery (design + engineering across two production apps). UX practice covers the full loop — interviews, surveys, competitor + market analysis, blue / red ocean positioning, design systems, Figma → React / React Native, SEO and analytics. Open to senior frontend / staff roles, remote — with full bandwidth.
+          Product designer and frontend engineer based in Bishoftu, Ethiopia. Co-founder & Senior Frontend Engineer at Doxa Innovations (8 client projects shipped across Ethiopia + the US) and co-founder of FIDA Delivery, where I own design and frontend across four production surfaces — customer app, rider app, Filament 5 operator dashboard, and marketing site + Telegram Mini App. Shipped 18+ partners, 500+ deliveries. UX practice covers the full loop — interviews, surveys, competitor + market analysis, blue / red ocean positioning, design systems, Figma → React / React Native / Filament, SEO and analytics. Available now — full-time preferred, contract on request.
         </p>
       </section>
 
