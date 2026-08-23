@@ -5,10 +5,10 @@ export const site = {
   tagline:
     "Product designer, researcher, and frontend engineer. I run the full UX loop — research, strategy, design, build, measure — from one operator.",
   location: "Bishoftu, Ethiopia",
-  availability: "Open to senior frontend / staff roles, remote — full bandwidth.",
+  availability: "Available now · full-time preferred, contract on request. Remote, GMT+3.",
   email: "cheridemeke7@gmail.com",
   phone: "+251 989 932 714",
-  url: "https://cherinet.dev",
+  url: "https://cherinet-portfolio-one.vercel.app",
   social: {
     github: { label: "GitHub", href: "https://github.com/Cherireal7" },
     linkedin: {

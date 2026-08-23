@@ -1,0 +1,74 @@
+---
+title: "Peja Vu"
+subtitle: "A chef-owned Sheboygan food truck escaping a Wix template. Full custom rebuild — booking flow, menu CMS, catering quoting, and a Kitchen Console admin — on Next.js 16 + Payload 3."
+year: "2025 — present"
+role: "Lead designer · brand · full frontend + CMS (Doxa)"
+stack: ["Next.js 16", "React 19", "Payload v3", "Postgres", "Tailwind v4", "Radix UI", "Motion", "Leaflet"]
+metric: "Live · pejavu.doxaplc.com"
+summary: "Peja Vu is Chef Ryan's food truck + catering + private-dining business in Sheboygan, Wisconsin. I designed the brand, built the full frontend, and shipped a purpose-built Payload CMS ('Kitchen Console') so Ryan can update the menu, reviews, and hours himself — no developer in the loop."
+accent: "blue"
+order: 2
+live: "https://pejavu.doxaplc.com"
+---
+
+## What shipped
+
+- **Full custom site** replacing a Wix template Ryan had outgrown — brand system, typography, booking flow, and content model, all built from scratch
+- **Kitchen Console** — a Payload v3 CMS tailored for a chef, not a developer. Menu items, dietary tags, reviews, hours, and catering quotes all editable through a UI Ryan actually uses
+- **Multi-step catering + booking flow** with real form state, quote generation, and inbound routing into the admin inbox
+- **6 real Google reviews** seeded on launch, moderated inside the console
+- **Live at** [pejavu.doxaplc.com](https://pejavu.doxaplc.com) — production traffic on Vercel + Postgres
+
+## The customer site, in four screens
+
+<div class="mdx-grid-2">
+  <figure>
+    <img src="/projects/pejavu/home.png" alt="Peja Vu home page — cream background, burgundy nav, 'Honest. Thoughtful. Food.' serif headline, food-truck illustration below" />
+    <figcaption>Home — brand hero + food-truck illustration</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/pejavu/menu.png" alt="Peja Vu menu page — category sidebar (Appetizers, Mains, Sides, Desserts, Drinks), dietary tag chips, real dish cards with photography and prices" />
+    <figcaption>Menu — category tabs, dietary tags, real dish photography</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/pejavu/catering.png" alt="Peja Vu catering page — 'Cook for your table' hero, four package cards (food truck at event, private dining, full-service, pop-ups), custom quote form step 1 of 4" />
+    <figcaption>Catering — four packages + multi-step quote form</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/pejavu/book.png" alt="Peja Vu booking page for private dining and events" />
+    <figcaption>Book — private dining reservations</figcaption>
+  </figure>
+</div>
+
+## The opening
+
+Ryan runs Peja Vu solo — food truck by day, catering on weekends, private dinners in Sheboygan homes on request. His old Wix site was fine as a business card, but every menu change, every hours update, every catering inquiry meant a phone call and a manual edit. He wanted the site to earn its keep: take bookings, show current menu, capture leads, and let him update everything from a phone between services.
+
+I came in through Doxa as the lead designer and frontend engineer on a bespoke Next.js + Payload rebuild. The scope wasn't just a nicer website — it was a small operational system disguised as one.
+
+## Constraints that shaped the build
+
+- **Chef-owned, not agency-managed.** Every content surface Ryan needs to touch had to be editable through a Payload UI that reads like a kitchen ticket, not a database. If Ryan can't find the "add a special" button in ten seconds, the system fails.
+- **Sheboygan-specific trust signals.** Local booking behavior needs local proof — real Google reviews, real address (redacted from JSON-LD where personal), real Wisconsin phone, real photos of Ryan's food (not stock).
+- **Booking, not just contact.** Weddings and corporate catering need a real quote flow with dates, headcount, service style, and dietary counts — not a `contact@` mailto.
+- **Mobile-first, thumb-first.** Half the traffic comes from Instagram taps during lunchtime. Every CTA has to land under a thumb without pinch-zooming.
+
+## How it's built
+
+The stack settled on **Next.js 16 App Router** with three route groups: `(frontend)` for the public site, `(payload)` for the CMS UI, and `(staff)` for authenticated operator pages Ryan uses on his phone. **Payload v3** runs in the same Next process, backed by **Postgres** in production with a **SQLite fallback** for local dev — one binary, one deploy target.
+
+**Radix UI** primitives power the accessible form + menu + dialog surfaces. **Motion** (formerly Framer Motion) handles the section reveals and the food-truck-on-a-road illustration without hurting Lighthouse. **Leaflet** renders the coverage map on the catering page. **Sonner** for toasts, **Lucide** for icons, **Sharp** for on-the-fly image optimization out of S3-compatible storage.
+
+The **Kitchen Console** (the admin UI) is tuned specifically for Ryan: menu items have dietary tag pickers instead of freeform text, reviews have a moderation toggle that's the biggest button on the page, hours have a "close for the day" one-click, and the catering inbox surfaces new quote requests with a timeline of every touchpoint.
+
+## Brand system
+
+Chef-owned, warm, unfussy. The palette is a cream ground (`#FDF6EA` range) with burgundy accents (`#5A1F14` range) and a soft brown for tertiary text. The wordmark pairs a hand-drawn "Peja Vu" cursive with an all-caps sans classification strip ("FOOD · TRUCK · CATERING"). Every page carries the same three brand elements: the cream ground, the burgundy CTA color, and a hand-drawn food-truck illustration that anchors the home page and shows up in miniature across the footer and social exports.
+
+The whole system is bound to Payload's global "brand theme" record, so any future rebrand touches one document, not fifty CSS files.
+
+## What I learned
+
+Building for a solo chef-owner is a totally different constraint than building for a marketing team. The value isn't a beautiful design system — it's whether Ryan opens the admin between services and edits the menu without calling. Every clever thing I could have done (nested collections, custom field types, complex relationships) got measured against: does this make Ryan's Tuesday afternoon easier or harder? Everything that made it harder got cut.
+
+The next phase is DUBS / The Shack — Ryan's disc golf pro shop, shipped from the same Payload backbone.

@@ -92,32 +92,29 @@ const liveStatusStyle: Record<NonNullable<Project["liveStatus"]>, string> = {
     </div>
   </div>
 
-  {/* Title + metric */}
+  {/* Title + metric — metric is the outcome, so it gets accent color */}
   <div class="flex items-baseline justify-between gap-3">
     <h3 class="text-base font-medium tracking-tight text-ink md:text-lg">
       {project.title}
     </h3>
     {project.metric && (
-      <span class="shrink-0 rounded-full border border-line bg-bg px-2 py-0.5 text-[10px] font-medium text-ink-muted">
+      <span class="shrink-0 rounded-full border border-accent/30 bg-accent/5 px-2 py-0.5 text-[10px] font-medium text-accent">
         {project.metric}
       </span>
     )}
   </div>
 
-  {/* Subtitle */}
-  <p class="mt-1.5 text-[13px] leading-relaxed text-ink-muted md:text-sm">
+  {/* Subtitle — this is the outcome sentence, bumped up in size + weight */}
+  <p class="mt-2 text-[14px] leading-relaxed text-ink md:text-[15px]">
     {project.subtitle}
   </p>
 
-  {/* Stack chips */}
-  <div class="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] uppercase tracking-widest text-ink-subtle">
-    {project.stack.slice(0, 4).map((s) => <span>{s}</span>)}
-    {project.stack.length > 4 && <span>+{project.stack.length - 4}</span>}
-  </div>
+  {/* Spacer to push CTA + stack to the bottom of the card */}
+  <div class="flex-1"></div>
 
-  {/* CTA */}
+  {/* CTA — promoted above stack chips */}
   {href && (
-    <div class="mt-3 flex items-center gap-1 text-xs font-medium text-ink-muted transition-colors group-hover:text-accent">
+    <div class="mt-4 flex items-center gap-1 text-xs font-medium text-ink transition-colors group-hover:text-accent">
       <span>
         {isExternal ? "Visit live site" : "Read case study"}
       </span>
@@ -137,6 +134,12 @@ const liveStatusStyle: Record<NonNullable<Project["liveStatus"]>, string> = {
       </svg>
     </div>
   )}
+
+  {/* Stack chips — demoted, smaller, visually tertiary */}
+  <div class="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-line pt-2.5 text-[10px] uppercase tracking-widest text-ink-subtle/80">
+    {project.stack.slice(0, 4).map((s) => <span>{s}</span>)}
+    {project.stack.length > 4 && <span>+{project.stack.length - 4}</span>}
+  </div>
 
   {project.status === "placeholder" && (
     <div class="mt-3 text-xs font-medium text-ink-subtle">

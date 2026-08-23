@@ -3,73 +3,82 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
 import { projects } from "../../lib/projects";
 
-// Group by year buckets (keep declaration order within bucket)
-const buckets = [
-  { label: "2025 — present", filter: (p: { year: string }) => p.year.includes("2025") || p.year.includes("2026") || p.year.includes("present") },
-  { label: "Earlier work", filter: (p: { year: string }) => !p.year.includes("2025") && !p.year.includes("2026") && !p.year.includes("present") },
-];
-
-const grouped = buckets
-  .map((b) => ({ label: b.label, items: projects.filter((p) => b.filter(p)) }))
-  .filter((g) => g.items.length > 0);
+const featured = projects.filter((p) => p.featured);
+const more = projects.filter((p) => !p.featured);
 ---
 
 <BaseLayout
   title="Work"
-  description="Selected work by Cherinet Demeke — frontend engineering, design systems, and digital product."
+  description="Selected work by Cherinet Demeke — consumer products, marketing sites, and US client work, shipped end-to-end from Bishoftu."
   current="Work"
 >
   <!-- Header -->
   <section class="px-6 pb-8 pt-28 md:px-10 md:pb-12 md:pt-32">
     <div class="mx-auto max-w-6xl">
       <p class="text-[11px] uppercase tracking-[0.18em] text-ink-subtle">
-        01 — Index
+        01 — Selected work
       </p>
       <h1
         class="mt-4 max-w-4xl font-display font-medium leading-[1.05] tracking-[-0.03em] text-ink"
         style="font-size: var(--text-display-lg);"
       >
-        Selected work,
-        <span class="italic text-ink-muted">in order.</span>
+        Products shipped,
+        <span class="italic text-ink-muted">outcomes measured.</span>
       </h1>
       <p class="mt-5 max-w-2xl text-[15px] leading-relaxed text-ink-muted">
-        A working set, not a portfolio archive. Each project is something I designed or shipped end-to-end — most are in production today.
+        Two live consumer apps, a live business-setup platform, and paid work for US and Ethiopian clients. Each project below was designed and shipped end-to-end — most are in production today.
       </p>
     </div>
   </section>
 
-  <!-- Grouped grid -->
-  {
-    grouped.map((group) => (
-      <section class="px-6 pb-8 md:px-10 md:pb-12">
-        <div class="mx-auto max-w-6xl">
-          <div class="mb-5 flex items-center gap-3 border-b border-line pb-3">
-            <p class="text-[11px] uppercase tracking-widest text-ink-subtle">
-              {group.label}
-            </p>
-            <span class="text-[11px] text-ink-subtle">
-              {group.items.length} {group.items.length === 1 ? "project" : "projects"}
-            </span>
-          </div>
-          <div class="grid auto-rows-fr gap-3 md:grid-cols-2 md:gap-4 lg:grid-cols-3">
-            {group.items.map((p, i) => (
-              <ProjectCard project={p} index={i} />
-            ))}
-          </div>
+  <!-- Featured -->
+  <section class="px-6 pb-8 md:px-10 md:pb-12">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-5 flex items-center gap-3 border-b border-line pb-3">
+        <p class="text-[11px] uppercase tracking-widest text-ink-subtle">
+          Featured
+        </p>
+        <span class="text-[11px] text-ink-subtle">
+          {featured.length} projects
+        </span>
+      </div>
+      <div class="grid auto-rows-fr gap-3 md:grid-cols-2 md:gap-4 lg:grid-cols-3">
+        {featured.map((p, i) => (
+          <ProjectCard project={p} index={i} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {more.length > 0 && (
+    <section class="px-6 pb-8 md:px-10 md:pb-12">
+      <div class="mx-auto max-w-6xl">
+        <div class="mb-5 flex items-center gap-3 border-b border-line pb-3">
+          <p class="text-[11px] uppercase tracking-widest text-ink-subtle">
+            More work
+          </p>
+          <span class="text-[11px] text-ink-subtle">
+            {more.length} projects
+          </span>
         </div>
-      </section>
-    ))
-  }
+        <div class="grid auto-rows-fr gap-3 md:grid-cols-2 md:gap-4 lg:grid-cols-3">
+          {more.map((p, i) => (
+            <ProjectCard project={p} index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- Footer CTA -->
   <section class="border-t border-line bg-bg-elevated px-6 py-12 md:px-10 md:py-16">
     <div class="mx-auto max-w-3xl text-center">
-      <p class="text-[11px] uppercase tracking-[0.18em] text-ink-subtle">Anything not here</p>
+      <p class="text-[11px] uppercase tracking-[0.18em] text-ink-subtle">Available now</p>
       <h2 class="mt-3 font-display text-2xl font-medium tracking-tight text-ink md:text-3xl">
-        Available on request.
+        Full-time preferred, contract on request.
       </h2>
       <p class="mt-4 text-[15px] leading-relaxed text-ink-muted">
-        Most Doxa client work is under NDA. If a specific case study would help you evaluate me for a role, send a note and I'll walk you through it privately.
+        Open to senior frontend / product-engineering roles, remote. Most Doxa client work is under NDA — if a specific case study would help you evaluate me for a role, send a note and I'll walk you through it privately.
       </p>
       <a
         href="mailto:cheridemeke7@gmail.com"

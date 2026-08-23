@@ -350,17 +350,21 @@
 
   /* MDX gallery grids — for brand marks, screens, marketing surfaces */
   .prose-case .mdx-grid-2,
-  .prose-case .mdx-grid-3 {
+  .prose-case .mdx-grid-3,
+  .prose-case .mdx-grid-5 {
     display: grid;
     gap: 0.75rem;
     margin: 1.5em 0;
   }
   .prose-case .mdx-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .prose-case .mdx-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .prose-case .mdx-grid-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .prose-case .mdx-grid-2 img,
   .prose-case .mdx-grid-3 img,
+  .prose-case .mdx-grid-5 img,
   .prose-case .mdx-grid-2 figure,
-  .prose-case .mdx-grid-3 figure {
+  .prose-case .mdx-grid-3 figure,
+  .prose-case .mdx-grid-5 figure {
     margin: 0;
     width: 100%;
     height: auto;
@@ -373,10 +377,16 @@
     color: var(--color-ink-subtle);
     text-align: center;
   }
+  @media (max-width: 900px) {
+    .prose-case .mdx-grid-5 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
   @media (max-width: 640px) {
     .prose-case .mdx-grid-2,
-    .prose-case .mdx-grid-3 {
-      grid-template-columns: 1fr;
+    .prose-case .mdx-grid-3,
+    .prose-case .mdx-grid-5 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 }

@@ -14,6 +14,7 @@ export type ImageTag =
   | "liturgical"
   | "christian-worship"
   | "kla-constructions"
+  | "pejavu"
   | "books-old"
   | "manuscript"
   | "church-interior"
@@ -100,6 +101,12 @@ const PHOTOS: Record<ImageTag, PhotoMeta> = {
     id: "1581094288338-2314dddb7ece",
     credit: "Photo by Josh Olalde",
     href: "https://unsplash.com/photos/construction-equipment-on-site-X1P1_EDNnok",
+  },
+  pejavu: {
+    id: "1565958011703-44f9829ba187",
+    credit: "Photo by Rachel Park",
+    href: "https://unsplash.com/photos/food-truck-hNhslLQIfyc",
+    local: { src: "/projects/pejavu/home.png" },
   },
 
   // Thematic / page-level
