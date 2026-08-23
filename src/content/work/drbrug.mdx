@@ -1,14 +1,37 @@
 ---
 title: "Dr. Brug Archive"
-subtitle: "Consolidating three decades of a Lutheran theologian's writing — [N] pieces across PDFs, paper, and expired blogs — into a citation-clean reading environment built to outlast its author."
-year: "2025"
+subtitle: "Fifty-three years of a Lutheran theologian's writing — 254 publications across books, papers, and articles — consolidated into one searchable, citation-clean reading environment built to outlast its author."
+year: "2025 — present"
 role: "Designer & engineer"
-stack: ["Next.js", "MDX", "Search", "TypeScript"]
-metric: "[N] pieces · full-text search · zero-cost hosting"
-summary: "Dr. Brug's writings — exegetical essays, devotional pieces, and correspondence — were scattered across PDFs, paper, and a couple of expired blogs. The archive consolidates them into one structured, searchable, citation-clean reading environment a graduate student in 2035 can cite from a phone on a bad connection — without paying anyone."
+stack: ["Next.js", "React", "Prisma", "Postgres", "MDX", "R2", "TypeScript"]
+metric: "254 publications · 30 books · 224 papers"
+summary: "Dr. Brug's writings — exegetical essays, devotional pieces, book chapters, and interview clips — were scattered across PDFs, paper, and a couple of expired blogs. The archive consolidates them into one structured, searchable, citation-clean reading environment a graduate student in 2035 can cite from a phone on a bad connection."
 accent: "ink"
 order: 5
+live: "https://profbrug.org"
+repo: "https://github.com/Cherireal7/drbrug"
 ---
+
+## Live at profbrug.org — four core surfaces
+
+<div class="mdx-grid-2">
+  <figure>
+    <img src="/projects/drbrug/home.png" alt="Dr. Brug Archive home — 'A permanent archive preserving a lifetime of scholarship, essays, publications, and interview clips for future generations' hero with a real portrait of Dr John F. Brug, a Bible-quote card, and a stats strip: 30 books, 224 papers & essays, 1973-2026, 15 subject areas" />
+    <figcaption>Home — 30 books · 224 papers · 53 years indexed</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/drbrug/publications.png" alt="Dr. Brug Archive publications page — 254 results, faceted filters by content type (Books, Papers, Articles), date issued (2020s, 2010+, 2000s, 1990s and earlier), and subject (Biblical Studies, Doctrine, Church History, Ministry). Real book cards with cover, title, publisher, price, and 'View book details' CTA" />
+    <figcaption>Publications — 254 results, faceted filters, real book cards</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/drbrug/library.png" alt="Dr. Brug Archive library — long-form reading environment for essays and papers" />
+    <figcaption>Library — long-form reading environment</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/drbrug/blog.png" alt="Dr. Brug Archive blog — chronological essays and short-form writing" />
+    <figcaption>Blog — chronological short-form writing</figcaption>
+  </figure>
+</div>
 
 ## Why an archive at all
 
@@ -45,4 +68,4 @@ That distinction sounds editorial, not technical, but it ended up driving most o
 
 ## What's live
 
-The reading environment, the structured frontmatter for every piece, and the search index are all built and in private review with the family. A public soft-launch is planned for late 2026, coordinated with a foreword from a colleague who can speak to the work's scope.
+The archive is public at [profbrug.org](https://profbrug.org) — 30 books, 224 papers and essays, and interview clips indexed across 15 subject areas spanning 53 years (1973–2026). Faceted filters over content type, date, and subject. Admin CMS handles new uploads without needing a code deploy; Dr. Brug's own additions land on the dev branch and auto-deploy through a single push.
