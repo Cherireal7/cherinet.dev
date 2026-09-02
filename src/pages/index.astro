@@ -1,420 +1,366 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ProjectCard from "../components/ProjectCard.astro";
-import StepGlyph from "../components/StepGlyph.astro";
-import { featuredProjects } from "../lib/projects";
+import { projects } from "../lib/projects";
+import { img, imgKind } from "../lib/images";
 import { site } from "../lib/site";
 
-const stack = ["Figma", "React", "Next", "Astro", "RN", "Tailwind", "TypeScript"];
+const fida = projects.find((p) => p.slug === "fida-delivery")!;
+const bizbridge = projects.find((p) => p.slug === "bizbridge")!;
+const featured = [fida, bizbridge];
 
-const specGrid = [
-  { idx: "01", label: "Co-founder", value: "Doxa · FIDA" },
-  { idx: "02", label: "Disciplines", value: "Research · Design · Engineering" },
-  { idx: "03", label: "Stack", value: "Figma · React · Next · RN" },
-  { idx: "04", label: "Base", value: "Bishoftu · Remote-first" },
-];
-
-const loopPhases = [
-  { glyph: 2, label: "Discover", note: "Interviews, surveys, competitor maps, heatmaps." },
-  { glyph: 3, label: "Strategy", note: "Position. Blue / red ocean. Frame the real constraint." },
-  { glyph: 5, label: "Design", note: "Sketch flows, then Figma, then tokens." },
-  { glyph: 6, label: "Build", note: "React, Next, React Native, design-in-build." },
-  { glyph: 8, label: "Measure", note: "Analytics, SEO, funnel, then reduce." },
+const skillGroups = [
+  {
+    label: "Languages",
+    tools: ["TypeScript", "JavaScript", "PHP", "Dart"],
+  },
+  {
+    label: "Frontend",
+    tools: ["React", "Next.js", "Astro", "Tailwind"],
+  },
+  {
+    label: "Mobile",
+    tools: ["React Native", "Expo SDK 56", "MapLibre"],
+  },
+  {
+    label: "Backend & APIs",
+    tools: ["Laravel", "Filament", "Payload v3", "Fastify"],
+  },
+  {
+    label: "Data & Infra",
+    tools: ["PostgreSQL", "PostGIS", "Redis", "Docker"],
+  },
+  {
+    label: "Design & Systems",
+    tools: ["Figma", "Design tokens", "Reverb", "Cal.com"],
+  },
 ];
 ---
 
 <BaseLayout current="Work">
-  <!-- Hero — structural, engineered surface -->
-  <section class="hero-surface relative overflow-hidden px-6 pb-16 pt-28 md:px-10 md:pb-24 md:pt-36">
-    <!-- Corner registration marks -->
-    <span class="hero-tick hero-tick--tl" aria-hidden="true"></span>
-    <span class="hero-tick hero-tick--tr" aria-hidden="true"></span>
-    <span class="hero-tick hero-tick--bl" aria-hidden="true"></span>
-    <span class="hero-tick hero-tick--br" aria-hidden="true"></span>
-
-    <div class="relative mx-auto max-w-6xl">
-      <!-- Top spec bar: status · loc · tz · rev -->
-      <div class="grid grid-cols-2 items-center gap-y-3 border-b border-line pb-4 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-subtle md:grid-cols-4 md:gap-x-6">
-        <div class="flex items-center gap-2">
-          <span class="relative flex h-2 w-2">
-            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60"></span>
-            <span class="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
-          </span>
-          <span class="text-ink">Available now · Full-time</span>
-        </div>
-        <div><span class="text-ink-subtle">Loc /</span> <span class="text-ink">Bishoftu 8.75°N</span></div>
-        <div><span class="text-ink-subtle">Tz /</span> <span class="text-ink">UTC+3</span></div>
-        <div><span class="text-ink-subtle">Rev /</span> <span class="text-ink">v2026.08</span></div>
-      </div>
-
-      <div class="mt-12 grid gap-10 md:mt-16 md:grid-cols-12 md:gap-8">
-        <!-- LEFT: identity + H1 + copy + CTAs -->
+  <!-- 1. HERO -->
+  <section class="px-6 pb-24 pt-28 md:px-10 md:pb-32 md:pt-36">
+    <div class="mx-auto max-w-6xl">
+      <div class="grid gap-14 md:grid-cols-12 md:gap-10">
+        <!-- LEFT: socials + name + copy + CTAs -->
         <div class="md:col-span-8">
-          <div class="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-ink-subtle">
-            <span class="rounded-full border border-line bg-bg-elevated px-2.5 py-1 text-ink">00 / Identity</span>
-            <span aria-hidden="true">—</span>
-            <span>Product · Design · Code</span>
+          <!-- Social icon row -->
+          <div class="flex items-center gap-2">
+            <a
+              href={site.social.github.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              class="inline-flex size-11 items-center justify-center rounded-lg border border-line bg-bg-elevated text-ink-muted transition-colors hover:border-line-strong hover:text-ink"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 .5a11.5 11.5 0 0 0-3.63 22.42c.57.1.78-.25.78-.55v-1.92c-3.2.7-3.87-1.54-3.87-1.54-.53-1.33-1.29-1.68-1.29-1.68-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.04 1.77 2.72 1.26 3.38.96.1-.75.4-1.26.74-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.3-.51-1.47.11-3.06 0 0 .97-.31 3.18 1.19a11 11 0 0 1 5.79 0c2.21-1.5 3.18-1.19 3.18-1.19.62 1.59.23 2.76.11 3.06.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.27 5.69.42.36.78 1.06.78 2.14v3.17c0 .3.2.66.79.55A11.5 11.5 0 0 0 12 .5Z"/>
+              </svg>
+            </a>
+            <a
+              href={site.social.linkedin.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              class="inline-flex size-11 items-center justify-center rounded-lg border border-line bg-bg-elevated text-ink-muted transition-colors hover:border-line-strong hover:text-ink"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.26 2.37 4.26 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .78 0 1.74v20.52C0 23.22.79 24 1.77 24h20.45C23.21 24 24 23.22 24 22.26V1.74C24 .78 23.21 0 22.22 0Z"/>
+              </svg>
+            </a>
+            <a
+              href={`mailto:${site.email}`}
+              aria-label="Email"
+              class="inline-flex size-11 items-center justify-center rounded-lg border border-line bg-bg-elevated text-ink-muted transition-colors hover:border-line-strong hover:text-ink"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="2"/>
+                <path d="m3 7 9 6 9-6"/>
+              </svg>
+            </a>
           </div>
 
+          <!-- H1 -->
           <h1
-            class="mt-8 font-display font-medium leading-[1.02] tracking-[-0.028em] text-ink"
+            class="mt-10 font-display font-medium leading-[0.98] tracking-[-0.03em] text-ink"
             style="font-size: var(--text-display-2xl);"
           >
-            Product designer<br />
-            <span class="italic text-ink-muted">&amp; frontend</span><br />
-            <span class="relative inline-block">
-              engineer.
-              <span
-                class="absolute -bottom-1.5 left-0 h-[5px] w-full rounded-full bg-accent md:-bottom-2 md:h-[7px]"
-                aria-hidden="true"></span>
-            </span>
+            Cherinet<br />
+            <span class="italic text-ink-muted">Demeke.</span>
           </h1>
 
-          <p class="mt-10 max-w-2xl text-lg leading-relaxed text-ink-muted md:text-xl">
-            I design and ship consumer products end-to-end — brand, interface, and code — from one operator. Two live React Native apps for <a href="#work" class="accent-underline text-ink">FIDA Delivery</a>, a live business-setup platform for <a href="#work" class="accent-underline text-ink">BizBridge Ethiopia</a>, and paid US client work. Based in Bishoftu — <span class="text-ink">available now, full-time preferred, contract on request.</span>
+          <!-- Availability pill -->
+          <div class="mt-8 inline-flex items-center gap-2 rounded-full border border-line bg-bg-elevated px-3.5 py-1.5">
+            <span class="relative flex size-2">
+              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60"></span>
+              <span class="relative inline-flex size-2 rounded-full bg-accent"></span>
+            </span>
+            <span class="text-[13px] font-medium text-ink">Available for work</span>
+          </div>
+
+          <!-- Short intro -->
+          <p class="mt-8 max-w-lg text-base leading-relaxed text-ink-muted md:text-lg">
+            Co-founder of <span class="text-ink">Doxa Innovations</span> and <span class="text-ink">FIDA Delivery</span>. I ship consumer products end-to-end — brand, interface, and code — from one operator in Bishoftu.
           </p>
 
+          <!-- CTAs -->
           <div class="mt-10 flex flex-wrap items-center gap-3">
             <a
               href="#work"
               class="inline-flex cursor-pointer items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-bg transition-colors hover:bg-accent"
             >
-              See selected work
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M12 5v14M5 12l7 7 7-7"></path>
+              View projects
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 5l7 7-7 7"/>
               </svg>
             </a>
             <a
-              href={`mailto:${site.email}`}
-              class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line bg-bg-elevated px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-line-strong hover:bg-line/40"
-            >
-              Email me
-            </a>
-            <a
               href="/cv"
-              class="inline-flex cursor-pointer items-center gap-2 rounded-full px-3 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:text-ink"
+              class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line bg-bg-elevated px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-line-strong"
             >
-              CV →
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3v13M6 11l6 6 6-6M4 21h16"/>
+              </svg>
+              Download CV
             </a>
           </div>
         </div>
 
-        <!-- RIGHT: system spec card -->
-        <aside class="md:col-span-4">
-          <div class="relative h-full rounded-xl border border-line bg-bg-elevated p-6">
-            <span class="hero-bracket hero-bracket--tl" aria-hidden="true"></span>
-            <span class="hero-bracket hero-bracket--tr" aria-hidden="true"></span>
-            <span class="hero-bracket hero-bracket--bl" aria-hidden="true"></span>
-            <span class="hero-bracket hero-bracket--br" aria-hidden="true"></span>
+        <!-- RIGHT: stat + focus stacked -->
+        <aside class="flex flex-col gap-5 md:col-span-4">
+          <div class="rounded-xl border border-line bg-bg-elevated p-6 md:p-7">
+            <p class="font-display text-5xl font-medium leading-none tracking-tight text-ink md:text-6xl">
+              08<span class="text-ink-subtle">+</span>
+            </p>
+            <p class="mt-5 font-mono text-[11px] uppercase tracking-[0.18em] text-ink-subtle">
+              Projects<br />shipped
+            </p>
+          </div>
 
-            <div class="flex items-center justify-between">
-              <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-subtle">System spec</p>
-              <span class="font-mono text-[10px] text-ink-subtle">v.01</span>
-            </div>
-
-            <dl class="mt-6 space-y-5">
-              <div>
-                <dt class="font-mono text-[10px] uppercase tracking-widest text-ink-subtle">Role</dt>
-                <dd class="mt-1.5 font-display text-lg tracking-tight text-ink">Senior FE + Design</dd>
-              </div>
-              <div>
-                <dt class="font-mono text-[10px] uppercase tracking-widest text-ink-subtle">Stack</dt>
-                <dd class="mt-2 flex flex-wrap gap-1.5">
-                  {stack.map((s) => (
-                    <span class="rounded-md border border-line px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-ink">{s}</span>
-                  ))}
-                </dd>
-              </div>
-              <div>
-                <dt class="font-mono text-[10px] uppercase tracking-widest text-ink-subtle">Ships to</dt>
-                <dd class="mt-1.5 text-sm text-ink">Web · iOS · Android · Print</dd>
-              </div>
-            </dl>
-
-            <div class="mt-6 border-t border-line pt-4">
-              <p class="font-mono text-[10px] uppercase tracking-widest text-ink-subtle">Open for // 2026</p>
-              <ul class="mt-2.5 space-y-1.5 text-sm text-ink">
-                <li class="flex items-center gap-2">
-                  <span class="text-accent" aria-hidden="true">▸</span>
-                  Full-time senior FE roles
-                </li>
-                <li class="flex items-center gap-2">
-                  <span class="text-accent" aria-hidden="true">▸</span>
-                  Contract, rate on request
-                </li>
-              </ul>
-            </div>
+          <div class="rounded-xl border border-line bg-bg-elevated p-6 md:p-7">
+            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-subtle">Focus</p>
+            <p class="mt-4 text-sm leading-relaxed text-ink-muted md:text-[15px]">
+              I care about products that hold up in the field — on 3G, on a four-year-old Android, at the end of a long day. Anything that survives that holds up everywhere else.
+            </p>
           </div>
         </aside>
       </div>
+    </div>
+  </section>
 
-      <!-- Numbered spec grid (keylined) -->
-      <div class="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line md:mt-20 md:grid-cols-4">
-        {specGrid.map((cell) => (
-          <div class="bg-bg p-5">
-            <div class="flex items-center justify-between">
-              <p class="font-mono text-[10px] uppercase tracking-widest text-ink-subtle">{cell.label}</p>
-              <span class="font-mono text-[10px] text-ink-subtle">{cell.idx}</span>
+  <!-- 2. FEATURED WORK -->
+  <section id="work" class="scroll-mt-28 border-t border-line px-6 pb-24 pt-20 md:px-10 md:pb-32 md:pt-24">
+    <div class="mx-auto max-w-6xl">
+      <div class="reveal mb-14 md:mb-16">
+        <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-subtle">Recent builds</p>
+        <h2
+          class="mt-3 font-display font-medium tracking-tight text-ink"
+          style="font-size: var(--text-display-lg);"
+        >
+          Featured work.
+        </h2>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2">
+        {featured.map((p, i) => {
+          const href = p.status === "case-study" ? `/work/${p.slug}` : p.external;
+          const isLogo = imgKind(p.image) === "logo";
+          return (
+            <article
+              class="reveal group flex flex-col overflow-hidden rounded-2xl border border-line bg-bg-elevated"
+              style={`transition-delay: ${i * 80}ms;`}
+            >
+              <!-- Screenshot / cover -->
+              <div class={`relative aspect-[16/10] overflow-hidden ${isLogo ? "flex items-center justify-center bg-line/30" : ""}`}>
+                <img
+                  src={img(p.image, { w: 1400, q: 80 })}
+                  alt={`${p.title} — cover`}
+                  loading={i === 0 ? "eager" : "lazy"}
+                  class={isLogo
+                    ? "max-h-[55%] max-w-[65%] object-contain"
+                    : "h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"}
+                />
+                {p.liveStatus === "live" && (
+                  <span class="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-bg/95 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-accent backdrop-blur">
+                    <span class="size-1.5 rounded-full bg-accent"></span>
+                    Live
+                  </span>
+                )}
+              </div>
+
+              <!-- Body -->
+              <div class="flex flex-1 flex-col p-6 md:p-8">
+                <h3 class="font-display text-xl font-medium tracking-tight text-ink md:text-2xl">
+                  {p.title}
+                </h3>
+                {p.metric && (
+                  <p class="mt-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-accent">
+                    {p.metric}
+                  </p>
+                )}
+
+                <p class="mt-4 text-[14px] leading-relaxed text-ink-muted md:text-[15px]">
+                  {p.subtitle}
+                </p>
+
+                <div class="flex-1"></div>
+
+                <!-- Stack chips -->
+                <div class="mt-6 flex flex-wrap gap-1.5">
+                  {p.stack.slice(0, 5).map((s) => (
+                    <span class="rounded-md border border-line px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-ink-muted">
+                      {s}
+                    </span>
+                  ))}
+                </div>
+
+                {href && (
+                  <a
+                    href={href}
+                    target={p.status === "external" ? "_blank" : undefined}
+                    rel={p.status === "external" ? "noopener noreferrer" : undefined}
+                    class="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-line bg-bg px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:border-line-strong hover:bg-line/40"
+                  >
+                    {p.status === "external" ? "Visit site" : "Read case study"}
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M5 12h14M13 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+                )}
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      <div class="reveal mt-12 flex justify-center">
+        <a
+          href="/work"
+          class="inline-flex items-center gap-2 text-sm font-medium text-ink-muted transition-colors hover:text-ink"
+        >
+          See all projects
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. ABOUT + SKILLS -->
+  <section class="border-t border-line bg-bg-elevated px-6 pb-24 pt-20 md:px-10 md:pb-32 md:pt-24">
+    <div class="mx-auto max-w-6xl">
+      <div class="reveal mb-14 md:mb-16">
+        <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-subtle">About me</p>
+        <h2
+          class="mt-3 font-display font-medium tracking-tight text-ink"
+          style="font-size: var(--text-display-lg);"
+        >
+          Building with care.
+        </h2>
+      </div>
+
+      <!-- Intro + Focus panel -->
+      <div class="grid gap-5 md:grid-cols-2 md:gap-6">
+        <div class="reveal rounded-2xl border border-line bg-bg p-7 md:p-8">
+          <p class="text-[15px] leading-relaxed text-ink-muted md:text-base">
+            I&rsquo;m a designer-engineer from Bishoftu who runs the full UX loop from one operator — research, strategy, design, build, measure. My path runs operations → UI/UX → product engineering, and I&rsquo;m proudest of the work where all three meet.
+          </p>
+        </div>
+
+        <div class="reveal rounded-2xl border border-line bg-bg p-7 md:p-8" style="transition-delay: 80ms;">
+          <div class="space-y-4 border-l-2 border-accent/40 pl-4">
+            <p class="text-[15px] leading-relaxed text-ink-muted md:text-base">
+              <span class="font-medium text-ink">Focus:</span> Four-surface products &mdash; mobile apps, operator dashboards, marketing sites, and Telegram Mini Apps &mdash; sharing one design system.
+            </p>
+            <p class="text-[15px] leading-relaxed text-ink-muted md:text-base">
+              <span class="font-medium text-ink">Craft:</span> React Native, Next.js, and Laravel + Filament. Tokens before hex.
+            </p>
+            <p class="text-[15px] leading-relaxed text-ink-muted md:text-base">
+              <span class="font-medium text-ink">Mindset:</span> Ship the channel that works at the worst moment. Edge cases are the product.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills grid: 3 cols x 2 rows -->
+      <div class="reveal mt-6 grid gap-5 md:grid-cols-3 md:gap-6">
+        {skillGroups.map((g, i) => (
+          <div
+            class="rounded-2xl border border-line bg-bg p-6 md:p-7"
+            style={`transition-delay: ${i * 60}ms;`}
+          >
+            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-subtle">
+              {g.label}
+            </p>
+            <div class="mt-5 flex flex-wrap gap-2">
+              {g.tools.map((t) => (
+                <span class="inline-flex items-center gap-1.5 rounded-lg border border-line px-2.5 py-1.5 text-[12px] font-medium text-ink">
+                  <span class="size-1.5 rounded-full bg-accent" aria-hidden="true"></span>
+                  {t}
+                </span>
+              ))}
             </div>
-            <p class="mt-3 font-display text-base leading-snug tracking-tight text-ink md:text-lg">{cell.value}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Approach loop -->
-  <section class="border-y border-line bg-bg-elevated px-6 py-16 md:px-10 md:py-20">
+  <!-- 4. CONTACT STRIP -->
+  <section class="border-t border-line px-6 py-24 md:px-10 md:py-32">
     <div class="mx-auto max-w-6xl">
-      <div class="reveal mb-12 grid gap-6 md:mb-16 md:grid-cols-12 md:items-end">
-        <div class="md:col-span-7">
-          <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">01 — Approach</p>
-          <h2
-            class="mt-4 font-display font-medium tracking-tight text-ink"
-            style="font-size: var(--text-display-lg);"
-          >
-            UX is the whole loop —
-            <span class="italic text-ink-muted">not just the screen.</span>
-          </h2>
-        </div>
-        <p class="text-base leading-relaxed text-ink-muted md:col-span-5">
-          Most teams call a Figma file "UX." I think UX starts at the customer interview and ends at the funnel report. I run every phase — research and competitor analysis to design system to React Native to SEO and growth — from one operator.
-        </p>
-      </div>
-
-      <ol class="grid gap-4 md:grid-cols-5 md:gap-5">
-        {loopPhases.map((p, i) => (
-          <li class="reveal relative flex flex-col rounded-xl border border-line bg-bg p-5 md:p-6" style={`transition-delay: ${i * 80}ms;`}>
-            <div class="flex items-center justify-between">
-              <div class="flex h-12 w-12 items-center justify-center rounded-xl border border-line">
-                <StepGlyph step={p.glyph} size={28} />
-              </div>
-              <span class="font-mono text-[11px] text-ink-subtle">0{i + 1}</span>
-            </div>
-            <p class="mt-5 font-display text-xl tracking-tight text-ink">{p.label}.</p>
-            <p class="mt-2 text-[13px] leading-relaxed text-ink-muted">{p.note}</p>
-            {i < loopPhases.length - 1 && (
-              <span class="absolute right-[-12px] top-1/2 hidden h-px w-6 -translate-y-1/2 bg-line-strong md:block" aria-hidden="true"></span>
-            )}
-          </li>
-        ))}
-      </ol>
-
-      <div class="mt-10 flex flex-wrap items-center gap-4">
-        <a href="/how-i-work" class="inline-flex items-center gap-1.5 text-sm font-medium text-ink accent-underline">
-          Read the full process →
-        </a>
-        <a href="/system" class="text-sm text-ink-muted accent-underline hover:text-ink">
-          Or the design system →
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Selected work -->
-  <section id="work" class="scroll-mt-28 px-6 pb-16 pt-16 md:px-10 md:pb-24 md:pt-20">
-    <div class="mx-auto max-w-6xl">
-      <div class="reveal mb-10 flex items-end justify-between gap-6 md:mb-14">
-        <div>
-          <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">
-            02 — Selected work
-          </p>
-          <h2
-            class="mt-4 font-display font-medium tracking-tight text-ink"
-            style="font-size: var(--text-display-lg);"
-          >
-            Things I&rsquo;ve shipped.
-          </h2>
-          <p class="mt-4 max-w-2xl text-sm leading-relaxed text-ink-muted md:text-base">
-            Badges reflect real deployment state. <span class="text-accent">Live</span> means the product is in production for its users. <span class="text-amber-700 dark:text-amber-300">In development</span> and <span class="text-violet-700 dark:text-violet-300">Private beta</span> mean shipping is underway or gated to invited users — dates like &ldquo;2025 &mdash; present&rdquo; are ongoing engagements, not projections.
-          </p>
-        </div>
-        <a
-          href="/work"
-          class="hidden shrink-0 text-sm font-medium text-ink-muted accent-underline hover:text-ink md:inline-block"
-        >
-          View all →
-        </a>
-      </div>
-
-      <div class="grid items-start gap-5 md:grid-cols-2 md:gap-6">
-        {featuredProjects.map((p, i) => <ProjectCard project={p} index={i} />)}
-      </div>
-    </div>
-  </section>
-
-  <!-- About preview -->
-  <section class="border-t border-line bg-bg-elevated px-6 py-16 md:px-10 md:py-24">
-    <div class="mx-auto grid max-w-6xl gap-12 md:grid-cols-12">
-      <div class="md:col-span-4">
-        <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">03 — About</p>
-      </div>
-      <div class="reveal md:col-span-8">
-        <p
-          class="font-display font-medium leading-tight tracking-tight text-ink"
-          style="font-size: var(--text-display-lg);"
-        >
-          I lead design systems —
-          <span class="text-ink-subtle">then I build them.</span>
-        </p>
-        <p class="mt-8 max-w-2xl text-lg leading-relaxed text-ink-muted">
-          My path runs operations → UI/UX → product engineering. I started in systems
-          implementation — rolling out a school management platform across two campuses —
-          and grew into frontend leadership through a UI/UX internship and a
-          digital-content role with a measurable revenue lift.
-        </p>
-        <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink-muted">
-          Today I lead frontend architecture at Doxa Innovations, ship FIDA on the side,
-          and work directly with business owners and NGO leadership to turn vague
-          requirements into shipped product.
-        </p>
-        <a
-          href="/about"
-          class="mt-10 inline-flex items-center gap-1.5 text-sm font-medium text-ink accent-underline"
-        >
-          More about me →
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Endorsements / references -->
-  <section class="border-t border-line px-6 py-16 md:px-10 md:py-24" aria-labelledby="endorsements-heading">
-    <div class="mx-auto max-w-6xl">
-      <div class="reveal mb-10 md:mb-14">
-        <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">
-          04 — Endorsements
-        </p>
-        <h2
-          id="endorsements-heading"
-          class="mt-4 max-w-3xl font-display font-medium tracking-tight text-ink"
-          style="font-size: var(--text-display-lg);"
-        >
-          Built alongside
-          <span class="italic text-ink-muted">operators who ship.</span>
-        </h2>
-        <p class="mt-4 max-w-2xl text-base leading-relaxed text-ink-muted">
-          The people and teams I&rsquo;ve co-founded with, delivered for, and been trusted by across Ethiopia and the US. References available on request &mdash; drop me a note and I&rsquo;ll connect you.
-        </p>
-      </div>
-
-      <ul class="reveal grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-        <li class="rounded-xl border border-line bg-bg-elevated p-6">
-          <p class="text-xs uppercase tracking-widest text-ink-subtle">Co-founder team</p>
-          <p class="mt-3 font-display text-lg tracking-tight text-ink">Doxa Innovations</p>
-          <p class="mt-1 text-[13px] font-medium text-accent">8 client projects shipped since 2024</p>
-          <p class="mt-2 text-sm leading-relaxed text-ink-muted">
-            Software studio co-founded with Ephrem Kebede Getachew (Manager) and Gedion Girma (Lead Dev).
-          </p>
-        </li>
-        <li class="rounded-xl border border-line bg-bg-elevated p-6">
-          <p class="text-xs uppercase tracking-widest text-ink-subtle">Product co-founder</p>
-          <p class="mt-3 font-display text-lg tracking-tight text-ink">FIDA Delivery</p>
-          <p class="mt-1 text-[13px] font-medium text-accent">18+ partners · 500+ deliveries · 4 surfaces</p>
-          <p class="mt-2 text-sm leading-relaxed text-ink-muted">
-            Customer app, rider app, Filament operator dashboard, and marketing site — all owned end-to-end alongside the operations team in Bishoftu.
-          </p>
-        </li>
-        <li class="rounded-xl border border-line bg-bg-elevated p-6">
-          <p class="text-xs uppercase tracking-widest text-ink-subtle">Client · US</p>
-          <p class="mt-3 font-display text-lg tracking-tight text-ink">KLA Construction Equipment</p>
-          <p class="mt-1 text-[13px] font-medium text-accent">~900 SKUs live · US client</p>
-          <p class="mt-2 text-sm leading-relaxed text-ink-muted">
-            Korry Ardell&rsquo;s Midwest heavy-equipment dealer. Lead design, brand, and frontend for a Laravel + Inertia storefront with a live eBay catalog sync.
-          </p>
-        </li>
-        <li class="rounded-xl border border-line bg-bg-elevated p-6">
-          <p class="text-xs uppercase tracking-widest text-ink-subtle">Client · mission</p>
-          <p class="mt-3 font-display text-lg tracking-tight text-ink">Lutheran Heritage Foundation</p>
-          <p class="mt-1 text-[13px] font-medium text-accent">6 Ethiopian languages · live</p>
-          <p class="mt-2 text-sm leading-relaxed text-ink-muted">
-            Regional site + CMS for LHF Ethiopia &mdash; the LCMS Recognized Service Organization publishing devotional books nationally.
-          </p>
-        </li>
-        <li class="rounded-xl border border-line bg-bg-elevated p-6">
-          <p class="text-xs uppercase tracking-widest text-ink-subtle">Client · SMB</p>
-          <p class="mt-3 font-display text-lg tracking-tight text-ink">Classic Noodle &amp; Burger</p>
-          <p class="mt-1 text-[13px] font-medium text-accent">+40% online orders YoY</p>
-          <p class="mt-2 text-sm leading-relaxed text-ink-muted">
-            Bishoftu restaurant. Digital touchpoints, content strategy, and analytics rebuilt from scratch.
-          </p>
-        </li>
-        <li class="rounded-xl border border-line bg-bg-elevated p-6">
-          <p class="text-xs uppercase tracking-widest text-ink-subtle">Client · civic</p>
-          <p class="mt-3 font-display text-lg tracking-tight text-ink">BizBridge Ethiopia</p>
-          <p class="mt-1 text-[13px] font-medium text-accent">519 licensed sectors · live</p>
-          <p class="mt-2 text-sm leading-relaxed text-ink-muted">
-            Freemium business-setup platform. Frontend lead across a Next.js 15 + Payload v3 Turborepo, bilingual EN/AM.
-          </p>
-        </li>
-      </ul>
-
-      <p class="reveal mt-10 text-sm text-ink-muted">
-        Prefer a direct intro?
-        <a href="/contact" class="text-ink accent-underline">Ask for references</a>
-        and I&rsquo;ll connect you with the right person.
-      </p>
-    </div>
-  </section>
-
-  <!-- Contact strip -->
-  <section class="px-6 py-16 md:px-10 md:py-24">
-    <div class="mx-auto max-w-6xl">
-      <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">05 — Get in touch</p>
+      <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-subtle">Get in touch</p>
       <h2
-        class="reveal mt-4 max-w-3xl font-display font-medium leading-[0.95] tracking-[-0.025em] text-ink"
+        class="reveal mt-4 max-w-3xl font-display font-medium leading-[1.02] tracking-[-0.025em] text-ink"
         style="font-size: var(--text-display-xl);"
       >
-        Ready to discuss a role, a new project, or just have a question?
-        <a
-          href={`mailto:${site.email}`}
-          class="text-accent accent-underline"
-          style="background-size: 100% 4px;"
-        >
-          Reach out directly via email.
+        Have a role, a project, or a question?{" "}
+        <a href={`mailto:${site.email}`} class="text-accent accent-underline" style="background-size: 100% 4px;">
+          Email me directly.
         </a>
       </h2>
-      <p class="reveal mt-6 max-w-2xl text-base text-ink-muted md:text-lg">
-        Write to <a href={`mailto:${site.email}`} class="text-ink accent-underline">{site.email}</a> — most replies come back within two working days.
-      </p>
 
-      <div class="mt-12 grid gap-6 border-t border-line pt-8 md:grid-cols-3">
-        <div>
-          <p class="text-xs uppercase tracking-widest text-ink-subtle">Email</p>
-          <a
-            href={`mailto:${site.email}`}
-            class="mt-2 block text-base text-ink hover:text-accent"
-            >{site.email}</a
-          >
-        </div>
-        <div>
-          <p class="text-xs uppercase tracking-widest text-ink-subtle">GitHub</p>
-          <a
-            href={site.social.github.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="mt-2 block text-base text-ink hover:text-accent">@Cherireal7 ↗</a
-          >
-        </div>
-        <div>
-          <p class="text-xs uppercase tracking-widest text-ink-subtle">LinkedIn</p>
-          <a
-            href={site.social.linkedin.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="mt-2 block text-base text-ink hover:text-accent">cherinet-Demeke ↗</a
-          >
-        </div>
+      <div class="reveal mt-14 grid gap-4 border-t border-line pt-10 md:grid-cols-3">
+        <a
+          href={`mailto:${site.email}`}
+          class="group flex items-center justify-between rounded-xl border border-line bg-bg-elevated p-5 transition-colors hover:border-line-strong"
+        >
+          <div>
+            <p class="font-mono text-[10px] uppercase tracking-widest text-ink-subtle">Email</p>
+            <p class="mt-2 text-sm text-ink">{site.email}</p>
+          </div>
+          <svg class="text-ink-subtle transition-transform group-hover:translate-x-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a
+          href={site.social.github.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center justify-between rounded-xl border border-line bg-bg-elevated p-5 transition-colors hover:border-line-strong"
+        >
+          <div>
+            <p class="font-mono text-[10px] uppercase tracking-widest text-ink-subtle">GitHub</p>
+            <p class="mt-2 text-sm text-ink">@Cherireal7</p>
+          </div>
+          <svg class="text-ink-subtle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17 17 7M9 7h8v8"/>
+          </svg>
+        </a>
+        <a
+          href={site.social.linkedin.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center justify-between rounded-xl border border-line bg-bg-elevated p-5 transition-colors hover:border-line-strong"
+        >
+          <div>
+            <p class="font-mono text-[10px] uppercase tracking-widest text-ink-subtle">LinkedIn</p>
+            <p class="mt-2 text-sm text-ink">cherinet-Demeke</p>
+          </div>
+          <svg class="text-ink-subtle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17 17 7M9 7h8v8"/>
+          </svg>
+        </a>
       </div>
     </div>
   </section>
