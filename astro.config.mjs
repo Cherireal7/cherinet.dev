@@ -20,6 +20,7 @@ export default defineConfig({
     '/writing': '/',
     '/writing/why-a-portfolio': '/',
     '/rss.xml': '/',
+    '/resume': '/Cherinet-Demeke-Resume.pdf',
   },
   vite: {
     plugins: [tailwindcss()],

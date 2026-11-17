@@ -3,16 +3,12 @@ import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { site } from "../lib/site";
 import { featuredProjects, buildingNow } from "../lib/projects";
-import fidaTma from "../assets/work/fida-tma.png";
-import fidaMap from "../assets/work/fida-map.png";
+import screenHome from "../assets/work/screens/home.png";
+import screenGroceries from "../assets/work/screens/browse-groceries.png";
+import screenPharmacy from "../assets/work/screens/browse-pharmacy.png";
 
 const [lead, ...rest] = featuredProjects;
 
-const stats = [
-  { value: "500+", label: "deliveries on FIDA" },
-  { value: "8+", label: "client projects" },
-  { value: "4", label: "production apps" },
-];
 
 const experience = [
   { role: "Co-founder & Senior Frontend Engineer", org: "Doxa Innovations", years: "2024 — now" },
@@ -25,56 +21,54 @@ const strengths = ["UI/UX", "Design systems", "React · Next.js", "React Native"
 
 <BaseLayout>
   <!-- ─── Hero ─── -->
-  <section class="grain relative overflow-hidden px-6 pb-20 pt-32 md:pb-28 md:pt-40">
-    <div class="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-[1.15fr_0.85fr]">
-      <div class="t-rise">
-        <p style="--i:0" class="inline-flex items-center gap-2 rounded-full border border-line bg-bg-elevated/70 px-3 py-1.5 text-xs text-ink-muted">
-          <span class="relative flex size-2">
-            <span class="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-60"></span>
-            <span class="relative inline-flex size-2 rounded-full bg-emerald-500"></span>
-          </span>
-          {site.availability}
-        </p>
+  <section class="px-6 pb-16 pt-28 md:pb-24 md:pt-36">
+    <div class="mx-auto grid max-w-6xl items-end gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
+      <div class="t-rise lg:pb-10">
+        <p style="--i:0" class="text-sm text-ink-subtle">Senior frontend engineer · Product designer</p>
 
-        <h1 style="--i:1; font-size: clamp(2.75rem, 6.5vw, 5.25rem);" class="mt-6 text-balance font-display font-medium leading-[0.98] tracking-[-0.035em] text-ink">
-          Frontend engineer<br class="hidden sm:block" /> who <em class="text-accent">designs.</em>
+        <h1 style="--i:1; font-size: clamp(3rem, 8vw, 6.25rem);" class="mt-4 font-display font-medium leading-[0.92] tracking-[-0.045em] text-ink">
+          Cherinet<br />Demeke
         </h1>
 
-        <p style="--i:2" class="mt-6 max-w-lg text-pretty text-lg leading-relaxed text-ink-muted md:text-xl">
-          I take products from Figma to production: fast, accessible and built to convert.
+        <p style="--i:2" class="mt-8 max-w-md text-pretty text-lg leading-relaxed text-ink-muted">
+          I co-founded <a href="/work/fida-delivery" class="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent">FIDA&nbsp;Delivery</a> and lead frontend at <a href="/work/doxa" class="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent">Doxa&nbsp;Innovations</a>, designing and building products for clients in the US and Ethiopia.
         </p>
 
-        <div style="--i:3" class="mt-9 flex flex-wrap items-center gap-3">
-          <a href="/work" class="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-bg transition-colors hover:bg-accent">
-            See my work <span class="t-arrow" aria-hidden="true">→</span>
+        <div style="--i:3" class="mt-8 flex flex-wrap items-center gap-3">
+          <a href="/work" class="group inline-flex min-h-12 items-center gap-2 rounded-full bg-ink px-6 text-sm font-medium text-bg transition-colors hover:bg-accent">
+            View work <span class="t-arrow" aria-hidden="true">→</span>
           </a>
-          <a href={site.resumePdf} download class="group inline-flex items-center gap-2 rounded-full border border-line-strong px-6 py-3.5 text-sm font-medium text-ink transition-colors hover:border-ink">
-            Download CV <span class="t-arrow" aria-hidden="true">↓</span>
+          <a href={site.resumePdf} target="_blank" rel="noopener" class="group inline-flex min-h-12 items-center gap-2 rounded-full border border-line-strong px-6 text-sm font-medium text-ink transition-colors hover:border-ink">
+            Resume <span class="text-ink-subtle">PDF</span> <span class="t-arrow t-arrow-ne" aria-hidden="true">↗</span>
           </a>
         </div>
 
-        <dl style="--i:4" class="mt-14 grid max-w-md grid-cols-3 gap-6 border-t border-line pt-6">
-          {
-            stats.map((s) => (
-              <div>
-                <dt class="sr-only">{s.label}</dt>
-                <dd class="font-display text-3xl tracking-tight text-ink md:text-4xl">{s.value}</dd>
-                <dd class="mt-1 text-xs leading-snug text-ink-subtle">{s.label}</dd>
-              </div>
-            ))
-          }
+        <dl style="--i:4" class="mt-12 max-w-md border-t border-line pt-5 text-sm">
+          <dt class="text-ink-subtle">Currently</dt>
+          <dd class="mt-1.5 text-ink-muted">Taking FIDA to the App Store, and building Manoli's Provisions for its November launch. Open to senior frontend roles, remote.</dd>
         </dl>
       </div>
 
-      <!-- Visual collage -->
-      <div class="relative mx-auto hidden aspect-[4/5] w-full max-w-md lg:block" aria-hidden="true">
-        <div class="absolute right-0 top-0 w-[78%] rotate-[4deg] overflow-hidden rounded-[28px] border border-line shadow-2xl shadow-black/20">
-          <Image src={fidaTma} alt="" widths={[420, 640]} sizes="360px" loading="eager" class="block h-auto w-full" />
+      <!-- Real product, no mockup: the FIDA customer app -->
+      <figure class="reveal -mx-6 lg:mx-0">
+        <div class="flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-2 [scrollbar-width:none] sm:gap-4 lg:overflow-visible lg:px-0">
+          {
+            [
+              { src: screenHome, alt: "FIDA app home: delivery location, categories and a featured restaurant", offset: "lg:translate-y-10" },
+              { src: screenGroceries, alt: "FIDA app groceries: category chips and most-wanted items priced in birr", offset: "" },
+              { src: screenPharmacy, alt: "FIDA app pharmacy: most-wanted items from a local pharmacy", offset: "lg:-translate-y-8" },
+            ].map((s) => (
+              <div class:list={["w-[58%] shrink-0 snap-center overflow-hidden rounded-[22px] border border-line bg-white sm:w-[40%] lg:w-1/3 lg:shrink", s.offset]}>
+                <Image src={s.src} alt={s.alt} widths={[240, 360, 480]} sizes="(min-width: 1024px) 190px, 58vw" loading="eager" class="block aspect-[720/1300] w-full object-cover object-top" />
+              </div>
+            ))
+          }
         </div>
-        <div class="absolute bottom-6 left-0 w-[70%] -rotate-[5deg] overflow-hidden rounded-[22px] border border-line bg-bg-elevated shadow-2xl shadow-black/20">
-          <Image src={fidaMap} alt="" widths={[420, 640]} sizes="320px" loading="eager" class="block h-auto w-full" />
-        </div>
-      </div>
+        <figcaption class="mt-4 flex justify-between gap-4 px-6 text-xs text-ink-subtle lg:mt-12 lg:px-0">
+          <span>FIDA customer app · React Native</span>
+          <span>Live in Bishoftu</span>
+        </figcaption>
+      </figure>
     </div>
   </section>
 
@@ -131,7 +125,7 @@ const strengths = ["UI/UX", "Design systems", "React · Next.js", "React Native"
       <!-- Now building -->
       <div class="reveal mt-6 rounded-[28px] border border-dashed border-line-strong p-6 md:p-8">
         <p class="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-ink-subtle">
-          <span class="size-1.5 animate-pulse rounded-full bg-accent"></span> Building now
+          Building now
         </p>
         <ul class="mt-5 grid gap-4 md:grid-cols-3">
           {
@@ -153,7 +147,7 @@ const strengths = ["UI/UX", "Design systems", "React · Next.js", "React Native"
     <div class="mx-auto grid max-w-6xl gap-14 md:grid-cols-2 md:gap-20">
       <div class="reveal">
         <h2 class="text-balance font-display font-medium tracking-[-0.03em] text-ink" style="font-size: var(--text-display-xl);">
-          Design and code, <em class="text-accent">one head.</em>
+          Design and code,<br class="hidden sm:block" /> from one person.
         </h2>
         <p class="mt-6 max-w-md text-pretty text-lg leading-relaxed text-ink-muted">
           I co-founded two companies and lead their frontends. I care about the numbers behind the pixels: SEO, conversion, speed.
@@ -187,8 +181,8 @@ const strengths = ["UI/UX", "Design systems", "React · Next.js", "React Native"
           <a href="/cv" class="group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-medium text-bg transition-colors hover:bg-accent">
             Full CV <span class="t-arrow" aria-hidden="true">→</span>
           </a>
-          <a href={site.resumePdf} download class="inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-3 text-sm font-medium text-ink transition-colors hover:border-ink">
-            PDF ↓
+          <a href={site.resumePdf} target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-3 text-sm font-medium text-ink transition-colors hover:border-ink">
+            Resume PDF ↗
           </a>
         </div>
       </div>
@@ -199,11 +193,11 @@ const strengths = ["UI/UX", "Design systems", "React · Next.js", "React Native"
   <section id="contact" class="px-6 py-24 md:py-32">
     <div class="reveal mx-auto max-w-6xl text-center">
       <h2 class="mx-auto max-w-3xl text-balance font-display font-medium leading-[1.02] tracking-[-0.035em] text-ink" style="font-size: clamp(2.5rem, 6vw, 4.75rem);">
-        Have a role or a project? <em class="text-accent">Let's talk.</em>
+        Have a role or a project?<br /><span class="text-ink-subtle">Let's talk.</span>
       </h2>
       <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
-        <a href={`mailto:${site.email}`} class="group inline-flex items-center gap-2 rounded-full bg-ink px-7 py-4 text-base font-medium text-bg transition-colors hover:bg-accent">
-          {site.email} <span class="t-arrow" aria-hidden="true">→</span>
+        <a href={`mailto:${site.email}`} class="group inline-flex max-w-full items-center gap-2 rounded-full bg-ink px-6 py-4 text-sm font-medium text-bg transition-colors hover:bg-accent sm:px-7 sm:text-base">
+          <span class="truncate">{site.email}</span> <span class="t-arrow" aria-hidden="true">→</span>
         </a>
         <button type="button" data-copy={site.email} class="rounded-full border border-line-strong px-5 py-4 text-sm text-ink transition-colors hover:border-ink">
           <span data-copy-label>Copy</span>

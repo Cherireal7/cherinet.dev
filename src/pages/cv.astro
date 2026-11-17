@@ -60,9 +60,14 @@ const education = [
           <h1 style="--i:0; font-size: clamp(2.5rem, 5.5vw, 4.25rem);" class="font-display font-medium leading-none tracking-[-0.035em] text-ink">Curriculum vitae</h1>
           <p style="--i:1" class="mt-4 text-ink-muted">{site.role} · {site.location} · Remote</p>
         </div>
-        <a style="--i:2" href={site.resumePdf} download class="group inline-flex items-center gap-2 self-start rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-bg transition-colors hover:bg-accent md:self-auto">
-          Download PDF <span class="t-arrow" aria-hidden="true">↓</span>
-        </a>
+        <div style="--i:2" class="flex flex-wrap gap-3 self-start md:self-auto">
+          <a href={site.resumePdf} download class="group inline-flex min-h-12 items-center gap-2 rounded-full bg-ink px-6 text-sm font-medium text-bg transition-colors hover:bg-accent">
+            Download PDF <span class="t-arrow" aria-hidden="true">↓</span>
+          </a>
+          <a href={site.resumePdf} target="_blank" rel="noopener" class="inline-flex min-h-12 items-center gap-2 rounded-full border border-line-strong px-6 text-sm font-medium text-ink transition-colors hover:border-ink">
+            Open ↗
+          </a>
+        </div>
       </div>
 
       <!-- Experience -->
