@@ -4,324 +4,136 @@ import { site } from "../lib/site";
 
 const experience = [
   {
-    year: "Nov 2024 — present",
-    title: "Co-founder & Senior Frontend Engineer",
-    org: "Doxa Innovations Software Development PLC · Bishoftu, Ethiopia",
-    bullets: [
-      "Co-founded Doxa with two technical partners. Lead design across the studio — UI/UX, brand identity, web design — and own the frontend on client work. 8 shipped client projects across Ethiopia and the US.",
-      "Featured US engagements: KLA Construction Equipment (heavy-equipment e-commerce with live eBay catalog sync, ~900 SKUs — React + Inertia + Laravel + Filament) and Peja Vu (Sheboygan WI chef-owned food truck + catering, full Wix-to-Next rebuild — Next 16 + Payload v3 + Postgres + Radix).",
-      "Comfortable across the stack — strong API consumption (REST + GraphQL, openapi-typescript codegen), intermediate backend in Laravel and Node where design decisions need to land in the data model.",
-      "Studio standard: Tailwind v4 + React/Next.js 16 + Laravel + PostgreSQL + Redis + Cloudflare R2.",
+    org: "Doxa Innovations",
+    role: "Co-founder & Senior Frontend Engineer",
+    years: "Nov 2024 — now",
+    points: [
+      "Co-founded the studio and grew it to an 8-person team. I lead frontend architecture, product design and brand.",
+      "Ship frontends for US and Ethiopian clients: food commerce, inventory, restaurants, e-commerce.",
+      "Set the studio standard: React 19, Next.js 16, strict TypeScript, Tailwind v4, Figma tokens in code.",
     ],
   },
   {
-    year: "2025 — present",
-    title: "Co-founder · design + engineering",
-    org: "FIDA Delivery — Bishoftu's first on-demand delivery network",
-    bullets: [
-      "Co-founded FIDA; designed and shipped four production surfaces — customer app, rider app, operator dashboard, and marketing site + Telegram Mini App — all from one operator. 18+ restaurant partners, 500+ deliveries.",
-      "Mobile: Expo SDK 56 / New Architecture / React 19.2 / RN 0.85; MapLibre, TanStack Query with persist + sync storage, Firebase Messaging + Notifee, MMKV, Reanimated 4, i18next, React Hook Form.",
-      "Operator dashboard: designed the UX end-to-end on Filament 5 over Laravel 13 + PostgreSQL 16 + PostGIS + Redis 7 + Laravel Reverb (WebSockets) + Horizon. Live KPI widgets, live rider map, KYC delivery approvals, cash ledger + reconciliation, SMS campaigns, SOS ticketing, disputes/blocks, PostGIS service-area editing. Auth split: Sanctum + SMS OTP for mobile, session + TOTP for admin; roles via spatie/laravel-permission; money as integer ETB cents.",
-      "Marketing site + Telegram Mini App: Next.js 16.2 + React 19 + Tailwind v4, MapLibre GL coverage view, openapi-typescript API client, GSAP + Framer Motion.",
-      "Sovereign map pipeline: MapLibre GL + self-hosted OSRM + TileServer GL across web, mobile, and admin — no third-party SDK pricing surprises.",
-      "Built shared `@fida/ui` package — tokens, primitives, screens — consumed by both mobile apps and the web surfaces.",
-      "Set up EAS Build + Updates pipeline; wired OTA channels for staged rollout.",
+    org: "FIDA Delivery",
+    role: "Co-founder, Design & Engineering",
+    years: "2025 — now",
+    points: [
+      "Designed and shipped four production apps: 18+ partners, 500+ deliveries, zero downtime since launch.",
+      "Leading the App Store launch and the 1.8.0 Play release (Expo SDK 58 upgrade, iOS and Android redesign).",
+      "Built the shared @fida/ui design system used by every surface.",
     ],
   },
   {
-    year: "mid 2024 — 2025",
-    title: "UI/UX Designer · Front-end Developer",
-    org: "Selected Bishoftu engagements",
-    bullets: [
-      "Restaurant brands, faith-led organizations, and small-business surfaces.",
-      "Transition period from design work into frontend engineering. Formalized when Doxa was co-founded in late 2024.",
-    ],
+    org: "Efuye Gela",
+    role: "UI/UX Designer Intern",
+    years: "Jun — Sep 2024",
+    points: ["Wireframes, user flows and high-fidelity mockups grounded in user research."],
   },
 ];
 
-const education = [
-  {
-    year: "expected 2026",
-    title: "BA in Theology",
-    org: "Maor Lutheran Theological Seminary, Bishoftu",
-    note: "Confessional Lutheran formation. Doxa built the seminary's website (a coincidence of vocation and work).",
-  },
-  {
-    year: "expected 2029",
-    title: "BA in Business Management",
-    org: "Unity University, Addis Ababa",
-    note: "Part-time alongside Doxa and FIDA.",
-  },
-  {
-    year: "2023",
-    title: "CCNA — Networking",
-    org: "Ethiopian University of Defense",
-    note: "Cisco Certified Network Associate.",
-  },
-  {
-    year: "2022 — 2024",
-    title: "ALX Africa — multiple programs",
-    org: "ALX Africa",
-    note: "Software Engineering · Foundations · Content Creation · Graphic Design.",
-  },
+const highlights = [
+  { name: "Manoli's Provisions", note: "Shop + admin · JS bundle −83%" },
+  { name: "Happy Heron Inventory", note: "31-page admin · 400+ tests" },
+  { name: "FIDA Delivery", note: "4 apps · 500+ deliveries" },
+  { name: "BizBridge Ethiopia", note: "518 sectors · bilingual" },
 ];
 
 const skills = {
-  "Research & discovery": [
-    "User interviews & ethnography",
-    "Surveys (paper + digital)",
-    "Heatmaps & session replay",
-    "Competitor & market analysis",
-    "Population & demographic study",
-    "UX psychology (defaults, loss aversion, friction design)",
-  ],
-  "Strategy & business": [
-    "Blue / red ocean positioning",
-    "Pricing & willingness-to-pay",
-    "Go-to-market scoping",
-    "Partner & vendor onboarding",
-    "Business development (NGO + private)",
-    "Product roadmap framing",
-  ],
-  "Design & systems": [
-    "Figma (variables-first, tokens, variants)",
-    "Spline (3D / hero moments)",
-    "Design systems & tokens",
-    "Motion (Framer Motion / Reanimated)",
-    "Accessibility (WCAG)",
-    "Bilingual product (Amharic / English)",
-  ],
-  "Languages & frameworks": [
-    "TypeScript (strict)",
-    "React 19",
-    "React Native",
-    "Next.js 16 (App Router, PPR)",
-    "Astro 5",
-    "SvelteKit 2 / Svelte 5",
-    "Node.js",
-    "PHP 8.4",
-  ],
-  "Mobile & release": [
-    "Expo SDK 56",
-    "React Native New Arch",
-    "EAS Build & Updates",
-    "Continuous native generation",
-    "OTA channels + staged rollouts",
-  ],
-  "Backend & data": [
-    "Laravel 13 (primary backend across Doxa + FIDA)",
-    "Filament 5 admin panels",
-    "Payload v3 CMS",
-    "Fastify",
-    "Drizzle ORM · Prisma",
-    "PostgreSQL 16 + PostGIS · Neon",
-    "MySQL",
-    "Redis 7 · BullMQ · Horizon",
-    "Laravel Reverb (WebSockets)",
-    "Better Auth · NextAuth · Sanctum + SMS OTP",
-    "REST + GraphQL + openapi-typescript codegen",
-  ],
-  "Maps & geo": [
-    "MapLibre GL (web + React Native)",
-    "Self-hosted OSRM routing",
-    "TileServer GL",
-    "PostGIS polygons + spatial queries",
-    "Leaflet",
-  ],
-  "Growth & measurement": [
-    "Technical SEO (schema, sitemaps, Core Web Vitals)",
-    "Content SEO & site architecture",
-    "Analytics (GA4, Plausible)",
-    "Funnel & cohort analysis",
-    "CRO & A/B testing",
-    "Heatmap-driven iteration",
-  ],
+  Frontend: ["TypeScript", "React 19", "Next.js 16", "React Native · Expo", "Svelte 5", "Astro", "Tailwind v4"],
+  "UI/UX": ["Figma", "Design systems", "Prototyping", "Motion", "WCAG", "User research"],
+  "Growth": ["Technical SEO", "Core Web Vitals", "CRO & A/B tests", "GA4"],
+  "Also": ["Laravel", "PostgreSQL", "Docker", "Vitest", "Playwright"],
 };
+
+const education = [
+  { name: "Bachelor of Arts in Theology", where: "Maor Lutheran Theological Seminary", years: "2020 — 2026" },
+  { name: "BA Business Management", where: "Unity University", years: "In progress" },
+  { name: "Software Engineering · Cyber Security", where: "ALX Africa", years: "Certificates" },
+];
 ---
 
-<BaseLayout
-  title="CV"
-  description={`CV of ${site.name} — ${site.role}, ${site.location}.`}
-  current="CV"
->
-  <section class="cv-root px-6 pb-24 pt-36 md:px-10 md:pb-32 md:pt-44">
+<BaseLayout title="CV" description="Cherinet Demeke: senior frontend engineer and product designer. Experience, skills and education." current="CV">
+  <section class="px-6 pb-24 pt-32 md:pt-40">
     <div class="mx-auto max-w-4xl">
-      <!-- Header -->
-      <header class="flex flex-col gap-6 border-b border-line pb-10 md:flex-row md:items-end md:justify-between">
+      <div class="t-rise flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div>
-          <p class="text-xs uppercase tracking-[0.18em] text-ink-subtle">Curriculum vitae</p>
-          <h1
-            class="mt-3 font-display font-medium leading-[1.02] tracking-[-0.025em] text-ink"
-            style="font-size: var(--text-display-xl);"
-          >
-            {site.name}
-          </h1>
-          <p class="mt-3 text-lg text-ink-muted">{site.role} · {site.location}</p>
+          <h1 style="--i:0; font-size: clamp(2.5rem, 5.5vw, 4.25rem);" class="font-display font-medium leading-none tracking-[-0.035em] text-ink">Curriculum vitae</h1>
+          <p style="--i:1" class="mt-4 text-ink-muted">{site.role} · {site.location} · Remote</p>
         </div>
-
-        <div class="no-print flex flex-wrap items-center gap-3">
-          <button
-            type="button"
-            data-print
-            class="inline-flex cursor-pointer items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-bg transition-colors hover:bg-accent"
-          >
-            Save as PDF
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"></path>
-            </svg>
-          </button>
-          <a
-            href={`mailto:${site.email}`}
-            class="inline-flex items-center gap-2 rounded-full border border-line bg-bg-elevated px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-line-strong"
-          >
-            Email
-          </a>
-        </div>
-      </header>
-
-      <!-- Contact strip -->
-      <div class="cv-contact mt-8 grid grid-cols-2 gap-x-6 gap-y-4 md:grid-cols-4">
-        <div>
-          <p class="text-xs uppercase tracking-widest text-ink-subtle">Email</p>
-          <a href={`mailto:${site.email}`} class="mt-1 block text-sm text-ink">{site.email}</a>
-        </div>
-        <div>
-          <p class="text-xs uppercase tracking-widest text-ink-subtle">Phone</p>
-          <p class="mt-1 text-sm text-ink">{site.phone}</p>
-        </div>
-        <div>
-          <p class="text-xs uppercase tracking-widest text-ink-subtle">GitHub</p>
-          <a href={site.social.github.href} target="_blank" rel="noopener noreferrer" class="mt-1 block text-sm text-ink">
-            Cherireal7
-          </a>
-        </div>
-        <div>
-          <p class="text-xs uppercase tracking-widest text-ink-subtle">LinkedIn</p>
-          <a href={site.social.linkedin.href} target="_blank" rel="noopener noreferrer" class="mt-1 block text-sm text-ink">
-            cherinet-Demeke
-          </a>
-        </div>
+        <a style="--i:2" href={site.resumePdf} download class="group inline-flex items-center gap-2 self-start rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-bg transition-colors hover:bg-accent md:self-auto">
+          Download PDF <span class="t-arrow" aria-hidden="true">↓</span>
+        </a>
       </div>
 
-      <!-- Profile -->
-      <section class="mt-12">
-        <h2 class="cv-h2 text-xs uppercase tracking-[0.18em] text-ink-subtle">Profile</h2>
-        <p class="mt-4 max-w-3xl text-base leading-relaxed text-ink-muted">
-          Product designer and frontend engineer based in Bishoftu, Ethiopia. Co-founder & Senior Frontend Engineer at Doxa Innovations (8 client projects shipped across Ethiopia + the US) and co-founder of FIDA Delivery, where I own design and frontend across four production surfaces — customer app, rider app, Filament 5 operator dashboard, and marketing site + Telegram Mini App. Shipped 18+ partners, 500+ deliveries. UX practice covers the full loop — interviews, surveys, competitor + market analysis, blue / red ocean positioning, design systems, Figma → React / React Native / Filament, SEO and analytics. Available now — full-time preferred, contract on request.
-        </p>
-      </section>
-
       <!-- Experience -->
-      <section class="mt-12">
-        <h2 class="cv-h2 text-xs uppercase tracking-[0.18em] text-ink-subtle">Experience</h2>
-        <ol class="mt-4 space-y-8">
-          {
-            experience.map((role) => (
-              <li class="grid gap-3 md:grid-cols-12 md:gap-6">
-                <div class="md:col-span-3">
-                  <p class="text-xs uppercase tracking-widest text-ink-subtle">{role.year}</p>
-                </div>
-                <div class="md:col-span-9">
-                  <h3 class="font-display text-lg font-medium leading-tight tracking-tight text-ink md:text-xl">
-                    {role.title}
-                  </h3>
-                  <p class="mt-1 text-sm text-ink-muted">{role.org}</p>
-                  <ul class="mt-3 list-disc space-y-1.5 pl-5 text-[15px] leading-relaxed text-ink-muted marker:text-ink-subtle">
-                    {role.bullets.map((b) => (
-                      <li>{b}</li>
-                    ))}
-                  </ul>
-                </div>
-              </li>
-            ))
-          }
-        </ol>
-      </section>
+      <h2 class="mt-20 text-xs uppercase tracking-[0.2em] text-ink-subtle">Experience</h2>
+      <ol class="mt-4 divide-y divide-line border-y border-line">
+        {
+          experience.map((e) => (
+            <li class="reveal grid gap-4 py-8 md:grid-cols-[1fr_2fr] md:gap-10">
+              <div>
+                <p class="font-display text-2xl tracking-tight text-ink">{e.org}</p>
+                <p class="mt-1 text-sm text-ink-muted">{e.role}</p>
+                <p class="mt-1 text-sm tabular-nums text-ink-subtle">{e.years}</p>
+              </div>
+              <ul class="space-y-2.5 text-ink-muted">
+                {e.points.map((pt) => (
+                  <li class="flex gap-3"><span class="mt-2.5 size-1 shrink-0 rounded-full bg-accent" />{pt}</li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ol>
 
-      <!-- Education -->
-      <section class="mt-12">
-        <h2 class="cv-h2 text-xs uppercase tracking-[0.18em] text-ink-subtle">Education & Certifications</h2>
-        <ol class="mt-4 space-y-6">
-          {
-            education.map((e) => (
-              <li class="grid gap-3 md:grid-cols-12 md:gap-6">
-                <div class="md:col-span-3">
-                  <p class="text-xs uppercase tracking-widest text-ink-subtle">{e.year}</p>
-                </div>
-                <div class="md:col-span-9">
-                  <h3 class="font-display text-base font-medium leading-tight tracking-tight text-ink md:text-lg">
-                    {e.title}
-                  </h3>
-                  <p class="mt-1 text-sm text-ink-muted">{e.org}</p>
-                  <p class="mt-2 text-[15px] leading-relaxed text-ink-muted">{e.note}</p>
-                </div>
-              </li>
-            ))
-          }
-        </ol>
-      </section>
+      <!-- Highlights -->
+      <div class="mt-16 flex items-baseline justify-between">
+        <h2 class="text-xs uppercase tracking-[0.2em] text-ink-subtle">Project highlights</h2>
+        <a href="/work" class="group text-sm text-ink-muted hover:text-ink">All projects <span class="t-arrow inline-block">→</span></a>
+      </div>
+      <ul class="mt-4 grid gap-3 sm:grid-cols-2">
+        {
+          highlights.map((h) => (
+            <li class="reveal rounded-2xl border border-line bg-bg-elevated p-5">
+              <p class="font-display text-xl tracking-tight text-ink">{h.name}</p>
+              <p class="mt-1 text-sm text-ink-muted">{h.note}</p>
+            </li>
+          ))
+        }
+      </ul>
 
       <!-- Skills -->
-      <section class="mt-12">
-        <h2 class="cv-h2 text-xs uppercase tracking-[0.18em] text-ink-subtle">Skills</h2>
-        <dl class="mt-4 grid gap-6 md:grid-cols-2">
-          {
-            Object.entries(skills).map(([group, items]) => (
+      <h2 class="mt-16 text-xs uppercase tracking-[0.2em] text-ink-subtle">Skills</h2>
+      <dl class="mt-4 divide-y divide-line border-y border-line">
+        {
+          Object.entries(skills).map(([group, items]) => (
+            <div class="reveal grid gap-3 py-5 md:grid-cols-[1fr_2fr] md:gap-10">
+              <dt class="font-display text-lg text-ink">{group}</dt>
+              <dd class="flex flex-wrap gap-2">
+                {items.map((s) => <span class="rounded-full border border-line px-3 py-1 text-sm text-ink-muted">{s}</span>)}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <!-- Education -->
+      <h2 class="mt-16 text-xs uppercase tracking-[0.2em] text-ink-subtle">Education</h2>
+      <ul class="mt-4 divide-y divide-line border-y border-line">
+        {
+          education.map((ed) => (
+            <li class="reveal flex flex-col gap-1 py-5 md:flex-row md:items-baseline md:justify-between">
               <div>
-                <dt class="font-display text-base font-medium tracking-tight text-ink">{group}</dt>
-                <dd class="mt-1.5 text-[15px] leading-relaxed text-ink-muted">
-                  {items.join(" · ")}
-                </dd>
+                <p class="font-display text-lg text-ink">{ed.name}</p>
+                <p class="text-sm text-ink-muted">{ed.where}</p>
               </div>
-            ))
-          }
-        </dl>
-      </section>
+              <p class="text-sm tabular-nums text-ink-subtle">{ed.years}</p>
+            </li>
+          ))
+        }
+      </ul>
 
-      <!-- Languages -->
-      <section class="mt-12">
-        <h2 class="cv-h2 text-xs uppercase tracking-[0.18em] text-ink-subtle">Languages</h2>
-        <p class="mt-4 text-[15px] text-ink-muted">
-          <span class="text-ink">English</span> — full professional · <span class="text-ink">Amharic</span> — native
-        </p>
-      </section>
-
-      <!-- References -->
-      <section class="mt-12 border-t border-line pt-8">
-        <p class="text-sm text-ink-muted">
-          References and detailed project case studies available on request — email
-          <a href={`mailto:${site.email}`} class="text-ink accent-underline">{site.email}</a>.
-        </p>
-      </section>
+      <p class="mt-10 text-sm text-ink-subtle">Languages: Amharic (native) · English (advanced) · Afan Oromo (intermediate)</p>
     </div>
   </section>
-
-  <script is:inline>
-    document.querySelector("[data-print]")?.addEventListener("click", () => window.print());
-  </script>
-
-  <style is:global>
-    @media print {
-      header[data-nav],
-      footer,
-      .no-print {
-        display: none !important;
-      }
-      .cv-root {
-        padding: 0 !important;
-      }
-      body {
-        background: #fff !important;
-      }
-      .reveal {
-        opacity: 1 !important;
-        transform: none !important;
-      }
-      a {
-        color: inherit !important;
-        text-decoration: none !important;
-      }
-      .cv-contact { font-size: 11px; }
-    }
-  </style>
 </BaseLayout>

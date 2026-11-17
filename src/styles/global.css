@@ -390,3 +390,81 @@
     }
   }
 }
+
+/* ───────────────────────── 2026-11 redesign ─────────────────────────
+   Motion tokens from transitions.dev (see the transitions-dev skill).
+   Text reveal = staggered blurred rise; arrow links = learn-more hover. */
+:root {
+  --duration-stagger: 40ms;
+  --duration-micro: 80ms;
+  --duration-quick: 150ms;
+  --duration-fast: 250ms;
+  --duration-medium: 350ms;
+  --duration-slow: 400ms;
+  --duration-very-slow: 500ms;
+  --ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: ease-in-out;
+  --ease-out: ease-out;
+  --distance-micro: 4px;
+  --distance-base: 8px;
+  --distance-medium: 12px;
+  --blur-small: 2px;
+  --blur-medium: 3px;
+}
+
+@layer utilities {
+  /* Staggered hero lines: set --i on each child */
+  .t-rise > * {
+    opacity: 0;
+    transform: translateY(var(--distance-medium));
+    filter: blur(var(--blur-medium));
+    animation: t-rise var(--duration-very-slow) var(--ease-smooth-out) forwards;
+    animation-delay: calc(var(--i, 0) * var(--duration-micro) + 60ms);
+  }
+  @keyframes t-rise {
+    to { opacity: 1; transform: none; filter: blur(0); }
+  }
+
+  /* Arrow that nudges on hover of its parent link */
+  .t-arrow { transition: transform var(--duration-fast) var(--ease-smooth-out); }
+  .group:hover .t-arrow, .group:focus-visible .t-arrow { transform: translateX(var(--distance-micro)); }
+  .group:hover .t-arrow-ne, .group:focus-visible .t-arrow-ne { transform: translate(3px, -3px); }
+
+  /* Image zoom inside featured cards */
+  .t-zoom { transition: transform var(--duration-very-slow) var(--ease-smooth-out); }
+  .group:hover .t-zoom { transform: scale(1.03); }
+
+  /* Card lift */
+  .t-lift {
+    transition: transform var(--duration-fast) var(--ease-smooth-out),
+      border-color var(--duration-fast) var(--ease-smooth-out),
+      box-shadow var(--duration-fast) var(--ease-smooth-out);
+  }
+  .t-lift:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -24px rgb(0 0 0 / 0.25); }
+
+  /* Sliding filter pill (tabs sliding) */
+  .t-tabs { position: relative; isolation: isolate; }
+  .t-tabs-pill {
+    position: absolute; z-index: -1; top: 4px; bottom: 4px; left: 0;
+    border-radius: 999px; background: var(--color-ink);
+    transition: transform var(--duration-fast) var(--ease-smooth-out),
+      width var(--duration-fast) var(--ease-smooth-out);
+  }
+  .t-tabs [aria-selected="true"] { color: var(--color-bg); }
+
+  /* Work rows hide/show when filtered */
+  [data-row][hidden] { display: none; }
+
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+
+  .grain {
+    background-image: radial-gradient(circle at 20% 0%, color-mix(in oklab, var(--color-accent) 22%, transparent), transparent 55%),
+      radial-gradient(circle at 100% 100%, color-mix(in oklab, var(--color-accent) 12%, transparent), transparent 50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-rise > * { opacity: 1; transform: none; filter: none; animation: none; }
+  .t-lift:hover, .group:hover .t-zoom, .group:hover .t-arrow { transform: none; }
+}

@@ -1,162 +1,45 @@
 ---
-import { nav, site } from "../lib/site";
 import ThemeToggle from "./ThemeToggle.astro";
+import { site, nav } from "../lib/site";
 
 interface Props {
   current?: string;
 }
-
 const { current } = Astro.props;
 ---
 
-<header
-  class="fixed left-1/2 top-4 z-50 flex w-fit -translate-x-1/2 items-center gap-2 rounded-full border border-line bg-bg-elevated/85 px-2 py-1.5 shadow-[0_4px_16px_-8px_rgb(24,24,27,0.15)] backdrop-blur-md md:gap-3 md:px-3"
-  data-nav
->
-  <a
-    href="/"
-    class="flex items-center gap-1.5 pl-2 pr-1 text-[13px] font-medium tracking-tight text-ink"
+<header class="fixed inset-x-0 top-0 z-50 px-4 pt-4 md:px-6">
+  <nav
+    data-nav
+    aria-label="Main"
+    class="mx-auto flex max-w-6xl items-center justify-between rounded-full border border-line/70 bg-bg/75 py-2 pl-5 pr-2 backdrop-blur-xl transition-shadow"
   >
-    <span class="inline-block size-1.5 rounded-full bg-accent" aria-hidden="true"></span>
-    <span>{site.shortName}</span>
-  </a>
-
-  <!-- Desktop / tablet primary nav -->
-  <nav aria-label="Primary" class="hidden md:block">
-    <ul class="flex items-center gap-0.5 text-[13px]">
-      {
-        nav.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              aria-current={current === item.label ? "page" : undefined}
-              class="rounded-full px-2.5 py-1 text-ink-muted transition-colors hover:bg-line/60 hover:text-ink aria-[current=page]:bg-line/40 aria-[current=page]:text-ink"
-            >
-              {item.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </nav>
-
-  <div class="flex items-center gap-1">
-    <ThemeToggle />
-
-    <!-- Desktop / tablet CTA -->
-    <a
-      href="/contact"
-      class="hidden cursor-pointer items-center gap-1 rounded-full bg-ink px-3 py-1 text-[13px] font-medium text-bg transition-colors hover:bg-accent md:inline-flex"
-    >
-      Contact
+    <a href="/" class="font-display text-lg tracking-tight text-ink" aria-label="Cherinet Demeke, home">
+      Cherinet<span class="text-accent">.</span>
     </a>
 
-    <!-- Mobile menu trigger -->
-    <button
-      type="button"
-      data-mobile-trigger
-      aria-label="Open menu"
-      aria-controls="mobile-menu"
-      aria-expanded="false"
-      class="inline-flex size-7 cursor-pointer items-center justify-center rounded-full border border-line text-ink transition-colors hover:bg-line/60 md:hidden"
-    >
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <line x1="4" x2="20" y1="7" y2="7"></line>
-        <line x1="4" x2="20" y1="17" y2="17"></line>
-      </svg>
-    </button>
-  </div>
+    <div class="flex items-center gap-1">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            aria-current={current === item.label ? "page" : undefined}
+            class:list={[
+              "rounded-full px-3.5 py-2 text-sm transition-colors",
+              current === item.label ? "text-ink" : "text-ink-muted hover:text-ink",
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <ThemeToggle />
+      <a
+        href={`mailto:${site.email}`}
+        class="ml-1 hidden rounded-full bg-ink px-4 py-2 text-sm font-medium text-bg transition-colors hover:bg-accent sm:inline-flex"
+      >
+        Email me
+      </a>
+    </div>
+  </nav>
 </header>
-
-<!-- Mobile drawer -->
-<div
-  id="mobile-menu"
-  data-mobile-menu
-  hidden
-  role="dialog"
-  aria-modal="true"
-  aria-label="Site menu"
-  class="fixed inset-0 z-[60] flex flex-col bg-bg/95 px-6 pb-10 pt-6 backdrop-blur-xl md:hidden"
->
-  <div class="flex items-center justify-between">
-    <a href="/" class="flex items-center gap-2 text-sm font-medium tracking-tight text-ink">
-      <span class="inline-block size-2 rounded-full bg-accent" aria-hidden="true"></span>
-      <span>{site.shortName}</span>
-    </a>
-    <button
-      type="button"
-      data-mobile-close
-      aria-label="Close menu"
-      class="inline-flex size-9 cursor-pointer items-center justify-center rounded-full border border-line text-ink transition-colors hover:bg-line/60"
-    >
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M18 6 6 18M6 6l12 12"></path>
-      </svg>
-    </button>
-  </div>
-
-  <nav aria-label="Mobile" class="mt-12 flex-1">
-    <ul class="flex flex-col gap-2 text-3xl font-display tracking-tight">
-      {
-        nav.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              aria-current={current === item.label ? "page" : undefined}
-              class="block rounded-lg px-2 py-2 text-ink-muted transition-colors hover:text-accent aria-[current=page]:text-ink"
-            >
-              {item.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </nav>
-
-  <div class="mt-8 flex flex-col gap-3 border-t border-line pt-8">
-    <a
-      href="/contact"
-      class="inline-flex w-full cursor-pointer items-center justify-between gap-2 rounded-full bg-ink px-5 py-3 text-sm font-medium text-bg transition-colors hover:bg-accent"
-    >
-      <span>Get in touch</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M5 12h14M13 5l7 7-7 7"></path>
-      </svg>
-    </a>
-    <a href={`mailto:${site.email}`} class="text-sm text-ink-muted accent-underline">
-      {site.email}
-    </a>
-  </div>
-</div>
-
-<script is:inline>
-  (function () {
-    const trigger = document.querySelector("[data-mobile-trigger]");
-    const menu = document.querySelector("[data-mobile-menu]");
-    const close = document.querySelector("[data-mobile-close]");
-    if (!trigger || !menu) return;
-
-    const open = () => {
-      menu.hidden = false;
-      trigger.setAttribute("aria-expanded", "true");
-      document.documentElement.style.overflow = "hidden";
-      // Move focus into the dialog for keyboard users.
-      requestAnimationFrame(() => close?.focus());
-    };
-    const shut = () => {
-      menu.hidden = true;
-      trigger.setAttribute("aria-expanded", "false");
-      document.documentElement.style.overflow = "";
-      // Return focus to the trigger.
-      trigger.focus();
-    };
-
-    trigger.addEventListener("click", open);
-    close?.addEventListener("click", shut);
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !menu.hidden) shut();
-    });
-    // Close after navigation
-    menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", shut));
-  })();
-</script>
